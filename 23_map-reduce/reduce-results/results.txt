@@ -1,0 +1,2 @@
+under-10-seconds 64
+over-10-seconds 136
