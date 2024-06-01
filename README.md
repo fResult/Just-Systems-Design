@@ -57,3 +57,4 @@ pnpm install
 3. [Design Stockbroker](./exercises/03_design-stockbroker)
 4. [Design Amazon](./exercises/04_design-amazon)
 5. [Design Reddit API](./exercises/05_design-reddit-api)
+6. [Design Facebook News Feed](./exercises/06_design-facebook-news-feed)
