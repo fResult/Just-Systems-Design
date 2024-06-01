@@ -116,7 +116,7 @@ We'll start with the extremities of our system and work inward, first talking ab
 
 ### 3. CreatePost API
 
-For the purpose of this design, the *CreatePost* API call will be very simple and look something like this:
+**For the purpose of this design, the *CreatePost* API call will be very simple and look something like this:**
 
 ```txt
 CreatePost(
@@ -137,11 +137,37 @@ This database will have *very large* tables.
 
 ### 5. GetNewsFeed API
 
+**The *GetNewsFeed* API call will most likely look like this:**
+
+```txt
+GetNewsFeed(
+  user_id: string,
+  pageSize: integer,
+  nextPageToken: integer,
+) => (
+  posts: {
+    user_id: string,
+    post_id: string,
+    post: data,
+  }[],
+  nextPageToken: string,
+)
+```
+
+The *pageSize* and *nextPageToken* fields are used to **paginate** the news feed; pagination is necessary when dealing with large amounts of listed data, and since we'll likely want each news feed to have up to 1000 posts, pagination is very appropriate here.
+
 ### 6. Feed Creation And Storage
 
 ### 7. Wiring Updates Into Feed Creation
 
 ### 8. Cross-Region Strategy
+
+When *CreatePost* gets called and reaches our Pub/Sub subscribers, they'll send a message to another Pub/Sub topic that some forwarder service in between regions will subscribe to.
+The forwarder's job will be, as its name implies, to forward messages to other regions so as to replicate all of the *CreatePost* logic in other regions.
+Once the forwarder receives the message, it'll essentially mimic what would happen if that same *CreatePost* were called in another region, which will start the entire feed-update logic in those other regions.
+We can have some additional logic passed to the forwarder to prevent other regions being replicated to from notifying other regions about the *CreatePost* call in question, which would lead to an infinite chain of replications; in other words, we can make it such that only the region where the post originated from is in charge of notifying other regions.
+
+Several open-source technologies from big companies like Uber and Confluent are designed in part for this kind of operation.
 
 ### 9. System Diagram
 
