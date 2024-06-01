@@ -92,9 +92,27 @@ Once the user’s client gets confirmation that the post was created, you cannot
 
 ## Solution Walkthrough
 
+Our solution walkthroughs are meant to supplement our video solutions.\
+We recommend starting with the video solution and using the walkthrough either as a point of reference while you watch the video or as a review tool if you need to brush up on this question's solution later on.
+
 ### 1. Gathering Requirements
 
-Our solution walkthroughs are meant to supplement our video solutions. We recommend starting with the video solution and using the walkthrough either as a point of reference while you watch the video or as a review tool if you need to brush up on this question's solution later on.
+As with any systems design interview question, the first thing that we want to do is to gather system requirements; we need to figure out what system we're building exactly.
+
+**From the answers we were given to our [clarifying questions](#clarifying-questions-to-ask):**
+
+We're designing the core user flow of the **Facebook News Feed**.
+This consists of loading a user's news feed, scrolling through the list of posts that are relevant to them, posting status updates, and having their friends' news feeds get updated in real time.\
+We're Specifically designing the pipeline that generates and serves news feeds and the system that handles what happens when a user posts and news feeds have to be updated.
+
+We're dealing with about 1 billion users, each with 500 friends on average.
+
+Getting a news feed should feel fairly instant, and creating a post should update all of a user's friends' news feeds within a minute.\
+We can have some variance with regards to feed updates depending on user locations.
+
+Additionally, we can't be satisfied with a single cluster serving everyone on earth because of large **latencies** that would occur between that cluster and the user in some parts of the world, so we need a mechanism to make sure the feed gets updated within a minute in the regions other than the one the post was created in.
+
+We can assume that the ranking algorithms used to generate news feeds with the most relevant posts is taken care of for us by some other system that we have access to.
 
 ### 2. Coming Up With A Plan
 
