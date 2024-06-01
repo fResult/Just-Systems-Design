@@ -44,7 +44,7 @@ pnpm install
 18. Polling and Streaming
 19. Configuration
 20. [Rate Limiting](./20_rate-limiting)
-21. Logging and Monitoring
+21. Logging and Monitoring (No Example)
 22. [Publisher/Subscriber Pattern](./22_publisher-subscriber-pattern)
 23. [MapReduce](./23_map-reduce)
 24. [Security and HTTPS](./24_security-n-https)
