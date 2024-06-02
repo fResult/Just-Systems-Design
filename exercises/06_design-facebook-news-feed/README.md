@@ -104,9 +104,9 @@ As with any systems design interview question, the first thing that we want to d
 
 **From the answers we were given to our [clarifying questions](#clarifying-questions-to-ask):**
 
-- We're designing the core user flow of the **Facebook News Feed**.
+- We're designing the core user flow of the **Facebook News Feed**.\
   This consists of loading a user's news feed, scrolling through the list of posts that are relevant to them, posting status updates, and having their friends' news feeds get updated in real time.
-- We're Specifically designing the pipeline that generates and serves news feeds and the system that handles what happens when a user posts and news feeds have to be updated.
+- We're Specifically designing the pipeline that generates and serves news feeds and the system that handles what happens when user posts and news feeds have to be updated.
 - We're dealing with about 1 billion users, each with 500 friends on average.
 - Getting a news feed should feel fairly instant, and creating a post should update all of a user's friends' news feeds within a minute.
 - We can have some variance with regards to feed updates depending on user locations.
@@ -130,8 +130,8 @@ CreatePost(
 
 When a user creates a post, the API call goes through some load balancing before landing on one of many API servers (which are stateless).\
 Those API servers then create a message on a Pub/Sub topic, notifying its subscribers of the new post that was just created.\
-Those subscribers will do a few things, so let's call them S1 for future reference.\
-Each of the subscribers S1 reads from the topic and is responsible for creating the facebook post inside a relational database.
+Those subscribers will do a few things, so let's call them $S_1$ for future reference.\
+Each of the subscribers $S_1$ reads from the topic and is responsible for creating the facebook post inside a relational database.
 
 ### 4. Post Storage
 
@@ -190,8 +190,8 @@ This will lead to increased latency but shouldn't happen frequently.
 
 We now need to have a notification mechanism that lets the feed shards know that a new relevant post was just created and that they should incorporate it into the feeds of impacted users.
 
-We can once again use a Pub/Sub service for this. Each one of the shards will subscribe to its own topic—we'll call these topics the Feed Notification Topics (FNT)—and the original subscribers S1 will be the publishers for the FNT.\
-When S1 gets a new message about a post creation, it searches the main database for all of the users for whom this post is relevant (i.e., it searches for all of the friends of the user who created the post), it filters out users from other regions who will be taken care of asynchronously, and it maps the remaining users to the FNT using the same hashing function that our *GetNewsFeed* load balancers rely on.
+We can once again use a Pub/Sub service for this. Each one of the shards will subscribe to its own topic—we'll call these topics the Feed Notification Topics (FNT)—and the original subscribers $S_1$ will be the publishers for the FNT.\
+When $S_1$ gets a new message about a post creation, it searches the main database for all of the users for whom this post is relevant (i.e., it searches for all of the friends of the user who created the post), it filters out users from other regions who will be taken care of asynchronously, and it maps the remaining users to the FNT using the same hashing function that our *GetNewsFeed* load balancers rely on.
 
 For posts that impact too many people, we can cap the number of FNT topics that get messaged to reduce the amount of internal traffic that gets generated from a single post.\
 For those big users we can rely on the asynchronous feed creation to eventually kick in and let the post appear in feeds of users whom we've skipped when the feeds get refreshed manually.
