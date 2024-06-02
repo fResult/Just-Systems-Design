@@ -15,8 +15,10 @@ Before looking at them, we encourage you to take few minutes to think about what
 
 ### Question 1
 
-**Q:**\
-*Facebook News Feed consists of multiple major features, like loading a user's news feed, interacting with it (i.e., posting status updates, liking posts, etc.), and updating it in real time (i.e., adding new status updates that are being posted to the top of the feed, in real time). What part of Facebook News Feed are we designing exactly?*
+**Q:**
+
+- Facebook News Feed consists of multiple major features, like loading a user's news feed, interacting with it (i.e., posting status updates, liking posts, etc.), and updating it in real time (i.e., adding new status updates that are being posted to the top of the feed, in real time).
+- *What part of Facebook News Feed are we designing exactly?*
 
 **A:**\
 We're designing the core functionality of the feed itself, which we'll define as follows: loading a user's news feed and updating it in real time, as well as posting status updates.\
@@ -87,8 +89,8 @@ For instance, we'd probably want a local friend within the same region to see th
 **Q:** *What kind of availability are we aiming for?*
 
 **A:**\
-Your design shouldn't be completely unavailable from a single machine failure, but this isn't a high availability requirement.
-However, posts shouldn't ever just disappear.
+Your design shouldn't be completely unavailable from a single machine failure, but this isn't a high availability requirement.\
+However, posts shouldn't ever just disappear.\
 Once the user’s client gets confirmation that the post was created, you cannot lose it.
 
 ## Solution Walkthrough
