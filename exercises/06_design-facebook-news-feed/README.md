@@ -191,7 +191,7 @@ This will lead to increased latency but shouldn't happen frequently.
 We now need to have a notification mechanism that lets the feed shards know that a new relevant post was just created and that they should incorporate it into the feeds of impacted users.
 
 We can once again use a Pub/Sub service for this.\
-Each one of the shards will subscribe to its own topic—we'll call these topics the Feed Notification Topics (FNT)—and the original subscribers $S_1$ will be the publishers for the FNT.\
+Each one of the shards will subscribe to its own topic—we'll call these topics the **Feed Notification Topics (FNT)**—and the original subscribers $S_1$ will be the publishers for the FNT.\
 When $S_1$ gets a new message about a post creation, it searches the main database for all of the users for whom this post is relevant (i.e., it searches for all of the friends of the user who created the post), it filters out users from other regions who will be taken care of asynchronously, and it maps the remaining users to the FNT using the same hashing function that our *GetNewsFeed* load balancers rely on.
 
 For posts that impact too many people, we can cap the number of FNT topics that get messaged to reduce the amount of internal traffic that gets generated from a single post.\
