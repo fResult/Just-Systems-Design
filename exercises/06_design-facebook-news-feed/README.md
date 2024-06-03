@@ -144,14 +144,14 @@ This database will have *very large* tables.
 
 ```txt
 GetNewsFeed(
-  user_id: string,
+  userId: string,
   pageSize: integer,
   nextPageToken: integer,
 ) => (
   posts: {
-    user_id: string,
-    post_id: string,
-    post: data,
+    userId: string,
+    postId: string,
+    post: Post,
   }[],
   nextPageToken: string,
 )
