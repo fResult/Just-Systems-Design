@@ -168,7 +168,7 @@ Instead, we can store news feeds separately from our main database across an arr
 We can have a separate cluster of machines that can act as a proxy to the relational database and be in charge of aggregating posts, ranking them via the ranking algorithm that we're given, generating news feeds, and sending them to our shards every so often (every 5, 10, 60 minutes, depending on how often we want news feeds to be updated).
 
 If we average each post at 10kB, and a news feed comprises of the top 1000 posts that are relevant to a user, that's 10MB per user, or **10 000TB** of data total.\
-We assume that it's loaded 10 times per day per user, which averages at **10k QPS** for the news feed fetching.
+We assume that it's loaded 10 times per day per user, which averages at **10k QPS** (Query per Second) for the news feed fetching.
 
 Assuming 1 billion news feeds (for 1 billion users) containing 1000 posts of up to 10 KB each, we can estimate that we'll need 10 PB (petabytes) of storage to store all of our users' news feeds.\
 We can use 1000 machines of 10 TB each as our news-feed shards.
