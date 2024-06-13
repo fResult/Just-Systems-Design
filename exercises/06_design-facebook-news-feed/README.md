@@ -195,10 +195,9 @@ For posts impacting many users, we can cap the number of FNT topics messaged to 
 
 ### 8. Cross-Region Strategy
 
-When *CreatePost* gets called and reaches our Pub/Sub subscribers, they'll send a message to another Pub/Sub topic that some forwarder service in between regions will subscribe to.\
-The forwarder's job will be, as its name implies, to forward messages to other regions so as to replicate all of the *CreatePost* logic in other regions.\
-Once the forwarder receives the message, it'll essentially mimic what would happen if that same *CreatePost* were called in another region, which will start the entire feed-update logic in those other regions.\
-We can have some additional logic passed to the forwarder to prevent other regions being replicated to from notifying other regions about the *CreatePost* call in question, which would lead to an infinite chain of replications; in other words, we can make it such that only the region where the post originated from is in charge of notifying other regions.
+When *CreatePost* is called, Pub/Sub subscribers will send a message to another Pub/Sub topic that a cross-region forwarder service subscribes to.\
+The forwarder's job will be, as its name implies, to forward messages to other regions so as to replicate the *CreatePost* logic in other regions, ensuring the feed-update process starts there.\
+The forwarder prevents infinite replication chains by ensuring only the originating region notifies others.
 
 Several open-source technologies from big companies like Uber and Confluent are designed in part for this kind of operation.
 
