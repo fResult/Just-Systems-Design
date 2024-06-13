@@ -171,12 +171,14 @@ Assuming each post averages 10KB and each news feed contains 1000 posts, we esti
 And we assume that it's loaded 10 times per day per user, which averages at 10k QPS (Query per Second) for the news feed fetching.
 We can use 1000 machines with 10 TB each as our news-feed shards.
 
-```txt
-~10 KB per post
-~1000 posts per news feed
-~1 billion news feeds
-~10 KB * 1000 * 1000^3 = 10 PB = 1000 * 10 TB
-```
+$$
+\begin{aligned}
+&\phantom{=}\sim 10\text{KB per post}\\[*1.5pt]
+&\phantom{=}\sim 1000\text{ posts per news feed}\\[*1.5pt]
+&\phantom{=}\sim 1\text{ billion news feeds}\\[*1.5pt]
+&\phantom{=}\sim 10 KB \times 1000 \times 1000^{3}  = 10 PB = 1000 * 10 TB
+\end{aligned}
+$$
 
 News feeds will be sharded based on user ID.\
 When a *GetNewsFeed* request comes in, it is load balanced to the appropriate shard, which returns the news feed by reading from local storage.\
