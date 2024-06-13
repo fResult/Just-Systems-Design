@@ -177,6 +177,10 @@ We can use 1000 machines with 10 TB each as our news-feed shards.
 ~10 KB * 1000 * 1000^3 = 10 PB = 1000 * 10 TB
 ```
 
+News feeds will be sharded based on user ID.\
+When a *GetNewsFeed* request comes in, it is load balanced to the appropriate shard, which returns the news feed by reading from local storage.\
+If the news feed isn't available locally, it queries the main database through the ranking service, which increases latency but should be rare.
+
 ### 7. Wiring Updates Into Feed Creation
 
 We now need to have a notification mechanism that lets the feed shards know that a new relevant post was just created and that they should incorporate it into the feeds of impacted users.
