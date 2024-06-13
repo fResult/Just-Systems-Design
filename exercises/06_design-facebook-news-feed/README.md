@@ -188,7 +188,7 @@ If the news feed isn't available locally, it queries the main database through t
 
 To notify the feed shards of new relevant posts, we can use a Publish/Subscribe (Pub/Sub) service.
 Each shard will subscribe to its own topic—referred to as **Feed Notification Topics (FNT)**—with $S_1$ acting as the publisher.\
-When the subscriber $S_1$ gets a new post, it searches the main database for friends of the user who created the post.
+When the subscriber $S_1$ gets a new post, it searches the main database for friends of the user who created the post.\
 $S_1$ filters out users in other regions, and maps the remaining users to the FNT using the same hashing function as the *GetNewsFeed* load balancers.
 
 For posts impacting many users, we can cap the number of FNT topics messaged to reduce internal traffic, relying on asynchronous feed creation to update skipped users when feeds refresh manually.
