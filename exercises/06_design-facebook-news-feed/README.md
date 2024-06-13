@@ -175,7 +175,7 @@ $$
 \begin{aligned}
 &\sim 10\text{KB per post}\\
 &\sim 1000\text{ posts per news feed}\\
-&\sim 1\text{ billion news feeds}\\
+&\sim 1\text{ billion ($1000^3$) news feeds}\\
 &\sim 10 KB \times 1000 \times 1000^{3}  = 10 PB = 1000 * 10 TB
 \end{aligned}
 $$
