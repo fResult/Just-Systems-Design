@@ -136,8 +136,8 @@ Each subscriber $S_1$ reads the message from the Pub/Sub topic about the new pos
 
 ### 4. Post Storage
 
-We can have one main relational database to store most of our system's data, including posts and users.\
-This database will have *very large* tables.
+A main relational database will store most of our system's data, including posts and users.\
+This main database will contain very large tables to accommodate the massive amounts of data from billions of users and their posts.
 
 ### 5. GetNewsFeed API
 
