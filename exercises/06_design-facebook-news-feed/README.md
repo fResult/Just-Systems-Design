@@ -116,11 +116,11 @@ As with any systems design interview question, the first thing that we want to d
 
 ### 2. Coming Up With A Plan
 
-We'll start with the extremities of our system and work inward, first talking about the two API calls, *CreatePost* and *GetNewsFeed*, then, getting into the feed creation and storage strategy, our cross-region design, and finally tying everything together in a fast and scalable way.
+We'll start with the two main API calls, *CreatePost* and *GetNewsFeed*, then discuss the feed creation and storage strategy, our cross-region design, and finally tie everything together for speed and scalability.
 
 ### 3. CreatePost API
 
-**For the purpose of this design, the *CreatePost* API call will be very simple and look something like this:**
+**For the purpose of this design, the *CreatePost* API will look like this:**
 
 ```txt
 CreatePost(
@@ -129,10 +129,10 @@ CreatePost(
 )
 ```
 
-When a user creates a post, the API call goes through some load balancing before landing on one of many API servers (which are stateless).\
-Those API servers then create a message on a Pub/Sub topic, notifying its subscribers of the new post that was just created.\
-Those subscribers will do a few things, so let's call them $S_1$ for future reference.\
-Each of the subscribers $S_1$ reads from the topic and is responsible for creating the facebook post inside a relational database.
+When a user creates a post, the API call goes through a load balancer and lands on one of many stateless API servers.\
+These API servers then publish a message on a Publish/Subscribe (Pub/Sub) topic, notifying subscribers about the new post creation.\
+There are multiple subscribers listening to this Pub/Sub topic, and we'll refer to them as $S_1$.\
+Each subscriber $S_1$ reads the message from the Pub/Sub topic about the new post.
 
 ### 4. Post Storage
 
