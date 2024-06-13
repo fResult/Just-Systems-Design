@@ -173,10 +173,10 @@ We can use 1000 machines with 10 TB each as our news-feed shards.
 
 $$
 \begin{aligned}
-&\sim 10\text{KB per post}\\
-&\sim 1000\text{ posts per news feed}\\
-&\sim 1\text{ billion ($1000^3$) news feeds}\\
-&\sim 10 KB \times 1000 \times 1000^{3}  = 10 PB = 1000 * 10 TB
+  &\sim 10\text{KB per post}\\
+  &\sim 1000\text{ posts per news feed}\\
+  &\sim 1\text{ billion ($1000^3$) news feeds}\\
+  &\sim 10 KB \times 1000 \times 1000^{3}  = 10 PB = 1000 * 10 TB
 \end{aligned}
 $$
 
@@ -186,14 +186,12 @@ If the news feed isn't available locally, it queries the main database through t
 
 ### 7. Wiring Updates Into Feed Creation
 
-We now need to have a notification mechanism that lets the feed shards know that a new relevant post was just created and that they should incorporate it into the feeds of impacted users.
+To notify the feed shards of new relevant posts, we can use a Publish/Subscribe (Pub/Sub) service.
+Each shard will subscribe to its own topic—referred to as **Feed Notification Topics (FNT)**—with $S_1$ acting as the publisher.\
+When the subscriber $S_1$ gets a new post, it searches the main database for friends of the user who created the post.
+$S_1$ filters out users in other regions, and maps the remaining users to the FNT using the same hashing function as the *GetNewsFeed* load balancers.
 
-We can once again use a Pub/Sub service for this.\
-Each one of the shards will subscribe to its own topic—we'll call these topics the **Feed Notification Topics (FNT)**—and the original subscribers $S_1$ will be the publishers for the FNT.\
-When $S_1$ gets a new message about a post creation, it searches the main database for all of the users for whom this post is relevant (i.e., it searches for all of the friends of the user who created the post), it filters out users from other regions who will be taken care of asynchronously, and it maps the remaining users to the FNT using the same hashing function that our *GetNewsFeed* load balancers rely on.
-
-For posts that impact too many people, we can cap the number of FNT topics that get messaged to reduce the amount of internal traffic that gets generated from a single post.\
-For those big users we can rely on the asynchronous feed creation to eventually kick in and let the post appear in feeds of users whom we've skipped when the feeds get refreshed manually.
+For posts impacting many users, we can cap the number of FNT topics messaged to reduce internal traffic, relying on asynchronous feed creation to update skipped users when feeds refresh manually.
 
 ### 8. Cross-Region Strategy
 
