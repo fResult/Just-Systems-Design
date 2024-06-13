@@ -104,14 +104,15 @@ As with any systems design interview question, the first thing that we want to d
 
 **From the answers we were given to our [clarifying questions](#clarifying-questions-to-ask):**
 
-- We're designing the core user flow of the **Facebook News Feed**.\
-  This consists of loading a user's news feed, scrolling through the list of posts that are relevant to them, posting status updates, and having their friends' news feeds get updated in real time.
-- We're Specifically designing the pipeline that generates and serves news feeds and the system that handles what happens when user posts and news feeds have to be updated.
-- We're dealing with about 1 billion users, each with 500 friends on average.
-- Getting a news feed should feel fairly instant, and creating a post should update all of a user's friends' news feeds within a minute.
-- We can have some variance with regards to feed updates depending on user locations.
-- Additionally, we can't be satisfied with a single cluster serving everyone on earth because of large **latencies** that would occur between that cluster and the user in some parts of the world, so we need a mechanism to make sure the feed gets updated within a minute in the regions other than the one the post was created in.
-- We can assume that the ranking algorithms used to generate news feeds with the most relevant posts is taken care of for us by some other system that we have access to.
+- We're designing the core user flow of the **Facebook News Feed**.\
+  This involves loading a user's news feed, scrolling through relevant posts, posting status updates, and having friends' news feeds updated in real time.
+- Specifically, we're focusing on the pipeline that generates and serves news feeds and handles updates when users post.
+- The system will handle approximately 1 billion users, each with an average of 500 friends.
+- Retrieving a news feed should be near-instant, and creating a post should update all friends' news feeds within a minute.
+- There will be some variance in update times based on user regions.
+- We cannot rely on a single cluster for global service due to **latency issues**.\
+  So, we need a way to ensure feed updates within a minute across different regions.
+- We can assume that the ranking algorithm for generating relevant news feeds is managed by another system we can access. (we need not to think of this)
 
 ### 2. Coming Up With A Plan
 
