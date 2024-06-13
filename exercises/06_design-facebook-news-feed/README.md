@@ -167,7 +167,8 @@ Fetching news feeds from the main database every time a *GetNewsFeed* call is ma
 Instead, we can store news feeds separately across an array of shards.\
 A separate cluster of machines can aggregate posts, rank them using the provided algorithm, generate news feeds, and send them to the shards periodically (e.g., every 5, 10, or 60 minutes).
 
-Assuming each post averages 10KB and each news feed contains 1000 posts, we estimate needing **10000 TB** (10 PB) of storage for 1 billion users.\
+Assuming each post averages 10KB and each news feed contains 1000 posts, we estimate needing **10,000 TB** (10 PetaBytes) of storage for 1 billion users.\
+And we assume that it's loaded 10 times per day per user, which averages at 10k QPS (Query per Second) for the news feed fetching.
 We can use 1000 machines with 10 TB each as our news-feed shards.
 
 ```txt
