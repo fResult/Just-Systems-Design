@@ -141,7 +141,7 @@ This main database will contain very large tables to accommodate the massive amo
 
 ### 5. GetNewsFeed API
 
-**The *GetNewsFeed* API call will most likely look like this:**
+**The *GetNewsFeed* API will look like this:**
 
 ```txt
 GetNewsFeed(
@@ -152,27 +152,23 @@ GetNewsFeed(
   posts: {
     userId: string,
     postId: string,
-    post: Post,
+    post: data,
   }[],
   nextPageToken: string,
 )
 ```
 
-The *pageSize* and *nextPageToken* fields are used to **paginate** the news feed; pagination is necessary when dealing with large amounts of listed data, and since we'll likely want each news feed to have up to 1000 posts, pagination is very appropriate here.
+The *pageSize* and *nextPageToken* fields are used for pagination, which is necessary for handling large amounts of listed data.\
+Each news feed may have up to 1000 posts, making pagination essential.
 
 ### 6. Feed Creation And Storage
 
-Since our databases tables are going to be so large, with billions of millions of users and tens of millions of posts every week, fetching news feeds from our main database every time a *GetNewsFeed* call is made isn't going to be ideal.\
-We can't expect low latencies when building news feeds from scratch because querying our huge tables takes time, and sharding the main database holding the posts wouldn't be particularly helpful since news feeds would likely need to aggregate posts across shards, which would require us to perform cross-shard joins when generating news feeds; we want to avoid this.
+Fetching news feeds from the main database every time a *GetNewsFeed* call is made is impractical due to the large size of our tables.\
+Instead, we can store news feeds separately across an array of shards.\
+A separate cluster of machines can aggregate posts, rank them using the provided algorithm, generate news feeds, and send them to the shards periodically (e.g., every 5, 10, or 60 minutes).
 
-Instead, we can store news feeds separately from our main database across an array of shards.\
-We can have a separate cluster of machines that can act as a proxy to the relational database and be in charge of aggregating posts, ranking them via the ranking algorithm that we're given, generating news feeds, and sending them to our shards every so often (every 5, 10, 60 minutes, depending on how often we want news feeds to be updated).
-
-If we average each post at 10kB, and a news feed comprises of the top 1000 posts that are relevant to a user, that's 10MB per user, or **10 000TB** of data total.\
-We assume that it's loaded 10 times per day per user, which averages at **10k QPS** (Query per Second) for the news feed fetching.
-
-Assuming 1 billion news feeds (for 1 billion users) containing 1000 posts of up to 10 KB each, we can estimate that we'll need 10 PB (petabytes) of storage to store all of our users' news feeds.\
-We can use 1000 machines of 10 TB each as our news-feed shards.
+Assuming each post averages 10KB and each news feed contains 1000 posts, we estimate needing 10 PB of storage for 1 billion users.\
+We can use 1000 machines with 10 TB each as our news-feed shards.
 
 ```txt
 ~10 KB per post
@@ -180,12 +176,6 @@ We can use 1000 machines of 10 TB each as our news-feed shards.
 ~1 billion news feeds
 ~10 KB * 1000 * 1000^3 = 10 PB = 1000 * 10 TB
 ```
-
-To distribute the news feeds roughly evenly, we can shard based on the user id.
-
-When a *GetNewsFeed* request comes in, it gets load balanced to the right news feed machine, which returns it by reading on local disk.\
-If the news feed doesn't exist locally, we then go to the source of truth (the main database, but going through the proxy ranking service) to gather the relevant posts.\
-This will lead to increased latency but shouldn't happen frequently.
 
 ### 7. Wiring Updates Into Feed Creation
 
