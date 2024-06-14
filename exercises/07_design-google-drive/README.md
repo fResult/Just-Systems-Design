@@ -70,5 +70,4 @@ Specifically, if a user is banned from the chat, they can't send messages, but t
 Yes, for the sake of this design, that's totally fine.\
 Don't worry about the underlying complexity of displaying live video, like the shape of the data and how to display it exactly.
 
-
 ## Solution Walkthrough
