@@ -209,3 +209,7 @@ The metadata contains the hashes of all of the blobs that make up the content of
 We can then assemble them into the file and save it onto local disk.
 
 All of the *Get*, *Rename*, *Move*, and *Delete* operations atomically change the metadata of one or several entities within our key-value stores using the **transaction** guarantees that they give us.
+
+### 8. System Diagram
+
+![Google Drive System Diagram](./img/google-drive-system-diagram.svg)
