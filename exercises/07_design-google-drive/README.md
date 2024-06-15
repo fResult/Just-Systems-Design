@@ -130,3 +130,20 @@ Instead, we can shard based on the **ownerID** of the entity, which means that
 Given the traffic that this website needs to serve, we can have a layer of proxies for entity information, load balanced on a hash of the **ownerID**.\
 The proxies could have some caching, as well as perform **ACL** checks when we eventually decide to support them.\
 The proxies would live at the regional level, whereas the source-of-truth key-value stores would be accessed globally.
+
+### 4. Storing File Data
+
+When dealing with potentially very large uploads and data storage, it's often advantageous to split up data into blobs that can be pieced back together to form the original data.\
+When uploading a file, the request will be load balanced across multiple servers that we'll call "blob splitters", and these blob splitters will have the job of splitting files into blobs and storing these blobs in some global blob-storage solution like **GCS** or **S3** (since we're designing **Google** Drive, it might not be a great idea to pick S3 over GCS :P).
+
+One thing to keep in mind is that we need a lot of redundancy for the data that we're uploading in order to prevent data loss.\
+So we'll probably want to adopt a strategy like: try pushing to 3 different GCS **buckets** and consider a write successful only if it went through in at least 2 buckets.\
+This way we always have redundancy without necessarily sacrificing availability.\
+In the background, we can have an extra service in charge of further replicating the data to other buckets in an async manner.\
+For our main 3 buckets, we'll want to pick buckets in 3 different availability zones to avoid having all of our redundant storage get wiped out by potential catastrophic failures in the event of a natural disaster or huge power outage.
+
+In order to avoid having multiple identical blobs stored in our blob stores, we'll name the blobs after a hash of their content.\
+This technique is called **Content-Addressable Storage**, and by using it, we essentially make all blobs immutable in storage.\
+When a file changes, we simply upload the entire new resulting blobs under their new names computed by hashing their new contents.
+
+This immutability is *very* powerful, in part because it means that we can very easily introduce a caching layer between the blob splitters and the buckets, without worrying about keeping caches in sync with the main source of truth when edits are made—an edit just means that we're dealing with a completely different blob.
