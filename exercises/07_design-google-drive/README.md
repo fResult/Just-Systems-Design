@@ -181,3 +181,15 @@ This will help us quickly find parents when moving files and folders.
       parent_id: 'id_of_parent',
     }
     ```
+
+### 6. Garbage Collection
+
+Any change to an existing file will create a whole new blob and de-reference the old one.\
+Furthermore, any deleted file will also de-reference the file's blobs.\
+This means that we'll eventually end up with a lot of **orphaned** blobs that are basically unused and taking up storage for no reason.\
+We'll need a way to get rid of these blobs to free some space.
+
+We can have a **Garbage Collection** service that watches the entity-info K-V stores and keeps counts of the number of times every blob is referenced by files; these counts can be stored in a SQL table.
+
+Reference counts will get updated whenever files are uploaded and deleted.\
+When the reference count for a particular blob reaches 0, the Garbage Collector can mark the blob in question as orphaned in the relevant blob stores, and the blob will be safely deleted after some time if it hasn't been accessed.
