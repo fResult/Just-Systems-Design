@@ -156,7 +156,7 @@ Files will have an **is_folder** flag set to false and a **blobs** field, wh
 Both entities can also have a **parent_id** field, which will point to the entity information of the entity's parent folder.
 This will help us quickly find parents when moving files and folders.
 
-- File Info
+- **File Info**
 
     ```txt
     {
@@ -169,7 +169,7 @@ This will help us quickly find parents when moving files and folders.
     }
     ```
 
-- Folder Info
+- **Folder Info**
 
     ```txt
     {
