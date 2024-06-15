@@ -193,3 +193,19 @@ We can have a **Garbage Collection** service that watches the entity-info K-V 
 
 Reference counts will get updated whenever files are uploaded and deleted.\
 When the reference count for a particular blob reaches 0, the Garbage Collector can mark the blob in question as orphaned in the relevant blob stores, and the blob will be safely deleted after some time if it hasn't been accessed.
+
+### 7. End To End API Flow
+
+Now that we've designed the entire system, we can walk through what happens when a user performs any of the operations we listed above.
+
+*CreateFolder* is simple; since folders don't have a blob-storage component, creating a folder just involves storing some metadata in our key-value stores.
+
+*UploadFile* works in two steps.\
+The first is to store the blobs that make up the file in the blob storage.\
+Once the blobs are persisted, we can create the file-info object, store the blob-content hashes inside its **blobs** field, and write this metadata to our key-value stores.
+
+*DownloadFile* fetches the file's metadata from our key-value stores given the file's ID.\
+The metadata contains the hashes of all of the blobs that make up the content of the file, which we can use to fetch all of the blobs from blob storage.\
+We can then assemble them into the file and save it onto local disk.
+
+All of the *Get*, *Rename*, *Move*, and *Delete* operations atomically change the metadata of one or several entities within our key-value stores using the **transaction** guarantees that they give us.
