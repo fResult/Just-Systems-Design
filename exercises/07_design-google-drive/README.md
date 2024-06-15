@@ -87,3 +87,30 @@ This adds up to approximately **15,000 PB** of data in total, without counting
 
 We need this service to be **Highly Available** and also very redundant.\
 No data that's successfully stored in Google Drive can ever be lost, even through catastrophic failures in an entire region of the world.
+
+### 2. Coming Up With A Plan
+
+It's important to organize ourselves and to lay out a clear plan regarding how we're going to tackle our design.\
+What are the major, distinguishable components of our how system?
+
+**First of all, we'll need to support the following operations:**
+
+- For **Files**
+  - *UploadFile*
+  - *DownloadFile*
+  - *DeleteFile*
+  - *RenameFile*
+  - *MoveFile*
+- For **Folders**
+  - *CreateFolder*
+  - *GetFolder*
+  - *DeleteFolder*
+  - *RenameFolder*
+  - *MoveFolder*
+
+**Secondly, we'll have to come up with a proper storage solution for two types of data:**
+
+- File Contents: The contents of the files uploaded to Google Drive. These are opaque bytes with no particular structure or format.
+- Entity Info: The metadata for each entity. This might include fields like **entityID, ownerID, lastModified, entityName, entityType**. This list is non-exhaustive, and we'll most likely add to it later on.
+
+Let's start by going over the storage solutions that we want to use, and then we'll go through what happens when each of the operations outlined above is performed.
