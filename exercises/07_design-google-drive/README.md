@@ -147,3 +147,37 @@ This technique is called **Content-Addressable Storage**, and by using it, we e
 When a file changes, we simply upload the entire new resulting blobs under their new names computed by hashing their new contents.
 
 This immutability is *very* powerful, in part because it means that we can very easily introduce a caching layer between the blob splitters and the buckets, without worrying about keeping caches in sync with the main source of truth when edits are made—an edit just means that we're dealing with a completely different blob.
+
+### 5. Entity Info Structure
+
+Since folders and files will both have common bits of metadata, we can have them share the same structure.
+The difference will be that folders will have an **is_folder** flag set to true and a list of **children_ids**, which will point to the entity information for the folders and files within the folder in question.
+Files will have an **is_folder** flag set to false and a **blobs** field, which will have the IDs of all of the blobs that make up the data within the relevant file.
+Both entities can also have a **parent_id** field, which will point to the entity information of the entity's parent folder.
+This will help us quickly find parents when moving files and folders.
+
+- File Info
+
+    ```txt
+    {
+      blobs: ['blob_content_hash_0', 'blob_content_hash_1'],
+      id: 'some_unique_entity_id'
+      is_folder: false,
+      name: 'some_file_name',
+      owner_id: 'id_of_owner',
+      parent_id: 'id_of_parent',
+    }
+    ```
+
+- Folder Info
+
+    ```txt
+    {
+      children_ids: ['id_of_child_0', 'id_of_child_1'],
+      id: 'some_unique_entity_id'
+      is_folder: true,
+      name: 'some_folder_name',
+      owner_id: 'id_of_owner',
+      parent_id: 'id_of_parent',
+    }
+    ```
