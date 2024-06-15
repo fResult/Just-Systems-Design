@@ -151,9 +151,9 @@ This immutability is *very* powerful, in part because it means that we can ver
 ### 5. Entity Info Structure
 
 Since folders and files will both have common bits of metadata, we can have them share the same structure.\
-The difference will be that folders will have an **is_folder** flag set to true and a list of **children_ids**, which will point to the entity information for the folders and files within the folder in question.\
-Files will have an **is_folder** flag set to false and a **blobs** field, which will have the IDs of all of the blobs that make up the data within the relevant file.\
-Both entities can also have a **parent_id** field, which will point to the entity information of the entity's parent folder.\
+The difference will be that folders will have an **`is_folder`** flag set to true and a list of **`children_ids`**, which will point to the entity information for the folders and files within the folder in question.\
+Files will have an **`is_folder`** flag set to false and a **`blobs`** field, which will have the IDs of all of the blobs that make up the data within the relevant file.\
+Both entities can also have a **`parent_id`** field, which will point to the entity information of the entity's parent folder.\
 This will help us quickly find parents when moving files and folders.
 
 - **File Info**
