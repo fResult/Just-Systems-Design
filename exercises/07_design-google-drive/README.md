@@ -166,12 +166,12 @@ This will help us quickly find parents when moving files and folders.
 
     ```txt
     {
-      blobs: ['blob_content_hash_0', 'blob_content_hash_1'],
-      id: 'some_unique_entity_id'
+      blobs: ['«blob_content_hash_0»', '«blob_content_hash_1»'],
+      id: '«some_unique_entity_id»',
       is_folder: false,
-      name: 'some_file_name',
-      owner_id: 'id_of_owner',
-      parent_id: 'id_of_parent',
+      name: '«some_file_name»',
+      owner_id: '«id_of_owner»',
+      parent_id: '«id_of_parent»',
     }
     ```
 
@@ -179,12 +179,12 @@ This will help us quickly find parents when moving files and folders.
 
     ```txt
     {
-      children_ids: ['id_of_child_0', 'id_of_child_1'],
-      id: 'some_unique_entity_id'
+      children_ids: ['«id_of_child_0»', '«id_of_child_1»'],
+      id: '«some_unique_entity_id»',
       is_folder: true,
-      name: 'some_folder_name',
-      owner_id: 'id_of_owner',
-      parent_id: 'id_of_parent',
+      name: '«some_folder_name»',
+      owner_id: '«id_of_owner»',
+      parent_id: '«id_of_parent»',
     }
     ```
 
