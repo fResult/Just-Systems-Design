@@ -119,7 +119,7 @@ What are the major, distinguishable components of our how system?
 - **File Contents:** The contents of the files uploaded to Google Drive.\
   These are opaque bytes with no particular structure or format.
 - **Entity Info:** The metadata for each entity.\
-  This might include fields like **entityID, ownerID, lastModified, entityName, entityType**.\
+  This might include fields like **`entityID`, `ownerID`, `lastModified`, `entityName`, `entityType`**.\
   This list is non-exhaustive, and we'll most likely add to it later on.
 
 Let's start by going over the storage solutions that we want to use, and then we'll go through what happens when each of the operations outlined above is performed.
