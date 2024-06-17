@@ -75,7 +75,7 @@ But for the purpose of this question, let's not worry about conflicts or anythin
 
 **A:**\
 First and foremost, data loss isn't tolerated at all; we need to make sure that once a file is uploaded or a folder is created, it won't disappear until the user deletes it.\
-As for availability, we need this system to be highly available.
+As for availability, we need this system to be highly available (99.999%).
 
 ## Solution Walkthrough
 
