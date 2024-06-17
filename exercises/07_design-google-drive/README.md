@@ -83,16 +83,16 @@ As for availability, we need this system to be highly available (99.999%).
 
 As with any systems design interview question, the first thing that we want to do is to gather system requirements; we need to figure out what system we're building exactly.
 
-We're designing the core user flow of the **Google Drive** web application.
-This consists of storing two main entities: folders and files.\
-More specifically, the system should allow users to create folders, upload and download files, and rename and move entities once they're stored.\
-We don't have to worry about ACLs, sharing entities, or any other auxiliary Google Drive features.
+- We're designing the core user flow of the **Google Drive** web application.
+- This consists of storing two main entities: **folders** and **files**.
+- More specifically, the system should allow users to create folders, upload and download files, and rename and move entities once they're stored.
+- We don't have to worry about ACLs, sharing entities, or any other auxiliary Google Drive features.
 
-We're going to be building this system at a very large scale, assuming 1 billion users, each with **15GB** of data stored in Google Drive on average.\
-This adds up to approximately **15,000 PB** of data in total, without counting any metadata that we might store for each entity, like its name or its type.
+- We're going to be building this system at a very large scale, assuming 1 billion users, each with **15GB** of data stored in Google Drive on average.
+- This adds up to approximately **15,000 PB** of data in total, without counting any metadata that we might store for each entity, like its name or its type.
 
-We need this service to be **Highly Available** and also very redundant.\
-No data that's successfully stored in Google Drive can ever be lost, even through catastrophic failures in an entire region of the world.
+- We need this service to be **Highly Available** (99.999%) and also very redundant.
+- No data that's successfully stored in Google Drive can ever be lost, even through catastrophic failures in an entire region of the world.
 
 ### 2. Coming Up With A Plan
 
