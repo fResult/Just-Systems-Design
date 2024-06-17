@@ -131,9 +131,9 @@ Since we need high availability and data replication, we need to use something l
 
 Since we're going to be dealing with many gigabytes of entity information (given that we're serving a billion users), we'll need to shard this data across multiple clusters of these K-V stores.\
 Sharding on entityID means that we'll lose the ability to perform batch operations, which these key-value stores give us out of the box and which we'll need when we move entities around (for instance, moving a file from one folder to another would involve editing the metadata of 3 entities; if they were located in 3 different shards that wouldn't be great).\
-Instead, we can shard based on the **ownerID** of the entity, which means that we can edit the metadata of multiple entities atomically with a transaction, so long as the entities belong to the same user.
+Instead, we can shard based on the **`ownerID`** of the entity, which means that we can edit the metadata of multiple entities atomically with a transaction, so long as the entities belong to the same user.
 
-Given the traffic that this website needs to serve, we can have a layer of proxies for entity information, load balanced on a hash of the **ownerID**.\
+Given the traffic that this website needs to serve, we can have a layer of proxies for entity information, load balanced on a hash of the **`ownerID`**.\
 The proxies could have some caching, as well as perform **ACL** checks when we eventually decide to support them.\
 The proxies would live at the regional level, whereas the source-of-truth key-value stores would be accessed globally.
 
