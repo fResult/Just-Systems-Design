@@ -150,7 +150,7 @@ In the background, we can have an extra service in charge of further replicating
 For our main 3 buckets, we'll want to pick buckets in 3 different availability zones to avoid having all of our redundant storage get wiped out by potential catastrophic failures in the event of a natural disaster or huge power outage.
 
 In order to avoid having multiple identical blobs stored in our blob stores, we'll name the blobs after a hash of their content.\
-This technique is called **Content-Addressable Storage**, and by using it, we essentially make all blobs immutable in storage.\
+This technique is called **[Content-Addressable Storage](https://en.wikipedia.org/wiki/Content-addressable_storage)**, and by using it, we essentially make all blobs immutable in storage.\
 When a file changes, we simply upload the entire new resulting blobs under their new names computed by hashing their new contents.
 
 This immutability is *very* powerful, in part because it means that we can very easily introduce a caching layer between the blob splitters and the buckets, without worrying about keeping caches in sync with the main source of truth when edits are made—an edit just means that we're dealing with a completely different blob.
