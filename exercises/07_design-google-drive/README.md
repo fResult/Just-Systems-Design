@@ -140,7 +140,8 @@ The proxies would live at the regional level, whereas the source-of-truth key-va
 ### 4. Storing File Data
 
 When dealing with potentially very large uploads and data storage, it's often advantageous to split up data into blobs that can be pieced back together to form the original data.\
-When uploading a file, the request will be load balanced across multiple servers that we'll call "blob splitters", and these blob splitters will have the job of splitting files into blobs and storing these blobs in some global blob-storage solution like **GCS** or **S3** (since we're designing **Google** Drive, it might not be a great idea to pick S3 over GCS :P).
+When uploading a file, the request will be load balanced across multiple servers that we'll call **"blob splitters"**.\
+And these *blob splitters* will have the job of splitting files into blobs and storing these blobs in some global blob-storage solution like **GCS** or **S3** (since we're designing **Google** Drive, it might not be a great idea to pick S3 over GCS :P).
 
 One thing to keep in mind is that we need a lot of redundancy for the data that we're uploading in order to prevent data loss.\
 So we'll probably want to adopt a strategy like: try pushing to 3 different GCS **buckets** and consider a write successful only if it went through in at least 2 buckets.\
