@@ -194,18 +194,17 @@ This facilitates efficient navigation and reorganization of files and folders.
 
 ### 6. Garbage Collection
 
-Any change to existing files will create new blobs, and de-reference the old ones.\
-Similarly, deleting files will also de-reference the files' blobs
-These lead to the accumulation of **orphaned** blobs that consume storage unnecessarily.\
-To address this, a **Garbage Collection** mechanism is essential.
+Any change to existing files will create new blobs and de-reference the old ones.\
+Similarly, deleting files will also de-reference the files' blobs.\
+These actions lead to the accumulation of **orphaned** blobs that consume storage unnecessarily.\
+To address this, a **Garbage Collection** mechanism is essential.
 
-This mechanism involves a **Garbage Collection** service that monitors the entity-info K-V stores.
-And keeps counts of the number of times every blob.
+This mechanism involves a **Garbage Collection** service that monitors the entity-info K-V stores, and keeps the counts of the number of times every blob is referenced.\
 These counts may be stored in a SQL database.
 
 The reference count for each blob is updated with file uploads and deletions.\
-Once a blob's reference count drops to zero, indicating no active references, the **Garbage Collector** marks it as orphaned within the blob storage systems.\
-These *orphaned* blobs are then scheduled for safe deletion, after some time if it hasn't been accessed.
+Once a blob's reference count drops to zero, indicating no active references, the **Garbage Collector** marks it as orphaned within the blob storage systems.\
+These *orphaned* blobs are then scheduled for safe deletion after some time if they haven't been accessed.
 
 ### 7. End To End API Flow
 
