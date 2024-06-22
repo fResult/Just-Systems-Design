@@ -138,21 +138,22 @@ Positioned at the regional level, these proxies serve as an intermediary, while 
 
 ### 4. Storing File Data
 
-For dealing with large file uploads and storage, breaking down data into smaller chunks, or blobs, proves beneficial.\
-These blobs can later be reassembled to reconstruct the original file.\
-During the upload process, the files are distributed across several servers, termed **"blob splitters"**.\
-These servers are tasked with dividing the files into manageable blobs and storing them in a global blob-storage system such as **GCS** or **S3**.\
-Given our project aligns with **Google** Drive, opting for GCS over S3 seems more appropriate.
+For dealing with large file uploads and storage, breaking down data into smaller chunks, or blobs, is beneficial.\
+We can reassemble these blobs to recreate the original file.\
+During the upload process, **"blob splitters"** distribute the files across several servers.\
+These servers split the files into manageable blobs for storage in a global blob-storage system like **GCS** or **S3**.\
+Since our project aligns with **Google Drive**, GCS over S3 seems more appropriate.
 
 A critical aspect to consider is ensuring data redundancy to prevent data loss.\
-A feasible approach involves attempting to store the data across 3 distinct GCS **buckets**, considering the operation successful if the data is successfully written to at least 2 of these buckets.\
-This strategy ensures data redundancy while maintaining availability.\
+We aim to store data across 3 distinct ***GCS* buckets**.\
+We consider the operation successful if at least 2 of these buckets successfully store the data.\
+This strategy ensures data redundancy and maintains availability.\
 In the background, we can have an extra service in charge of further replicating the data to other buckets in an async manner.\
-We'll want to select these 3 buckets across different availability zones to safeguard against data loss due to natural disasters or significant power failures.
+We will choose these 3 buckets from different availability zones to protect against data loss from natural disasters or significant power failures.
 
-To prevent the storage of duplicate blobs, we can employ a naming convention based on the content's hash.\
-This method known as **[Content-Addressable Storage](https://en.wikipedia.org/wiki/Content-addressable_storage)**, ensures that all stored blobs are immutable.\
-So, any modification to a file results in the creation and storage of new blobs, under the new names computed by hashing of their updated content.
+To avoid storing duplicate blobs, we use a naming convention based on the content's hash.\
+This method, known as **[Content-Addressable Storage](https://en.wikipedia.org/wiki/Content-addressable_storage)**, that all stored blobs are immutable.\
+Thus, any file modification results in the creation and storage of new blobs with names derived from hashing their updated content.
 
 This approach to immutability significantly simplifies the introduction of a caching layer between the *blob splitters* and the storage buckets.\
 It eliminates concerns about cache coherence with the main source of truth, as any modification generates a completely different blob.
