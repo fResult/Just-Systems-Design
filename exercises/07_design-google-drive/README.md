@@ -208,19 +208,22 @@ These *orphaned* blobs are then scheduled for safe deletion after some time if t
 
 ### 7. End To End API Flow
 
-Now that we've designed the entire system, we can walk through what happens when a user performs any of the operations we listed above.
+With the system fully designed, let's explore the sequence of operations when a user performs what we listed above.
 
-*CreateFolder* is simple; since folders don't have a blob-storage component, creating a folder just involves storing some metadata in our key-value stores.
+*CreateFolder*, is simple.\
+Given that folders do not require blob storage, this process solely involves the recording of metadata within our key-value storage system.
 
-*UploadFile* works in two steps.\
-The first is to store the blobs that make up the file in the blob storage.\
-Once the blobs are persisted, we can create the file-info object, store the blob-content hashes inside its **blobs** field, and write this metadata to our key-value stores.
+*UploadFile*, works in 2 steps.\
+Initially, to store the blobs that make up the file in the blob storage.\
+Following this, we can create a **file-info** object, store these blobs-content hashes in its **blobs** field, and then write this metadata to our K-V storage.
 
-*DownloadFile* fetches the file's metadata from our key-value stores given the file's ID.\
-The metadata contains the hashes of all of the blobs that make up the content of the file, which we can use to fetch all of the blobs from blob storage.\
-We can then assemble them into the file and save it onto local disk.
+*DownloadFile* begins with fetching the file's metadata from our K-V stores using the file's ID.\
+This metadata includes the hashes for all blobs that make up the file's content.\
+These hashes enable the fetching of blobs from blob storage.\
+Then, we can collect these blobs to reconstruct the original file and save it on the local disk.
 
-All of the *Get*, *Rename*, *Move*, and *Delete* operations atomically change the metadata of one or several entities within our key-value stores using the **transaction** guarantees that they give us.
+Operations such as *Get*, *Rename*, *Move*, and *Delete* involve atomic changes to the metadata for one or more entities within our K-V storage.\
+These operations use the transaction guarantees provided by the system.
 
 ### 8. System Diagram
 
