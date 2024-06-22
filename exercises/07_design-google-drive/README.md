@@ -116,13 +116,11 @@ What are the major, distinguishable components of our how system?
 
 **Secondly, we'll have to come up with a proper storage solution for two types of data:**
 
-- **File Contents:** The contents of the files uploaded to Google Drive.\
-  These are opaque bytes with no particular structure or format.
-- **Entity Info:** The metadata for each entity.\
-  This might include fields like **`entityID`, `ownerID`, `lastModified`, `entityName`, `entityType`**.\
+- **File Contents:** The actual file contents, which are unstructured bytes.
+- **Metadata:** Information about each entity, potentially including **`entityID`, `ownerID`, `lastModified`, `entityName`, `entityType`**, among others.\
   This list is non-exhaustive, and we'll most likely add to it later on.
 
-Let's start by going over the storage solutions that we want to use, and then we'll go through what happens when each of the operations outlined above is performed.
+The next steps, we will detail the storage solutions and the processes for each operation.
 
 ### 3. Storing Entity Info
 
