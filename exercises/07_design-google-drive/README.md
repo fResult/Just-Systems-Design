@@ -138,15 +138,17 @@ Positioned at the regional level, these proxies serve as an intermediary, while 
 
 ### 4. Storing File Data
 
-When dealing with potentially very large uploads and data storage, it's often advantageous to split up data into blobs that can be pieced back together to form the original data.\
-When uploading a file, the request will be load balanced across multiple servers that we'll call **"blob splitters"**.\
-And these *blob splitters* will have the job of splitting files into blobs and storing these blobs in some global blob-storage solution like **GCS** or **S3** (since we're designing **Google** Drive, it might not be a great idea to pick S3 over GCS :P).
+For dealing with large file uploads and storage, breaking down data into smaller chunks, or blobs, proves beneficial.\
+These blobs can later be reassembled to reconstruct the original file.\
+During the upload process, the files are distributed across several servers, termed **"blob splitters"**.\
+These servers are tasked with dividing the files into manageable blobs and storing them in a global blob-storage system such as **GCS** or **S3**.\
+Given our project aligns with **Google** Drive, opting for GCS over S3 seems more appropriate.
 
-One thing to keep in mind is that we need a lot of redundancy for the data that we're uploading in order to prevent data loss.\
-So we'll probably want to adopt a strategy like: try pushing to 3 different GCS **buckets** and consider a write successful only if it went through in at least 2 buckets.\
-This way we always have redundancy without necessarily sacrificing availability.\
+A critical aspect to consider is ensuring data redundancy to prevent data loss.\
+A feasible approach involves attempting to store the data across 3 distinct GCS **buckets**, considering the operation successful if the data is successfully written to at least 2 of these buckets.\
+This strategy ensures data redundancy while maintaining availability.\
 In the background, we can have an extra service in charge of further replicating the data to other buckets in an async manner.\
-For our main 3 buckets, we'll want to pick buckets in 3 different availability zones to avoid having all of our redundant storage get wiped out by potential catastrophic failures in the event of a natural disaster or huge power outage.
+We'll want to select these 3 buckets across different availability zones to safeguard against data loss due to natural disasters or significant power failures.
 
 In order to avoid having multiple identical blobs stored in our blob stores, we'll name the blobs after a hash of their content.\
 This technique is called **[Content-Addressable Storage](https://en.wikipedia.org/wiki/Content-addressable_storage)**, and by using it, we essentially make all blobs immutable in storage.\
