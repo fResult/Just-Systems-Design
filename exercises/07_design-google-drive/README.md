@@ -159,7 +159,7 @@ It eliminates concerns about cache coherence with the main source of truth, as a
 
 ### 5. Entity Info Structure
 
-To efficiently manage metadata for both files and folders, a unified structure is utilized.\
+To efficiently manage metadata for both *files* and *folders*, a unified structure is utilized.\
 Distinctions are made through specific flags and fields.\
 ***Folders*** are identified by an **`is_folder`** flag set to `true` and contain a **`children_ids`** list, which references the entity information of their contents.\
 Conversely, ***files*** are marked with an **`is_folder`** flag set to `false` and include a **`blobs`** field listing the IDs of blobs constituting the file's data.\
@@ -194,15 +194,18 @@ This facilitates efficient navigation and reorganization of files and folders.
 
 ### 6. Garbage Collection
 
-Any change to an existing file will create a whole new blob and de-reference the old one.\
-Furthermore, any deleted file will also de-reference the file's blobs.\
-This means that we'll eventually end up with a lot of **orphaned** blobs that are basically unused and taking up storage for no reason.\
-We'll need a way to get rid of these blobs to free some space.
+Any change to existing files will create new blobs, and de-reference the old ones.\
+Similarly, deleting files will also de-reference the files' blobs
+These lead to the accumulation of **orphaned** blobs that consume storage unnecessarily.\
+To address this, a **Garbage Collection** mechanism is essential.
 
-We can have a **Garbage Collection** service that watches the entity-info K-V stores and keeps counts of the number of times every blob is referenced by files; these counts can be stored in a SQL table.
+This mechanism involves a **Garbage Collection** service that monitors the entity-info K-V stores.
+And keeps counts of the number of times every blob.
+These counts may be stored in a SQL database.
 
-Reference counts will get updated whenever files are uploaded and deleted.\
-When the reference count for a particular blob reaches 0, the *Garbage Collector* can mark the blob in question as orphaned in the relevant blob stores, and the blob will be safely deleted after some time if it hasn't been accessed.
+The reference count for each blob is updated with file uploads and deletions.\
+Once a blob's reference count drops to zero, indicating no active references, the **Garbage Collector** marks it as orphaned within the blob storage systems.\
+These *orphaned* blobs are then scheduled for safe deletion, after some time if it hasn't been accessed.
 
 ### 7. End To End API Flow
 
