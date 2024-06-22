@@ -150,11 +150,12 @@ This strategy ensures data redundancy while maintaining availability.\
 In the background, we can have an extra service in charge of further replicating the data to other buckets in an async manner.\
 We'll want to select these 3 buckets across different availability zones to safeguard against data loss due to natural disasters or significant power failures.
 
-In order to avoid having multiple identical blobs stored in our blob stores, we'll name the blobs after a hash of their content.\
-This technique is called **[Content-Addressable Storage](https://en.wikipedia.org/wiki/Content-addressable_storage)**, and by using it, we essentially make all blobs immutable in storage.\
-When a file changes, we simply upload the entire new resulting blobs under their new names computed by hashing their new contents.
+To prevent the storage of duplicate blobs, we can employ a naming convention based on the content's hash.\
+This method known as **[Content-Addressable Storage](https://en.wikipedia.org/wiki/Content-addressable_storage)**, ensures that all stored blobs are immutable.\
+So, any modification to a file results in the creation and storage of new blobs, under the new names computed by hashing of their updated content.
 
-This immutability is *very* powerful, in part because it means that we can very easily introduce a caching layer between the *blob splitters* and the buckets, without worrying about keeping caches in sync with the main source of truth when edits are made—an edit just means that we're dealing with a completely different blob.
+This approach to immutability significantly simplifies the introduction of a caching layer between the *blob splitters* and the storage buckets.\
+It eliminates concerns about cache coherence with the main source of truth, as any modification generates a completely different blob.
 
 ### 5. Entity Info Structure
 
