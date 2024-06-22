@@ -73,3 +73,7 @@ Yes, but just to clarify, the video-streaming service is actually the only part 
 Even though we're indeed designing Netflix to be used by all sorts of clients, let's focus purely on the distributed-system component—so no need to get into details about clients or to optimize for certain clients.
 
 ## Solution Walkthrough
+
+### 9. System Diagram
+
+![Netflix System Diagram](./img/netflix-system-diagram.svg)
