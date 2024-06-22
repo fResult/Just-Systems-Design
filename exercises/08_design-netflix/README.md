@@ -74,8 +74,6 @@ Even though we're indeed designing Netflix to be used by all sorts of clients, l
 
 ## Solution Walkthrough
 
-### 9. System Diagram
-
 ### 1. Gathering System Requirements
 
 As with any systems design interview question, the first thing that we want to do is to gather system requirements; we need to figure out what system we're building exactly.
@@ -98,7 +96,7 @@ We're designing the core Netflix service, which allows users to stream movies an
 
 ### 3. Video-Content Storage
 
-Since Netflix's service, which caters to millions of customers, is centered around video content, we might need _a lot_ of storage space and a complex storage solution.
+Since Netflix's service, which caters to millions of customers, is centered around video content, we might need *a lot* of storage space and a complex storage solution.\
 Let's start by estimating how much space we'll need.
 
 We were told that Netflix has about 200 million users; we can make a few assumptions about other Netflix metrics (alternatively, we can ask our interviewer for guidance here):
@@ -116,12 +114,47 @@ $$
 \end{aligned}
 $$
 
-This number highlights the importance of estimations.
+This number highlights the importance of estimations.\
 Naively, one might think that Netflix stores many petabytes of video, since its core product revolves around video content; but a simple back-of-the-napkin estimation shows us that it actually stores a very modest amount of video.
 
 This is because Netflix, unlike other services like YouTube, Google Drive, and Facebook, has a bounded amount of video content: the movies and shows that it offers; those other services allow users to upload unlimited amounts of video.
 
 Since we're only dealing with a few hundred terabytes of data, we can use a simple blob storage solution like **S3** or **GCS** to reliably handle the storage and replication of Netflix's video content; we don't need a more complex data-storage solution.
+
+### 4. Static-Content Storage
+
+Apart from video content, we'll want to store various pieces of static content for Netflix's movies and shows, including video titles, descriptions, and cast lists.
+
+This content will be bounded in size by the size of the video content, since it'll be tied to the number of movies and shows, just like the video content, and since it'll naturally take up less space than the video data.
+
+We can easily store all of this static content in a relational database or even in a document store, and we can cache most of it in our API servers.
+
+### 5. User Metadata Storage
+
+We can expect to store some user metadata for each video on the Netflix platform. For instance, we might want to store the timestamp that a user left a video at, a user's rating on a video, etc..
+
+Just like the static content mentioned above, this user metadata will be tied to the number of videos on Netflix.\
+However, unlike the static content, this user metadata will grow with the Netflix user-based, since each user will have user metadata.
+
+**We can quickly estimate how much space we'll need for this user metadata:**
+
+```
+~200M users
+~1K videos watched per user per lifetime (~10% of total content)
+~100 bytes/video/user
+~100 bytes * 1K videos * 200M users = 100 KB * 200M = 1 GB * 20K = 20 TB
+```
+
+Perhaps surprisingly, we'll be storing an amount of user metadata in the same ballpark as the amount of video content that we'll be storing.\
+Once again, this is because of the bounded nature of Netflix's video content, which is in stark contrast with the unbounded nature of its user-based.
+
+We'll likely need to query this metadata, so storing it in a classic relational database like Postgres makes sense.
+
+Since Netflix users are effectively isolated from one another (they aren't connected like they would be on a social-media platform, for example), we can expect all of our latency-sensitive database operations to only relate to individual users.\
+In other words, potential operations like *GetUserInfo* and *GetUserWatchedVideos*, which would require fast latencies, are specific to a particular users; on the other hand, complicated database operations involving multiple users' metadata will likely be part of background data-engineering jobs that don't care about latency.
+
+Given this, we can split our user-metadata database into a handful of shards, each managing anywhere between 1 and 10 TB of indexed data.\
+This will maintain very quick reads and writes for a given user.
 
 ### 9. System Diagram
 
