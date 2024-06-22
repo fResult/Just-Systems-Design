@@ -16,10 +16,11 @@ Before looking at them, we encourage you to take few minutes to think about what
 ### Question 1
 
 **Q:**
+
 - *From a high-level point of view, Netflix is a fairly straightforward service: users go on the platform, they're served movies and shows, and they watch them.*
 - *Are we designing this high-level system entirely, or would you like me to focus on a particular subsystem, like the Netflix home page?*
 
-**A:**
+**A:**\
 We're just designing the core Netflix product—so the overarching system / product that you described.
 
 ### Question 2
@@ -68,7 +69,7 @@ Yes, but just to clarify, the video-streaming service is actually the only part 
 **Q:**\
 *Should we worry about designing this for various clients, like desktop clients, mobile clients, etc.?*
 
-**A:**
+**A:**\
 Even though we're indeed designing Netflix to be used by all sorts of clients, let's focus purely on the distributed-system component—so no need to get into details about clients or to optimize for certain clients.
 
 ## Solution Walkthrough
