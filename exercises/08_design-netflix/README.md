@@ -138,12 +138,14 @@ However, unlike the static content, this user metadata will grow with the Netfli
 
 **We can quickly estimate how much space we'll need for this user metadata:**
 
-```
-~200M users
-~1K videos watched per user per lifetime (~10% of total content)
-~100 bytes/video/user
-~100 bytes * 1K videos * 200M users = 100 KB * 200M = 1 GB * 20K = 20 TB
-```
+$$
+\begin{aligned}
+  \sim&200M users\\
+  \sim&1\text{K videos watched per user per lifetime (~10\% of total content)}\\
+  \sim&100\text{ bytes/video/user}\\
+  \sim&100\text{ bytes} * 1\text{K videos} * 200\text{M users} = 100\text{ KB} * 200\text{M} = 1\text{ GB} * 20\text{K} = 20\text{ TB}
+\end{aligned}
+$$
 
 Perhaps surprisingly, we'll be storing an amount of user metadata in the same ballpark as the amount of video content that we'll be storing.\
 Once again, this is because of the bounded nature of Netflix's video content, which is in stark contrast with the unbounded nature of its user-based.
