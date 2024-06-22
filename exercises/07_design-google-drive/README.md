@@ -165,8 +165,8 @@ Conversely, files are marked with an **`is_folder`** flag set to `false` and
 Both types of entities feature a **`parent_id`** field, linking to the parent folder's entity information, facilitating efficient navigation and reorganization of files and folders.
 
 To efficiently manage metadata for both files and folders, a unified structure is utilized, with distinctions made through specific flags and fields.\
-~~Folders~~ are identified by an **`is_folder`** flag set to `true` and contain a **`children_ids`** list, which will point to the entity information of its contents.\
-Conversely, ~~files~~ are marked with an **`is_folder`** flag set to `false` and include a **`blobs`** field listing the IDs of blobs that make up the file's data.\
+<u>Folders</u> are identified by an **`is_folder`** flag set to `true` and contain a **`children_ids`** list, which will point to the entity information of its contents.\
+Conversely, <u>files</u> are marked with an **`is_folder`** flag set to `false` and include a **`blobs`** field listing the IDs of blobs that make up the file's data.\
 Both entities have a **`parent_id`** field, pointing to the parent folder's entity information, facilitating efficient navigation and reorganization of files and folders.
 
 - **File Info**
