@@ -213,15 +213,17 @@ These *orphaned* blobs are then scheduled for safe deletion after some time if t
 
 With the system fully designed, let's explore the sequence of operations when a user performs what we listed above.
 
-*CreateFolder*, is simple.\
+**CreateFolder:**\
 Given that folders do not require blob storage, this process solely involves the recording of metadata within our key-value storage system.
 
-*UploadFile*, works in 2 steps.\
+**UploadFile:**\
+It works in 2 steps.\
 Initially, to store the blobs that make up the file in the blob storage.\
 Following this, we can create a **file-info** object, store these blobs-content hashes in its **blobs** field, and then write this metadata to our K-V storage.
 
-*DownloadFile* begins with fetching the file's metadata from our K-V stores using the file's ID.\
-This metadata includes the hashes for all blobs that make up the file's content.\
+**DownloadFile:**\
+This begins with fetching the file's metadata from our K-V stores using the file's ID.\
+The metadata includes the hashes for all blobs that make up the file's content.\
 These hashes enable the fetching of blobs from blob storage.\
 Then, we can collect these blobs to reconstruct the original file and save it on the local disk.
 
