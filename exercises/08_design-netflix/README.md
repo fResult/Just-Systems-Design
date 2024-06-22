@@ -76,4 +76,53 @@ Even though we're indeed designing Netflix to be used by all sorts of clients, l
 
 ### 9. System Diagram
 
+### 1. Gathering System Requirements
+
+As with any systems design interview question, the first thing that we want to do is to gather system requirements; we need to figure out what system we're building exactly.
+
+We're designing the core Netflix service, which allows users to stream movies and shows from the Netflix website.
+
+**Specifically, we'll want to focus on:**
+
+- Delivering large amounts of high-definition video content to hundreds of millions of users around the globe without too much buffering.
+- Processing large amounts of user-activity data to support Netflix's recommendation engine.
+
+### 2. Coming Up With A Plan
+
+**We'll tackle this system by dividing it into four main sections:**
+
+- Storage (Video Content, Static Content, and User Metadata)
+- General Client-Server Interaction (i.e., the life of a query)
+- Video Content Delivery
+- User-Activity Data Processing
+
+### 3. Video-Content Storage
+
+Since Netflix's service, which caters to millions of customers, is centered around video content, we might need _a lot_ of storage space and a complex storage solution.
+Let's start by estimating how much space we'll need.
+
+We were told that Netflix has about 200 million users; we can make a few assumptions about other Netflix metrics (alternatively, we can ask our interviewer for guidance here):
+
+- Netflix offers roughly 10 thousand movies and shows at any given time
+- Since movies can be up to 2+ hours in length and shows tend to be between 20 and 40 minutes per episode, we can assume an average video length of 1 hour
+- Each movie / show will have a **Standard Definition** version and a **High Definition** version. Per hour, SD will take up about 10GB of space, while HD will take about 20GB.
+
+$$
+\begin{aligned}
+  &\sim 10\text{K videos (stored in SD \& HD)}\\
+  &\sim1\text{ hour average video length}\\
+  &\sim10\text{ GB/h for SD} + \sim20\text {GB/h for HD} = 30\text{ GB/h per video}\\
+  &\sim30\text{ GB/h} * 10\text{K videos} = 300,000\text{ GB} = 300\text{ TB}
+\end{aligned}
+$$
+
+This number highlights the importance of estimations.
+Naively, one might think that Netflix stores many petabytes of video, since its core product revolves around video content; but a simple back-of-the-napkin estimation shows us that it actually stores a very modest amount of video.
+
+This is because Netflix, unlike other services like YouTube, Google Drive, and Facebook, has a bounded amount of video content: the movies and shows that it offers; those other services allow users to upload unlimited amounts of video.
+
+Since we're only dealing with a few hundred terabytes of data, we can use a simple blob storage solution like **S3** or **GCS** to reliably handle the storage and replication of Netflix's video content; we don't need a more complex data-storage solution.
+
+### 9. System Diagram
+
 ![Netflix System Diagram](./img/netflix-system-diagram.svg)
