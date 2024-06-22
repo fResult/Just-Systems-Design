@@ -59,7 +59,7 @@ pnpm install
 5. [Design Reddit API](./exercises/05_design-reddit-api)
 6. [Design Facebook News Feed](./exercises/06_design-facebook-news-feed)
 7. [Design Google Drive](./exercises/07_design-google-drive)
-8.
+8. [Design Netflix](./exercises/08_design-netflix)
 9.
 10.
 11.
