@@ -159,12 +159,14 @@ It eliminates concerns about cache coherence with the main source of truth, as a
 
 ### 5. Entity Info Structure
 
-To efficiently manage metadata for both *files* and *folders*, a unified structure is utilized.\
-Distinctions are made through specific flags and fields.\
-***Folders*** are identified by an **`is_folder`** flag set to `true` and contain a **`children_ids`** list, which references the entity information of their contents.\
-Conversely, ***files*** are marked with an **`is_folder`** flag set to `false` and include a **`blobs`** field listing the IDs of blobs constituting the file's data.\
-Both types of entities feature a **`parent_id`** field, linking to the parent folder's entity information.\
-This facilitates efficient navigation and reorganization of files and folders.
+To manage metadata for **files** and **folders** efficiently, we use a unified structure.\
+We distinguish between them with specific flags and fields.\
+***Folders*** have an **`is_folder`** flag set to `true` and contain a `children_ids` list.\
+This list references the contents' entity information.\
+***Files*** on the other hand, have the **`is_folder`** flag set to `false`.\
+It also has a **`blobs`** field that lists the IDs of the blobs making up the file's data.\
+Both entity types have a **`parent_id`** field.\
+This field links them to their parent folder's entity information, making file and folder navigation and reorganization efficient.
 
 - **File Info**
 
