@@ -158,6 +158,14 @@ In other words, potential operations like *GetUserInfo* and *GetUserWatchedVi
 Given this, we can split our user-metadata database into a handful of shards, each managing anywhere between 1 and 10 TB of indexed data.\
 This will maintain very quick reads and writes for a given user.
 
+### 6. General Client-Server Interaction
+
+The part of the system that handles serving user metadata and static content to users shouldn't be too complicated.
+
+We can use some simple round-robin load balancing to distribute end-user network requests across our API servers, which can then load-balance database requests according to userId (since our database will be sharded based on userId).
+
+As mentioned above, we can cache our static content in our API servers, periodically updating it when new movies and shows are released, and we can even cache user metadata there, using a write-through caching mechanism.
+
 ### 9. System Diagram
 
 ![Netflix System Diagram](./img/netflix-system-diagram.svg)
