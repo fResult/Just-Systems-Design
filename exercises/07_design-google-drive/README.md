@@ -84,15 +84,15 @@ As for availability, we need this system to be highly available (99.999%).
 As with any systems design interview question, the first thing that we want to do is to gather system requirements; we need to figure out what system we're building exactly.
 
 - We're designing the core user flow of the **Google Drive** web application.
-- This consists of storing two main entities: **folders** and **files**.
-- More specifically, the system should allow users to create folders, upload and download files, and rename and move entities once they're stored.
-- We don't have to worry about ACLs, sharing entities, or any other auxiliary Google Drive features.
+- The primary entities involved are **folders** and **files**.
+- The system should enable users to **create folders**, **upload and download files**, and **rename** and **move these entities** post-storage.
+- Features such as ACLs (Access Control List), sharing, and other auxiliary functionalities of Google Drive are not within the scope of this design.
 
-- We're going to be building this system at a very large scale, assuming 1 billion users, each with **15GB** of data stored in Google Drive on average.
-- This adds up to approximately **15,000 PB** of data in total, without counting any metadata that we might store for each entity, like its name or its type.
+- The design targets a massive scale, catering to 1 billion users, each storing an average of **15GB** of data on Google Drive.
+- This equates to a total of about **15,000 PB** of data, excluding the additional metadata for each item, such as names or types.
 
-- We need this service to be **Highly Available** (99.999%) and also very redundant.
-- No data that's successfully stored in Google Drive can ever be lost, even through catastrophic failures in an entire region of the world.
+- The system must offer **High Availability** (99.999%) and robust data redundancy.
+- Ensuring no data loss even in the face of major regional disasters is a critical requirement.
 
 ### 2. Coming Up With A Plan
 
