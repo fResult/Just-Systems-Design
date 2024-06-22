@@ -159,11 +159,15 @@ It eliminates concerns about cache coherence with the main source of truth, as a
 
 ### 5. Entity Info Structure
 
-Since folders and files will both have common bits of metadata, we can have them share the same structure.\
-The difference will be that folders will have an **`is_folder`** flag set to `true` and a list of **`children_ids`**, which will point to the entity information for the folders and files within the folder in question.\
-Files will have an **`is_folder`** flag set to `false` and a **`blobs`** field, which will have the IDs of all of the blobs that make up the data within the relevant file.\
-Both entities can also have a **`parent_id`** field, which will point to the entity information of the entity's parent folder.\
-This will help us quickly find parents when moving files and folders.
+To efficiently manage metadata for both files and folders, a unified structure is utilized, with distinctions made through specific flags and fields.\
+Folders are identified by an **`is_folder`** flag set to `true` and contain a **`children_ids`** list, which references the entity information of its contents.\
+Conversely, files are marked with an **`is_folder`** flag set to `false` and include a **`blobs`** field listing the IDs of blobs constituting the file's data.\
+Both types of entities feature a **`parent_id`** field, linking to the parent folder's entity information, facilitating efficient navigation and reorganization of files and folders.
+
+To efficiently manage metadata for both files and folders, a unified structure is utilized, with distinctions made through specific flags and fields.\
+~~Folders~~ are identified by an **`is_folder`** flag set to `true` and contain a **`children_ids`** list, which will point to the entity information of its contents.\
+Conversely, ~~files~~ are marked with an **`is_folder`** flag set to `false` and include a **`blobs`** field listing the IDs of blobs that make up the file's data.\
+Both entities have a **`parent_id`** field, pointing to the parent folder's entity information, facilitating efficient navigation and reorganization of files and folders.
 
 - **File Info**
 
