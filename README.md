@@ -9,7 +9,6 @@ This repository is created for studying the Systems Design from AlgoExpert.io pu
 - [PostgreSQL](https://www.postgresql.org/download) (For the example of [\[12. Relational Database\]](./12_relational_databases))
 - [Redis Stack](https://redis.io/docs/latest/operate/oss_and_stack/install/install-stack) (For the example of [\[13. Key-Value Store\]](./13_key-value-stores))
 
-
 ## Available Scripts
 
 **Install necessary packages:**
