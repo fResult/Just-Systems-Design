@@ -29,8 +29,8 @@ We're just designing the core Netflix product—so the overarching system / prod
 *Should we worry about auxiliary services like authentication and payments?*
 
 **A:**\
-You can ignore those auxiliary services; focus on the primary user flow.
-That being said, one thing to note is that, by nature of the product, we're going to have access to a lot of user-activity data that's going to need to be processed in order to enable Netflix's recommendation system.
+You can ignore those auxiliary services; focus on the primary user flow.\
+That being said, one thing to note is that, by nature of the product, we're going to have access to a lot of user-activity data that's going to need to be processed in order to enable Netflix's recommendation system.\
 You'll need to come up with a way to aggregate and process user-activity data on the website.
 
 ### Question 3
