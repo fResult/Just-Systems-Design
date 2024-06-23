@@ -154,7 +154,7 @@ $$
 Perhaps surprisingly, we'll be storing an amount of user metadata in the same ballpark as the amount of video content that we'll be storing.\
 Once again, this is because of the bounded nature of Netflix's video content, which is in stark contrast with the unbounded nature of its user-based.
 
-We'll likely need to query this metadata, so storing it in a classic relational database like Postgres makes sense.
+We'll likely need to query this metadata, so storing it in a classic relational database like **Postgres** makes sense.
 
 Since Netflix users are effectively isolated from one another (they aren't connected like they would be on a social-media platform, for example), we can expect all of our latency-sensitive database operations to only relate to individual users.\
 In other words, potential operations like *GetUserInfo* and *GetUserWatchedVideos*, which would require fast latencies, are specific to a particular users; on the other hand, complicated database operations involving multiple users' metadata will likely be part of background data-engineering jobs that don't care about latency.
