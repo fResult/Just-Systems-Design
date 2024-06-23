@@ -172,8 +172,8 @@ As mentioned above, we can cache our static content in our API servers, periodic
 
 ### 7. Video Content Delivery
 
-We need to figure out how we'll be delivering Netflix's video content across the globe with little latency.
-To start, we'll estimate the maximum amount of bandwidth consumption that we could expect at any point in time.
+We need to figure out how we'll be delivering Netflix's video content across the globe with little latency.\
+To start, we'll estimate the maximum amount of bandwidth consumption that we could expect at any point in time.\
 We'll assume that, at peak traffic, like when a popular movie comes out, a fairly large number of Netflix users might be streaming video content concurrently.
 
 $$
@@ -185,9 +185,9 @@ $$
 \end{aligned}
 $$
 
-This level of bandwidth consumption means we can't just naively serve the video content out of a single data center or even dozens of data centers.
-We need many thousands of locations around the world to be distributing this content for us.
-Thankfully, **CDN**s solve this precise problem, since they have many thousands of **Points of Presence** around the world.
+This level of bandwidth consumption means we can't just naively serve the video content out of a single data center or even dozens of data centers.\
+We need many thousands of locations around the world to be distributing this content for us.\
+Thankfully, **CDN**s solve this precise problem, since they have many thousands of **Points of Presence** around the world.\
 We can thus use a CDN like **Cloudflare** and serve our video content out of the CDN's PoPs.
 
 Since the PoPs can't keep the entirety of Netflix's video content in cache, we can have an external service that periodically repopulates CDN PoPs with the most important content (the movies and shows most likely to be watched).
