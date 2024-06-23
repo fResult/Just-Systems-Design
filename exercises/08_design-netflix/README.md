@@ -107,7 +107,7 @@ We were told that Netflix has about 200 million users; we can make a few assumpt
 
 $$
 \begin{aligned}
-  &\sim 10\text{K videos (stored in SD {\&} HD)}\\
+  &\sim 10\text{K videos (stored in SD \\& HD)}\\
   &\sim1\text{ hour average video length}\\
   &\sim10\text{ GB/h for SD} + \sim20\text {GB/h for HD} = 30\text{ GB/h per video}\\
   &\sim30\text{ GB/h} * 10\text{K videos} = 300,000\text{ GB} = 300\text{ TB}
