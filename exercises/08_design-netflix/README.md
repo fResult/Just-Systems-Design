@@ -103,7 +103,8 @@ We were told that Netflix has about 200 million users; we can make a few assumpt
 
 - Netflix offers roughly 10 thousand movies and shows at any given time
 - Since movies can be up to 2+ hours in length and shows tend to be between 20 and 40 minutes per episode, we can assume an average video length of 1 hour
-- Each movie / show will have a **Standard Definition** version and a **High Definition** version. Per hour, SD will take up about 10GB of space, while HD will take about 20GB.
+- Each movie / show will have a **Standard Definition** version and a **High Definition** version.\
+  Per hour, SD will take up about 10GB of space, while HD will take about 20GB.
 
 $$
 \begin{aligned}
