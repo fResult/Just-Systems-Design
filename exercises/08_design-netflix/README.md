@@ -190,7 +190,7 @@ We need many thousands of locations around the world to be distributing this con
 Thankfully, **CDN**s solve this precise problem, since they have many thousands of **Points of Presence** around the world.\
 We can thus use a CDN like **Cloudflare** and serve our video content out of the CDN's PoPs.
 
-Since the PoPs can't keep the entirety of Netflix's video content in cache, we can have an external service that periodically repopulates CDN PoPs with the most important content (the movies and shows most likely to be watched).
+Since the **PoPs** can't keep the entirety of Netflix's video content in cache, we can have an external service that periodically repopulates *CDN PoPs* with the most important content (the movies and shows most likely to be watched).
 
 ### 8. User-Activity Data Processing
 
