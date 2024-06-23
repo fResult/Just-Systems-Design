@@ -134,7 +134,8 @@ We can easily store all of this static content in a relational database or even 
 
 ### 5. User Metadata Storage
 
-We can expect to store some user metadata for each video on the Netflix platform. For instance, we might want to store the timestamp that a user left a video at, a user's rating on a video, etc..
+We can expect to store some user metadata for each video on the Netflix platform.\
+For instance, we might want to store the timestamp that a user left a video at, a user's rating on a video, etc..
 
 Just like the static content mentioned above, this user metadata will be tied to the number of videos on Netflix.\
 However, unlike the static content, this user metadata will grow with the Netflix user-based, since each user will have user metadata.
@@ -143,8 +144,8 @@ However, unlike the static content, this user metadata will grow with the Netfli
 
 $$
 \begin{aligned}
-  \sim&200M users\\
-  \sim&1\text{K videos watched per user per lifetime }(\sim10\\%\text{ of total content})\\
+  \sim&200\text{M users}\\
+  \sim&1\text{K videos watched per user per lifetime}\ (\sim10\\%\text{ of total content})\\
   \sim&100\text{ bytes/video/user}\\
   \sim&100\text{ bytes} \times 1\text{K videos} \times 200\text{M users} = 100\text{ KB} \times 200\text{M} = 1\text{ GB} \times 20\text{K} = 20\text{ TB}
 \end{aligned}
