@@ -107,7 +107,7 @@ We were told that Netflix has about 200 million users; we can make a few assumpt
 
 $$
 \begin{aligned}
-  &\sim 10\text{K videos (stored in SD \& HD)}\\
+  &\sim 10\text{K videos (stored in SD {\&} HD)}\\
   &\sim1\text{ hour average video length}\\
   &\sim10\text{ GB/h for SD} + \sim20\text {GB/h for HD} = 30\text{ GB/h per video}\\
   &\sim30\text{ GB/h} * 10\text{K videos} = 300,000\text{ GB} = 300\text{ TB}
@@ -141,7 +141,7 @@ However, unlike the static content, this user metadata will grow with the Netfli
 $$
 \begin{aligned}
   \sim&200M users\\
-  \sim&1\text{K videos watched per user per lifetime (~10\% of total content)}\\
+  \sim&1\text{K videos watched per user per lifetime (~10{\%} of total content)}\\
   \sim&100\text{ bytes/video/user}\\
   \sim&100\text{ bytes} * 1\text{K videos} * 200\text{M users} = 100\text{ KB} * 200\text{M} = 1\text{ GB} * 20\text{K} = 20\text{ TB}
 \end{aligned}
@@ -175,9 +175,9 @@ We'll assume that, at peak traffic, like when a popular movie comes out, a fairl
 $$
 \begin{aligned}
   \sim&200\text{M total users}\\
-  \sim&5\text{\% of total users streaming concurrently during peak hours}\\
+  \sim&5\text{{\%} of total users streaming concurrently during peak hours}\\
   \sim&20\text{ GB/h of HD video} \simeq 5 \text{MB/s of HD video}\\
-  \sim&5\text{\% of }200\text{M} * 5\text{ MB/s} = 10\text{M} * 5\text{ MB/s} = 50\text{ TB/s}
+  \sim&5\text{{\%} of }200\text{M} * 5\text{ MB/s} = 10\text{M} * 5\text{ MB/s} = 50\text{ TB/s}
 \end{aligned}
 $$
 
