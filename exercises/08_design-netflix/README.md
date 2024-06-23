@@ -115,6 +115,8 @@ $$
 \end{aligned}
 $$
 
+> See storage estimation in the [cheat sheet](/05_storage/README.md#storage-scale-cheat-sheet)
+
 This number highlights the importance of estimations.\
 Naively, one might think that Netflix stores many petabytes of video, since its core product revolves around video content; but a simple back-of-the-napkin estimation shows us that it actually stores a very modest amount of video.
 
