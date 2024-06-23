@@ -39,7 +39,7 @@ You'll need to come up with a way to aggregate and process user-activity data on
 *For this recommendation system, should I think about the kind of algorithm that'll fuel it?*
 
 **A:**\
-No, you don't need to worry about implementing any algorithm or formula for the recommendation engine.
+No, you don't need to worry about implementing any algorithm or formula for the recommendation engine.\
 You just need to think about how user-activity data will be gathered and processed.
 
 ### Question 4
