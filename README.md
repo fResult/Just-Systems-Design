@@ -28,7 +28,7 @@ pnpm install
 2. What Are Design Fundamental?
 3. Client–Server Model
 4. Network Protocols
-5. Storage
+5. [Storage](./05_storage)
 6. Latency vs. Throughput
 7. Availability
 8. Caching
