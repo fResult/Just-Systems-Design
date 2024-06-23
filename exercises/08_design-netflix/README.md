@@ -172,12 +172,14 @@ We need to figure out how we'll be delivering Netflix's video content across the
 To start, we'll estimate the maximum amount of bandwidth consumption that we could expect at any point in time.
 We'll assume that, at peak traffic, like when a popular movie comes out, a fairly large number of Netflix users might be streaming video content concurrently.
 
-```
-~200M total users
-~5% of total users streaming concurrently during peak hours
-~20 GB/h of HD video ~= 5 MB/s of HD video
-~5% of 200M * 5 MB/s = 10M * 5 MB/s = 50 TB/s
-```
+$$
+\begin{aligned}
+  \sim&200\text{M total users}\\
+  \sim&5\text{\% of total users streaming concurrently during peak hours}\\
+  \sim&20\text{ GB/h of HD video} \simeq 5 \text{MB/s of HD video}\\
+  \sim&5\text{\% of }200\text{M} * 5\text{ MB/s} = 10\text{M} * 5\text{ MB/s} = 50\text{ TB/s}
+\end{aligned}
+$$
 
 This level of bandwidth consumption means we can't just naively serve the video content out of a single data center or even dozens of data centers.
 We need many thousands of locations around the world to be distributing this content for us.
