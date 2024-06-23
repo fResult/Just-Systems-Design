@@ -110,7 +110,7 @@ $$
   &\sim 10\text{K videos (stored in SD \\& HD)}\\
   &\sim1\text{ hour average video length}\\
   &\sim10\text{ GB/h for SD} + \sim20\text {GB/h for HD} = 30\text{ GB/h per video}\\
-  &\sim30\text{ GB/h} * 10\text{K videos} = 300,000\text{ GB} = 300\text{ TB}
+  &\sim30\text{ GB/h} \times 10\text{K videos} = 300,000\text{ GB} = 300\text{ TB}
 \end{aligned}
 $$
 
@@ -143,7 +143,7 @@ $$
   \sim&200M users\\
   \sim&1\text{K videos watched per user per lifetime }(\sim10\\%\text{ of total content})\\
   \sim&100\text{ bytes/video/user}\\
-  \sim&100\text{ bytes} * 1\text{K videos} * 200\text{M users} = 100\text{ KB} * 200\text{M} = 1\text{ GB} * 20\text{K} = 20\text{ TB}
+  \sim&100\text{ bytes} \times 1\text{K videos} \times 200\text{M users} = 100\text{ KB} \times 200\text{M} = 1\text{ GB} \times 20\text{K} = 20\text{ TB}
 \end{aligned}
 $$
 
@@ -177,7 +177,7 @@ $$
   \sim&200\text{M total users}\\
   \sim&5\\%\text{ of total users streaming concurrently during peak hours}\\
   \sim&20\text{ GB/h of HD video} \simeq 5 \text{MB/s of HD video}\\
-  \sim&5\\%\text{ of }200\text{M} * 5\text{ MB/s} = 10\text{M} * 5\text{ MB/s} = 50\text{ TB/s}
+  \sim&5\\%\text{ of }200\text{M} \times 5\text{ MB/s} = 10\text{M} \times 5\text{ MB/s} = 50\text{ TB/s}
 \end{aligned}
 $$
 
