@@ -46,7 +46,7 @@ You just need to think about how user-activity data will be gathered and process
 
 **Q:**
 
-- *It sounds like there are 2 main points of focus in this system: the video-serving service and the recommendation engine.*
+- *It sounds like there are 2 main points of focus in this system: the **video-serving** service and the **recommendation engine**.*
 - *Regarding the video-serving service, I'm assuming that we're looking for high availability and fast latencies globally; is this correct?*
 
 **A:**\
