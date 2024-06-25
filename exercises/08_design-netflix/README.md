@@ -204,6 +204,40 @@ We can imagine that this user-activity data will be gathered in the form of logs
 We can store the logs in a distributed file system like **HDFS** and run *MapReduce* jobs to process massive amounts of data in parallel.\
 The results of these jobs can then be fed into some machine learning pipelines or simply stored in a database.
 
+#### Map Inputs
+
+**Our Map inputs can be our raw logs, which might look like:**
+```json
+{"userId": "userId1", "videoId": "videoId1", "event": "CLICK"}
+{"userId": "userId2", "videoId": "videoId2", "event": "PAUSE"}
+{"userId": "userId3", "videoId": "videoId3", "event": "MOUSE_MOVE"}
+```
+
+#### **Map Outputs / Reduce Inputs**
+
+Our Map function will aggregate logs based on userId and return intermediary key-value pairs indexed on each userId, pointing to lists of tuples with videoIds and relevant events.
+
+These intermediary k/v pairs will be shuffled appropriately and fed into our Reduce functions.
+
+```json
+{
+  "userId1": [
+    ("CLICK", "videoId1"),
+    ("CLICK", "videoId1"),
+    ...,
+    ("PAUSE", "videoId2")
+  ]
+}
+{
+  "userId2": [
+    ("PLAY", "videoId1"),
+    ("MOUSE_MOVE", "videoId2"),
+    ...,
+    ("MINIMIZE", "videoId3")
+  ]
+}
+```
+
 ### 9. System Diagram
 
 ![Netflix System Diagram](./img/netflix-system-diagram.svg)
