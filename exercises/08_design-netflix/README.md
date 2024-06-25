@@ -187,10 +187,13 @@ $$
 
 This level of bandwidth consumption means we can't just naively serve the video content out of a single data center or even dozens of data centers.\
 We need many thousands of locations around the world to be distributing this content for us.\
-Thankfully, **CDN**s solve this precise problem, since they have many thousands of **Points of Presence** around the world.\
+Thankfully, **CDN**s solve this precise problem, since they have many thousands of **Points of Presence (PoP)** around the world.\
 We can thus use a CDN like **Cloudflare** and serve our video content out of the CDN's PoPs.
 
 Since the **PoPs** can't keep the entirety of Netflix's video content in cache, we can have an external service that periodically repopulates *CDN PoPs* with the most important content (the movies and shows most likely to be watched).
+
+> **Note:**\
+> We can also use **Internet Exchange Point** (IXP) instance of *POP*.
 
 ### 8. User-Activity Data Processing
 
