@@ -238,6 +238,26 @@ These intermediary k/v pairs will be shuffled appropriately and fed into our Red
 }
 ```
 
+#### **Reduce Outputs**
+
+Our Reduce functions could return many different outputs.\
+They could return k/v pairs for each **`userId`** | **`videoId`** combination, pointing to a computed score for that user/video pair; they could return k/v pairs indexed at each **`userId`**, pointing to lists of (**`videoId`**, **`score`**) tuples; or they could return k/v pairs also indexed at eacher **`userId`** but pointing to stack-rankings of videoIds, based on their computed score.
+
+```jsonc
+("userId1|videoId1", score)
+("userId1|videoId2", score)
+
+// OR
+
+{"userId1": [("videoId1", score), ("videoId2", score), ..., ("videoId3", score)]}
+{"userId2": [("videoId1", score), ("videoId2", score), ..., ("videoId3", score)]}
+
+// OR
+
+("userId1", ["videoId1", "videoId2", ..., "videoId3"])
+("userId2", ["videoId1", "videoId2", ..., "videoId3"])
+```
+
 ### 9. System Diagram
 
 ![Netflix System Diagram](./img/netflix-system-diagram.svg)
