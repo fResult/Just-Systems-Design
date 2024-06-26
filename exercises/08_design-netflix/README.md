@@ -328,7 +328,7 @@ const mapOutputs = mapInputs.reduce<
 
 const reduceInputs = Object.entries(mapOutputs) as Array<[UserID, Array<[EventName, VideoID]>]>
 const reduceOutput0 = reduceInputs.reduce<
-    Record<UserVideoCombinationID, Score>
+  Record<UserVideoCombinationID, Score>
 >((acc, curr) => {
   const [userId, eventVideos]: [UserID, Array<[EventName, VideoID]>] = curr
 
