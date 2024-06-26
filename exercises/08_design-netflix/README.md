@@ -124,15 +124,12 @@ $$
 > See storage estimation in the [cheat sheet](/05_storage/README.md#storage-scale-cheat-sheet)
 
 This estimation shows the importance of calculations.\
-One might assume Netflix stores petabytes of video, but a simple estimation reveals a few hundred terabytes suffice.\
+We might assume Netflix stores petabytes of video, but a simple estimation reveals a few hundred terabytes suffice.\
 Unlike platforms like YouTube, Google Drive, and Facebook, which allow users to upload unlimited amounts of video.\
 Netflix has a fixed amount of video content.
 
 Given this, we can use a simple blob storage solution like **S3** or **GCS** for reliable storage and replication of Netflix's video content.\
 A more complex data storage solution isn't necessary.
-
-Given this, we can use a simple blob storage solution like **S3** or **GCS** for reliable storage and replication of Netflix's video content.\
-We don't need a more complex data storage solution.
 
 Since we're only dealing with a few hundred terabytes of data, we can use a simple blob storage solution like **S3** or **GCS** to reliably handle the storage and replication of Netflix's video content; we don't need a more complex data-storage solution.
 
