@@ -302,7 +302,9 @@ const mapInputs = [
     { "userId": "userId3", "videoId": "videoId3", "event": "MOUSE_MOVE" },
 ]
 
-const mapOutputs = mapInputs.reduce<Record<UserID, [EventName, VideoID][]>>((acc, curr) => {
+const mapOutputs = mapInputs.reduce<
+  Record<UserID, [EventName, VideoID][]>
+>((acc, curr) => {
     return {
         ...acc,
         [curr.userId]: [
