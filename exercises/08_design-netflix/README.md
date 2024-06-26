@@ -101,7 +101,8 @@ This means they need *a lot* of storage space.\
 They also need a system that can handle this.\
 Let's start by estimating how much space we'll need.
 
-We were told that Netflix has about 200 million users; we can make a few assumptions about other Netflix metrics (alternatively, we can ask our interviewer for guidance here):
+We were told that Netflix has about 200 million users.\
+So, we can make a few assumptions about other Netflix metrics (alternatively, we can ask our interviewer for guidance here):
 
 - Netflix serves around 200 million users
 - At any time, Netflix provides access to about 10,000 movies and shows.
