@@ -286,77 +286,82 @@ Alternatively, they could return k/v pairs indexed by **userId**, pointing to li
 ### Code
 
 ```typescript
-type UserID = string
-type VideoID = string
-type EventName = string
+type UserID = `userId${number}`
+type VideoID = `videoId${number}`
 type Score = number
 type UserVideoCombinationID = `${UserID}|${VideoID}`
 
+enum EventName {
+  Click = "CLICK",
+  Pause = "PAUSE",
+  Play = "PLAY",
+  MouseMove = "MOUSE_MOVE",
+}
+
 interface UserVideoEvent {
-    userId: UserID;
-    videoId: VideoID;
-    event: EventName;
+  userId: UserID;
+  videoId: VideoID;
+  event: EventName;
 }
 
 const mapInputs: Array<UserVideoEvent> = [
-    { "userId": "userId1", "videoId": "videoId1", "event": "CLICK" },
-    { "userId": "userId1", "videoId": "videoId1", "event": "CLICK" },
-    { "userId": "userId1", "videoId": "videoId1", "event": "PAUSE" },
-    { "userId": "userId2", "videoId": "videoId2", "event": "PLAY" },
-    { "userId": "userId2", "videoId": "videoId2", "event": "PAUSE" },
-    { "userId": "userId2", "videoId": "videoId2", "event": "MOUSE_MOVE" },
-    { "userId": "userId3", "videoId": "videoId3", "event": "MOUSE_MOVE" },
+  { "userId": "userId1", "videoId": "videoId1", "event": EventName.Click },
+  { "userId": "userId1", "videoId": "videoId1", "event": EventName.Click },
+  { "userId": "userId1", "videoId": "videoId1", "event": EventName.Pause },
+  { "userId": "userId2", "videoId": "videoId2", "event": EventName.Play },
+  { "userId": "userId2", "videoId": "videoId2", "event": EventName.Pause },
+  { "userId": "userId2", "videoId": "videoId2", "event": EventName.MouseMove },
+  { "userId": "userId3", "videoId": "videoId3", "event": EventName.MouseMove },
 ]
 
 const mapOutputs = mapInputs.reduce<
-    Record<UserID, Array<[EventName, VideoID]>>
+  Record<UserID, Array<[EventName, VideoID]>>
 >((acc, curr) => {
-    return {
-        ...acc,
-        [curr.userId]: [
-            ...(acc[curr.userId] ? acc[curr.userId] : []),
-            [curr.event, curr.videoId,]
-        ]
-    }
+  return {
+    ...acc,
+    [curr.userId]: [
+      ...(acc[curr.userId] ? acc[curr.userId] : []),
+      [curr.event, curr.videoId,]
+    ]
+  }
 }, {})
 
-const reduceInputs = Object.entries(mapOutputs)
+const reduceInputs = Object.entries(mapOutputs) as Array<[UserID, Array<[EventName, VideoID]>]>
 const reduceOutput0 = reduceInputs.reduce<
-  Record<UserVideoCombinationID, Score>
+    Record<UserVideoCombinationID, Score>
 >((acc, curr) => {
-    const [userId, eventVideos]: [UserID, Array<[EventName, VideoID]>] = curr
+  const [userId, eventVideos]: [UserID, Array<[EventName, VideoID]>] = curr
 
-    const combinationScorePairs: Array<
-      [UserVideoCombinationID, EventName]
-    > = eventVideos.map(([event, videoId]) => {
-        const combinationId: UserVideoCombinationID = `${userId}|${videoId}`
-        return [combinationId, event]
-    })
+  const combinationScorePairs: Array<
+    [UserVideoCombinationID, EventName]
+  > = eventVideos.map(([event, videoId]) => {
+    const combinationId: UserVideoCombinationID = `${userId}|${videoId}`
+    return [combinationId, event]
+  })
 
-    return combinationScorePairs.reduce<
-      Record<UserVideoCombinationID, Score>
-    >((pairAcc, [combinatoinId, event]) => {
-        const currScore = fakeScore(event)
-        return {
-            ...acc,
-            [combinatoinId]: pairAcc[combinatoinId] ? pairAcc[combinatoinId] + currScore : currScore
-        }
-    }, {})
+  return combinationScorePairs.reduce<
+    Record<UserVideoCombinationID, Score>
+  >((pairAcc, [combinationId, event]) => {
+    const currScore = fakeScore(event)
+    return {
+      ...acc,
+      [combinationId]: pairAcc[combinationId] ? pairAcc[combinationId] + currScore : currScore
+    }
+  }, {})
 }, {})
 
 console.log(reduceOutput0)
 
-const reduceOutput1 = Object.entries(reduceOutput0)
+const reduceOutput1 = Object.entries(reduceOutput0) as Array<[UserVideoCombinationID, Score]>
 console.log('reduceOutput1', reduceOutput1)
 
 function fakeScore(event: EventName): Score {
-    const eventScoreDict: Record<EventName, Score> = {
-        "PLAY": 2,
-        "PAUSE": 3,
-        "CLICK": 5,
-        "MOUSE_MOVE": 1,
-    }
-
-    return eventScoreDict[event] || 0
+  const eventScoreDict: Record<EventName, Score> = {
+    "PLAY": 2,
+    "PAUSE": 3,
+    "CLICK": 5,
+    "MOUSE_MOVE": 1,
+  }
+  return eventScoreDict[event] || 0
 }
 ```
