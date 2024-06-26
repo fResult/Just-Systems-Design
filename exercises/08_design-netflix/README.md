@@ -138,11 +138,10 @@ Since we're only dealing with a few hundred terabytes of data, we can use a simp
 
 ### 4. Static-Content Storage
 
-Apart from video content, we'll want to store various pieces of static content for Netflix's movies and shows, including video titles, descriptions, and cast lists.
+In addition to video content, we'll want to store various pieces of static content for Netflix's movies and shows, such as titles, descriptions, and cast lists.\
+This content is also limited in size by the number of movies and shows and takes up less space than video data.
 
-This content will be bounded in size by the size of the video content, since it'll be tied to the number of movies and shows, just like the video content, and since it'll naturally take up less space than the video data.
-
-We can easily store all of this static content in a relational database or even in a document store, and we can cache most of it in our API servers.
+We can store all this static content in a relational database or even a document store and cache most of it on our API servers.
 
 ### 5. User Metadata Storage
 
