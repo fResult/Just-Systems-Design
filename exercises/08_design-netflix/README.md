@@ -78,16 +78,16 @@ Even though we're indeed designing Netflix to be used by all sorts of clients, l
 
 As with any systems design interview question, the first thing that we want to do is to gather system requirements; we need to figure out what system we're building exactly.
 
-We're designing the core Netflix service, which allows users to stream movies and shows from the Netflix website.
+Here, we aim to build the core Netflix service, allowing users to stream movies and shows from the Netflix website.
 
 **Specifically, we'll want to focus on:**
 
-- Delivering large amounts of high-definition video content to hundreds of millions of users around the globe without too much buffering.
+- Delivering large amounts of high-definition video content to hundreds of millions of users worldwide without too much buffering.
 - Processing large amounts of user-activity data to support Netflix's recommendation engine.
 
 ### 2. Coming Up With A Plan
 
-**We'll tackle this system by dividing it into four main sections:**
+**We will break down the system into 4 main sections:**
 
 - Storage (Video Content, Static Content, and User Metadata)
 - General Client-Server Interaction (i.e., the life of a query)
@@ -263,7 +263,7 @@ They could return k/v pairs for each **`userId`** | **`videoId`** combination, p
 
 ![Netflix System Diagram](./img/netflix-system-diagram.svg)
 
-#### Coding
+### Code
 
 ```typescript
 const mapInputs = [
