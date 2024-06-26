@@ -216,7 +216,7 @@ The results of these jobs can then be fed into some machine learning pipelines o
 
 #### **Map Outputs / Reduce Inputs**
 
-Our Map function will aggregate logs based on **`userId`** and return intermediary key-value pairs indexed on each userId, pointing to lists of tuples with videoIds and relevant events.
+Our Map function will aggregate logs based on **`userId`** and return intermediary key-value pairs indexed on each userId, pointing to lists of tuples with **`videoIds`** and relevant events.
 
 These intermediary k/v pairs will be shuffled appropriately and fed into our Reduce functions.
 
