@@ -326,7 +326,9 @@ const reduceOutput0 = reduceInputs.reduce<
 >((acc, curr) => {
     const [userId, eventVideos]: [UserID, Array<[EventName, VideoID]>] = curr
 
-    const combinationScorePairs: Array<[UserVideoCombinationID, EventName]> = eventVideos.map(([event, videoId]) => {
+    const combinationScorePairs: Array<
+      [UserVideoCombinationID, EventName]
+    > = eventVideos.map(([event, videoId]) => {
         const combinationId: UserVideoCombinationID = `${userId}|${videoId}`
         return [combinationId, event]
     })
