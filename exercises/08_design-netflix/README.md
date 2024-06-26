@@ -293,9 +293,9 @@ type Score = number
 type UserVideoCombinationID = `${UserID}|${VideoID}`
 
 interface UserVideoEvent {
-  userId: UserID;
-  videoId: VideoID;
-  event: EventName;
+    userId: UserID;
+    videoId: VideoID;
+    event: EventName;
 }
 
 const mapInputs: Array<UserVideoEvent> = [
@@ -309,7 +309,7 @@ const mapInputs: Array<UserVideoEvent> = [
 ]
 
 const mapOutputs = mapInputs.reduce<
-  Record<UserID, Array<[EventName, VideoID]>>
+    Record<UserID, Array<[EventName, VideoID]>>
 >((acc, curr) => {
     return {
         ...acc,
@@ -321,22 +321,26 @@ const mapOutputs = mapInputs.reduce<
 }, {})
 
 const reduceInputs = Object.entries(mapOutputs)
+const reduceOutput0 = reduceInputs.reduce<Record<UserVideoCombinationID, Score>>((acc, curr) => {
+    const [userId, eventVideos]: [UserID, Array<[EventName, VideoID]>] = curr
 
-const reduceOutput1 = reduceInputs.reduce<
-  Array<[UserVideoCombinationID, Score]>
->((acc, curr) => {
-    const [userId, eventVideos] = curr
+    const combinationScorePairs: Array<[UserVideoCombinationID, EventName]> = eventVideos.map(([event, videoId]) => {
+        const combinationId: UserVideoCombinationID = `${userId}|${videoId}`
+        return [combinationId, event]
+    })
 
-    return [
-        ...acc,
-        ...eventVideos.map<
-          [UserVideoCombinationID, Score]
-        >(([event, videoId]) => {
-            return [`${userId}|${videoId}`, fakeScore(event)]
-        })
-    ]
-}, [])
+    return combinationScorePairs.reduce<Record<UserVideoCombinationID, Score>>((pairAcc, [combinatoinId, event]) => {
+        const currScore = fakeScore(event)
+        return {
+            ...acc,
+            [combinatoinId]: pairAcc[combinatoinId] ? pairAcc[combinatoinId] + currScore : currScore
+        }
+    }, {})
+}, {})
 
+console.log(reduceOutput0)
+
+const reduceOutput1 = Object.entries(reduceOutput0)
 console.log('reduceOutput1', reduceOutput1)
 
 function fakeScore(event: EventName): Score {
