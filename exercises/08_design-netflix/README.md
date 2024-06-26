@@ -142,11 +142,11 @@ We can store all this static content in a relational database or even a document
 
 ### 5. User Metadata Storage
 
-We can expect to store some user metadata for each video on the Netflix platform.\
-For instance, we might want to store the timestamp that a user left a video at, a user's rating on a video, etc..
+We'll store user metadata for each video on the Netflix platform.\
+Such as the timestamp when a user left a video and user ratings on a video, etc...
 
-Just like the static content mentioned above, this user metadata will be tied to the number of videos on Netflix.\
-However, unlike the static content, this user metadata will grow with the Netflix user-based, since each user will have user metadata.
+Like the static content mentioned above, This metadata is tied to the number of videos.
+But it grows with the user base because every user has user metadata.
 
 **We can quickly estimate how much space we'll need for this user metadata:**
 
@@ -158,17 +158,22 @@ $$
   \sim&100\text{ bytes} \times 1\text{K videos} \times 200\text{M users} = 100\text{ KB} \times 200\text{M} = 1\text{ GB} \times 20\text{K} = 20\text{ TB}
 \end{aligned}
 $$
+Surprisingly, the amount of user metadata is similar to the amount of video content.\
+This is because of the fixed nature of Netflix's video content versus the growing user base.
 
-Perhaps surprisingly, we'll be storing an amount of user metadata in the same ballpark as the amount of video content that we'll be storing.\
-Once again, this is because of the bounded nature of Netflix's video content, which is in stark contrast with the unbounded nature of its user-based.
+We will probably need to search through this metadata.\
+So, it's a good idea to use a relational database like **Postgres** for storage.\
+This setup helps keep the search and save time fast for user data.
 
-We'll likely need to query this metadata, so storing it in a classic relational database like **Postgres** makes sense.
+Since Netflix users do not interact with each other like they would on a social network.\
+In simpler terms, operations such as *GetUserInfo* and *GetUserWatchedVideos* need quick responses and are focused on just one user.\
+Meanwhile, more complex database operations that deal with of many users' metadata will probably be done as part of background jobs in data engineering.\
+These jobs are less concerned with how fast they operate.\
+Therefore, we can divide the user-metadata database into several parts, or shards.
 
-Since Netflix users are effectively isolated from one another (they aren't connected like they would be on a social-media platform, for example), we can expect all of our latency-sensitive database operations to only relate to individual users.\
-In other words, potential operations like *GetUserInfo* and *GetUserWatchedVideos*, which would require fast latencies, are specific to a particular users; on the other hand, complicated database operations involving multiple users' metadata will likely be part of background data-engineering jobs that don't care about latency.
-
-Given this, we can split our user-metadata database into a handful of shards, each managing anywhere between 1 and 10 TB of indexed data.\
-This will maintain very quick reads and writes for a given user.
+Based on this, we can organize our user metadata database into a few shards.\
+Each shard will handle 1 to 10 TB of data that we've indexed.\
+With indexing, we ensure fast data lookups and updates for each user.
 
 ### 6. General Client-Server Interaction
 
