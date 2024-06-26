@@ -321,7 +321,9 @@ const mapOutputs = mapInputs.reduce<
 }, {})
 
 const reduceInputs = Object.entries(mapOutputs)
-const reduceOutput0 = reduceInputs.reduce<Record<UserVideoCombinationID, Score>>((acc, curr) => {
+const reduceOutput0 = reduceInputs.reduce<
+  Record<UserVideoCombinationID, Score>
+>((acc, curr) => {
     const [userId, eventVideos]: [UserID, Array<[EventName, VideoID]>] = curr
 
     const combinationScorePairs: Array<[UserVideoCombinationID, EventName]> = eventVideos.map(([event, videoId]) => {
@@ -329,7 +331,9 @@ const reduceOutput0 = reduceInputs.reduce<Record<UserVideoCombinationID, Score>>
         return [combinationId, event]
     })
 
-    return combinationScorePairs.reduce<Record<UserVideoCombinationID, Score>>((pairAcc, [combinatoinId, event]) => {
+    return combinationScorePairs.reduce<
+      Record<UserVideoCombinationID, Score>
+    >((pairAcc, [combinatoinId, event]) => {
         const currScore = fakeScore(event)
         return {
             ...acc,
@@ -350,6 +354,7 @@ function fakeScore(event: EventName): Score {
         "CLICK": 5,
         "MOUSE_MOVE": 1,
     }
+
     return eventScoreDict[event] || 0
 }
 ```
