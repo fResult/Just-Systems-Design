@@ -242,7 +242,7 @@ These intermediary k/v pairs will be shuffled appropriately and fed into our Red
 #### **Reduce Outputs**
 
 Our Reduce functions could return many different outputs.\
-They could return k/v pairs for each **`userId`** | **`videoId`** combination, pointing to a computed score for that user/video pair; they could return k/v pairs indexed at each **`userId`**, pointing to lists of (**`videoId`**, **`score`**) tuples; or they could return k/v pairs also indexed at eacher **`userId`** but pointing to stack-rankings of videoIds, based on their computed score.
+They could return k/v pairs for each **`userId`** | **`videoId`** combination, pointing to a computed **`score`** for that user/video pair; they could return k/v pairs indexed at each **`userId`**, pointing to lists of (**`videoId`**, **`score`**) tuples; or they could return k/v pairs also indexed at eacher **`userId`** but pointing to stack-rankings of **`videoIds`**, based on their computed score.
 
 ```jsonc
 ("userId1|videoId1", score)
