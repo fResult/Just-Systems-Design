@@ -314,7 +314,9 @@ const mapOutputs = mapInputs.reduce<Record<UserID, [EventName, VideoID][]>>((acc
 
 const reduceInputs = Object.entries(mapOutputs)
 
-const reduceOutput1 = reduceInputs.reduce<[UserVideoCombinationID, Score][]>((acc, curr) => {
+const reduceOutput1 = reduceInputs.reduce<
+  [UserVideoCombinationID, Score][]
+>((acc, curr) => {
     const [userId, eventVideos] = curr
 
     return [
