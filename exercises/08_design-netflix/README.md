@@ -262,3 +262,52 @@ They could return k/v pairs for each **`userId`** | **`videoId`** combination, p
 ### 9. System Diagram
 
 ![Netflix System Diagram](./img/netflix-system-diagram.svg)
+
+### Appendix
+
+```typescript
+const inputs = [
+    { "userId": "userId1", "videoId": "videoId1", "event": "CLICK" },
+    { "userId": "userId1", "videoId": "videoId1", "event": "CLICK" },
+    { "userId": "userId1", "videoId": "videoId1", "event": "PAUSE" },
+    { "userId": "userId2", "videoId": "videoId2", "event": "PLAY" },
+    { "userId": "userId2", "videoId": "videoId2", "event": "PAUSE" },
+    { "userId": "userId2", "videoId": "videoId2", "event": "MOUSE_MOVE" },
+    { "userId": "userId3", "videoId": "videoId3", "event": "MOUSE_MOVE" },
+]
+
+const mapOutputs = inputs.reduce<Record<string, [string, string][]>>((acc, curr) => {
+    return {
+        ...acc,
+        [curr.userId]: [
+            ...(acc[curr.userId] ? acc[curr.userId] : []),
+            [curr.event, curr.videoId,]
+        ]
+    }
+}, {})
+
+const reduceInputs = Object.entries(mapOutputs)
+
+const reduceOutput1 = reduceInputs.reduce<[string, number][]>((acc, curr) => {
+    const [userId, eventVideos] = curr
+
+    return [
+        ...acc,
+        ...eventVideos.map<[string, number]>(([event, videoId]) => {
+            return [`${userId}|${videoId}`, fakeScore(event)]
+        })
+    ]
+}, [])
+
+console.log('reduceOutput1', reduceOutput1)
+
+function fakeScore(event: string): number {
+    const eventScoreDict: Record<string, number> = {
+        "PLAY": 2,
+        "PAUSE": 3,
+        "CLICK": 5,
+        "MOUSE_MOVE": 1,
+    }
+    return eventScoreDict[event] || 0
+}
+```
