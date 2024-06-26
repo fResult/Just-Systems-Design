@@ -158,6 +158,7 @@ $$
   \sim&100\text{ bytes} \times 1\text{K videos} \times 200\text{M users} = 100\text{ KB} \times 200\text{M} = 1\text{ GB} \times 20\text{K} = 20\text{ TB}
 \end{aligned}
 $$
+
 Surprisingly, the amount of user metadata is similar to the amount of video content.\
 This is because of the fixed nature of Netflix's video content versus the growing user base.
 
@@ -186,9 +187,9 @@ We can also cache user metadata using a write-through caching mechanism.
 
 ### 7. Video Content Delivery
 
-We need to figure out how we'll be delivering Netflix's video content across the globe with little latency.\
-To start, we'll estimate the maximum amount of bandwidth consumption that we could expect at any point in time.\
-We'll assume that, at peak traffic, like when a popular movie comes out, a fairly large number of Netflix users might be streaming video content concurrently.
+Delivering Netflix's video content globally with minimal latency is crucial.\
+We will estimate the highest bandwidth usage we might see at any moment.\
+We expect that during peak times, such as the release of a popular movie, a large number of Netflix users will be watching videos concurrently
 
 $$
 \begin{aligned}
