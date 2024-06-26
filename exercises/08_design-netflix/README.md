@@ -263,10 +263,10 @@ They could return k/v pairs for each **`userId`** | **`videoId`** combination, p
 
 ![Netflix System Diagram](./img/netflix-system-diagram.svg)
 
-### Appendix
+#### Coding
 
 ```typescript
-const inputs = [
+const mapInputs = [
     { "userId": "userId1", "videoId": "videoId1", "event": "CLICK" },
     { "userId": "userId1", "videoId": "videoId1", "event": "CLICK" },
     { "userId": "userId1", "videoId": "videoId1", "event": "PAUSE" },
@@ -276,7 +276,7 @@ const inputs = [
     { "userId": "userId3", "videoId": "videoId3", "event": "MOUSE_MOVE" },
 ]
 
-const mapOutputs = inputs.reduce<Record<string, [string, string][]>>((acc, curr) => {
+const mapOutputs = mapInputs.reduce<Record<string, [string, string][]>>((acc, curr) => {
     return {
         ...acc,
         [curr.userId]: [
