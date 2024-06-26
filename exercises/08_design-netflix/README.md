@@ -286,6 +286,12 @@ Alternatively, they could return k/v pairs indexed by **userId**, pointing to li
 ### Code
 
 ```typescript
+type UserID = string
+type VideoID = string
+type EventName = string
+type Score = number
+type UserVideoCombinationID = `${UserID}|${VideoID}`
+
 const mapInputs = [
     { "userId": "userId1", "videoId": "videoId1", "event": "CLICK" },
     { "userId": "userId1", "videoId": "videoId1", "event": "CLICK" },
@@ -296,7 +302,7 @@ const mapInputs = [
     { "userId": "userId3", "videoId": "videoId3", "event": "MOUSE_MOVE" },
 ]
 
-const mapOutputs = mapInputs.reduce<Record<string, [string, string][]>>((acc, curr) => {
+const mapOutputs = mapInputs.reduce<Record<UserID, [EventName, VideoID][]>>((acc, curr) => {
     return {
         ...acc,
         [curr.userId]: [
@@ -308,12 +314,14 @@ const mapOutputs = mapInputs.reduce<Record<string, [string, string][]>>((acc, cu
 
 const reduceInputs = Object.entries(mapOutputs)
 
-const reduceOutput1 = reduceInputs.reduce<[string, number][]>((acc, curr) => {
+const reduceOutput1 = reduceInputs.reduce<[UserVideoCombinationID, Score][]>((acc, curr) => {
     const [userId, eventVideos] = curr
 
     return [
         ...acc,
-        ...eventVideos.map<[string, number]>(([event, videoId]) => {
+        ...eventVideos.map<
+          [UserVideoCombinationID, Score]
+        >(([event, videoId]) => {
             return [`${userId}|${videoId}`, fakeScore(event)]
         })
     ]
@@ -321,8 +329,8 @@ const reduceOutput1 = reduceInputs.reduce<[string, number][]>((acc, curr) => {
 
 console.log('reduceOutput1', reduceOutput1)
 
-function fakeScore(event: string): number {
-    const eventScoreDict: Record<string, number> = {
+function fakeScore(event: EventName): Score {
+    const eventScoreDict: Record<EventName, Score> = {
         "PLAY": 2,
         "PAUSE": 3,
         "CLICK": 5,
