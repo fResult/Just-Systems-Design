@@ -177,11 +177,12 @@ With indexing, we ensure fast data lookups and updates for each user.
 
 ### 6. General Client-Server Interaction
 
-The part of the system that handles serving user metadata and static content to users shouldn't be too complicated.
+The part of the system that handles serving user metadata and static content to users shouldn't be too complicated.\
+We can apply straightforward round-robin load balancing to spread out network requests from users among our API servers.\
+These servers can then distribute database requests by **`userId`**. This is because we organize our database into shards according to **`userId`**.
 
-We can use some simple round-robin load balancing to distribute end-user network requests across our API servers, which can then load-balance database requests according to userId (since our database will be sharded based on userId).
-
-As mentioned above, we can cache our static content in our API servers, periodically updating it when new movies and shows are released, and we can even cache user metadata there, using a write-through caching mechanism.
+As mentioned above, we can cache our static content in our API servers, updating it periodically when new movies and shows are released.\
+We can also cache user metadata using a write-through caching mechanism.
 
 ### 7. Video Content Delivery
 
