@@ -292,7 +292,13 @@ type EventName = string
 type Score = number
 type UserVideoCombinationID = `${UserID}|${VideoID}`
 
-const mapInputs = [
+interface UserVideoEvent {
+  userId: UserID;
+  videoId: VideoID;
+  event: EventName;
+}
+
+const mapInputs: Array<UserVideoEvent> = [
     { "userId": "userId1", "videoId": "videoId1", "event": "CLICK" },
     { "userId": "userId1", "videoId": "videoId1", "event": "CLICK" },
     { "userId": "userId1", "videoId": "videoId1", "event": "PAUSE" },
@@ -303,7 +309,7 @@ const mapInputs = [
 ]
 
 const mapOutputs = mapInputs.reduce<
-  Record<UserID, [EventName, VideoID][]>
+  Record<UserID, Array<[EventName, VideoID]>>
 >((acc, curr) => {
     return {
         ...acc,
@@ -317,7 +323,7 @@ const mapOutputs = mapInputs.reduce<
 const reduceInputs = Object.entries(mapOutputs)
 
 const reduceOutput1 = reduceInputs.reduce<
-  [UserVideoCombinationID, Score][]
+  Array<[UserVideoCombinationID, Score]>
 >((acc, curr) => {
     const [userId, eventVideos] = curr
 
