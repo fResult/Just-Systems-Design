@@ -357,10 +357,10 @@ console.log('reduceOutput1', reduceOutput1)
 
 function fakeScore(event: EventName): Score {
   const eventScoreDict: Record<EventName, Score> = {
-    "PLAY": 2,
-    "PAUSE": 3,
-    "CLICK": 5,
-    "MOUSE_MOVE": 1,
+    EventName.Play: 2,
+    EventName.Pause: 3,
+    EventName.Click: 5,
+    EventName.MouseMove": 1,
   }
   return eventScoreDict[event] || 0
 }
