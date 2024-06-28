@@ -33,10 +33,10 @@ pnpm install
 8. Caching
 9. Proxies
 10. Load Balancers
-11. Hashing
+11. Hashing (No Example)
 12. [Relational Databases](./12_relational_databases)
 13. [Key–Value Stores](./13_key-value-stores)
-14. Specialized Storage Paradigms
+14. [Specialized Storage Paradigms](./14_specialized-storage-paradigms)
 15. [Replication And Sharding](./15_replication-n-sharding)
 16. Leader Election
 17. Peer-To-Peer Networks
