@@ -10,11 +10,8 @@ cd "$(dirname "$0")" || return
 
 export WORK_DIR=15_replication-n-sharding
 
-export PORT=3001
-export DATA_DIR=sharded-db2
-
 ## Run code
 
-pnpm concurrently "./$WORK_DIR/run-mydb1.md"\
-  "sleep 1 && ./$WORK_DIR/run-mydb2.md"\
-  "sleep 1 && ./$WORK_DIR/run-mydb-proxy.md"
+PORT=3000 DATA_DIR=sharded-db1 pnpm ts-node $WORK_DIR/mydb.ts &\
+PORT=3001 DATA_DIR=sharded-db2 pnpm ts-node $WORK_DIR/mydb.ts &\
+pnpm ts-node $WORK_DIR/mydb-proxy.ts
