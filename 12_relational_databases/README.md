@@ -10,8 +10,11 @@
 - D - Durability
 
 ## ACID Transaction & Indexes
+
 ### Tables and INSERT
+
 `tables.sql`
+
 ```sql
 CREATE TABLE payments (
     customer_name varchar(128),
@@ -55,8 +58,11 @@ INSERT INTO large_table (random_int)
 SELECT round (random() * 1000000000)
 FROM generate_series(1, 50000000) s(i);
 ```
+
 ### Queries
+
 `queries.sql`
+
 ```sql
 /*
  * Powerful Queries
