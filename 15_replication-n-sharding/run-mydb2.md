@@ -13,4 +13,4 @@ export DATA_DIR=sharded-db2
 
 ## Run code
 
-pnpm ts-node $WORK_DIR/aedb.ts
+pnpm ts-node $WORK_DIR/mydb.ts

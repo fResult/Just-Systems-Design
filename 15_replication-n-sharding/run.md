@@ -15,6 +15,6 @@ export DATA_DIR=sharded-db2
 
 ## Run code
 
-pnpm concurrently "./$WORK_DIR/run-aedb1.md"\
-  "sleep 1 && ./$WORK_DIR/run-aedb2.md"\
-  "sleep 1 && ./$WORK_DIR/run-aedb-proxy.md"
+pnpm concurrently "./$WORK_DIR/run-mydb1.md"\
+  "sleep 1 && ./$WORK_DIR/run-mydb2.md"\
+  "sleep 1 && ./$WORK_DIR/run-mydb-proxy.md"
