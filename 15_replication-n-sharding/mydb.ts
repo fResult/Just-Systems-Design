@@ -34,7 +34,7 @@ app.get("/:key", (req: Request, res: Response) => {
 
   try {
     const data = fs.readFileSync(destinationFile)
-    res.json({ data })
+    res.json({ data: data.toString() })
   } catch (e) {
     const error = e as Error
     console.error(error.stack)
