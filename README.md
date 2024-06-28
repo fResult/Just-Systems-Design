@@ -32,7 +32,7 @@ pnpm install
 7. Availability
 8. Caching
 9. Proxies
-10. Load Balancers
+10. [Load Balancers](./10_load-balancers)
 11. Hashing (No Example)
 12. [Relational Databases](./12_relational_databases)
 13. [Key–Value Stores](./13_key-value-stores)

@@ -1,0 +1,23 @@
+# Load Balancers
+
+**Here is the round-robin load balancer strategy sample by Nginx:**
+
+```nginx
+events { }
+
+http {
+    upstream nodejs-backend {
+        server localhost:3000 weight=3;
+        server localhost:3001;
+    }
+
+    server {
+        listen 8081;
+
+        location / {
+            proxy_set_header x-service my-service;
+            proxy_pass http://nodejs-backend;
+        }
+    }
+}
+```
