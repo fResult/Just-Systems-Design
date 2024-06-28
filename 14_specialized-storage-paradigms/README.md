@@ -1,5 +1,19 @@
 # Specialized Storage Paradigms
 
+- Blob Storage
+  - Google Cloud Storage
+  - S3
+- Time Series Database
+  - InfluxDB
+  - Promotheus
+- Graph Database
+- Cypher (code example is below)
+  - Neo4J
+- Spatial Database
+- Quadtree
+
+**Cypher Query Language Code Example:**
+
 ```sql
 CREATE (facebook:Company {name:'Facebook'})
 CREATE (clement:Candidate {name: 'Clement'})
