@@ -12,6 +12,6 @@ export WORK_DIR=15_replication-n-sharding
 
 ## Run code
 
-PORT=3000 DATA_DIR=sharded-db1 pnpm ts-node $WORK_DIR/mydb.ts &\
-PORT=3001 DATA_DIR=sharded-db2 pnpm ts-node $WORK_DIR/mydb.ts &\
-pnpm ts-node $WORK_DIR/mydb-proxy.ts
+pnpm concurrently "pnpm ts-node $WORK_DIR/mydb-proxy.ts"\
+  "PORT=3000 DATA_DIR=sharded-db1 pnpm ts-node $WORK_DIR/mydb.ts"\
+  "PORT=3001 DATA_DIR=sharded-db2 pnpm ts-node $WORK_DIR/mydb.ts"
