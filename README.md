@@ -6,7 +6,8 @@ This repository is created for studying the Systems Design from AlgoExpert.io pu
 
 - [Node](https://nodejs.org/en/download)
 - [PNPM](https://pnpm.io/installation)
-- [PostgreSQL](https://www.postgresql.org/download) (For the example of [\[12. Relational Database\]](./12_relational_databases))
+- [NGINX](https://nginx.org/en/download.html) (For the example of [\[10. Load Balancers\]](./10_load-balancers))
+- [PostgreSQL](https://www.postgresql.org/download) (For the example of [\[12. Relational Databases\]](./12_relational_databases))
 - [Redis Stack](https://redis.io/docs/latest/operate/oss_and_stack/install/install-stack) (For the example of [\[13. Key-Value Store\]](./13_key-value-stores))
 
 ## Available Scripts
