@@ -8,7 +8,11 @@ const app = express()
 app.use(express.json())
 
 function getShardEndpoint(key: string): string {
-  const shardNumber: number = key.charCodeAt(0) % SHARD_COUNT
+  const toCharCode = (char: string) => char.charCodeAt(0)
+  const add = (a: number, b: number) => a + b
+  const charCodeSum = Array.from(key).map(toCharCode).reduce(add)
+
+  const shardNumber: number = charCodeSum % SHARD_COUNT
   const shardAddress: string = SHARD_ADDRESSES[shardNumber]
 
   return `${shardAddress}/${key}`
