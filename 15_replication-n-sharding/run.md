@@ -10,6 +10,10 @@ cd "$(dirname "$0")" || return
 
 export WORK_DIR=15_replication-n-sharding
 
+### Clean up stray files from the previous run
+
+rm -f sharded-db*/*
+
 ## Run code
 
 pnpm concurrently "pnpm ts-node $WORK_DIR/mydb-proxy.ts"\
