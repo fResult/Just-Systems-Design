@@ -13,5 +13,5 @@
   ```bash
   ./run.md
   # OR if you are in the root directory
-  ./15_replication-n-sharding/run.md
+  ./11_hashing/run.md
   ```
