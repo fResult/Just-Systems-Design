@@ -305,55 +305,54 @@ interface UserVideoEvent {
 }
 
 const mapInputs: Array<UserVideoEvent> = [
-  { "userId": "userId1", "videoId": "videoId1", "event": EventName.Click },
-  { "userId": "userId1", "videoId": "videoId1", "event": EventName.Click },
-  { "userId": "userId1", "videoId": "videoId1", "event": EventName.Pause },
-  { "userId": "userId2", "videoId": "videoId2", "event": EventName.Play },
-  { "userId": "userId2", "videoId": "videoId2", "event": EventName.Pause },
-  { "userId": "userId2", "videoId": "videoId2", "event": EventName.MouseMove },
-  { "userId": "userId3", "videoId": "videoId3", "event": EventName.MouseMove },
+  { userId: "userId1", videoId: "videoId1", event: EventName.Click },
+  { userId: "userId1", videoId: "videoId1", event: EventName.Click },
+  { userId: "userId1", videoId: "videoId1", event: EventName.Pause },
+  { userId: "userId1", videoId: "videoId2", event: EventName.Play },
+  { userId: "userId1", videoId: "videoId2", event: EventName.Pause },
+  { userId: "userId2", videoId: "videoId1", event: EventName.MouseMove },
+  { userId: "userId2", videoId: "videoId1", event: EventName.Click },
+  { userId: "userId2", videoId: "videoId2", event: EventName.Play },
+  { userId: "userId2", videoId: "videoId2", event: EventName.Pause },
+  { userId: "userId2", videoId: "videoId2", event: EventName.Play },
+  { userId: "userId3", videoId: "videoId1", event: EventName.MouseMove },
+  { userId: "userId3", videoId: "videoId2", event: EventName.Click },
+  { userId: "userId3", videoId: "videoId2", event: EventName.MouseMove },
 ]
 
-const mapOutputs = mapInputs.reduce<
-  Record<UserID, Array<[EventName, VideoID]>>
->((acc, curr) => {
-  return {
-    ...acc,
-    [curr.userId]: [
-      ...(acc[curr.userId] ? acc[curr.userId] : []),
-      [curr.event, curr.videoId,]
-    ]
-  }
-}, {})
-
-const reduceInputs = Object.entries(mapOutputs) as Array<[UserID, Array<[EventName, VideoID]>]>
-const reduceOutput0 = reduceInputs.reduce<
-  Record<UserVideoCombinationID, Score>
->((acc, curr) => {
-  const [userId, eventVideos]: [UserID, Array<[EventName, VideoID]>] = curr
-
-  const combinationScorePairs: Array<
-    [UserVideoCombinationID, EventName]
-  > = eventVideos.map(([event, videoId]) => {
-    const combinationId: UserVideoCombinationID = `${userId}|${videoId}`
-    return [combinationId, event]
-  })
-
-  return combinationScorePairs.reduce<
-    Record<UserVideoCombinationID, Score>
-  >((pairAcc, [combinationId, event]) => {
-    const currScore = fakeScore(event)
-    return {
-      ...acc,
-      [combinationId]: pairAcc[combinationId] ? pairAcc[combinationId] + currScore : currScore
+function mapFunction(input: Array<UserVideoEvent>): Record<UserID, Array<[EventName, VideoID]>> {
+  return input.reduce((acc, curr) => {
+    if (!acc[curr.userId]) {
+      acc[curr.userId] = []
     }
-  }, {})
-}, {})
+    acc[curr.userId].push([curr.event, curr.videoId])
+    return acc
+  }, {} as Record<UserID, Array<[EventName, VideoID]>>)
+}
 
-console.log(reduceOutput0)
+function reduceFunction(
+  input: Record<UserID, Array<[EventName, VideoID]>>
+): Array<[UserVideoCombinationID, Score]> {
+  return Object.entries(input).flatMap<
+    [UserVideoCombinationID, Score]
+  >(([userId, events]) => {
+    const videoScores: Record<VideoID, Score> = {}
 
-const reduceOutput1 = Object.entries(reduceOutput0) as Array<[UserVideoCombinationID, Score]>
-console.log('reduceOutput1', reduceOutput1)
+    events.forEach(([event, videoId]) => {
+      if (!videoScores[videoId]) {
+        videoScores[videoId] = 0
+      }
+      videoScores[videoId] += fakeScore(event)
+    })
+
+    return Object.entries(videoScores).map<
+      [UserVideoCombinationID, Score]
+    >(([videoId, score]) => {
+      const combinationId = `${userId}|${videoId}` as UserVideoCombinationID
+      return [combinationId, score]
+    })
+  })
+}
 
 function fakeScore(event: EventName): Score {
   const eventScoreDict: Record<EventName, Score> = {
@@ -364,4 +363,10 @@ function fakeScore(event: EventName): Score {
   }
   return eventScoreDict[event] || 0
 }
+
+const mapOutputs = mapFunction(mapInputs)
+const reduceOutputs = reduceFunction(mapOutputs)
+
+console.log("Map Outputs:", mapOutputs)
+console.log("Reduce Outputs:", reduceOutputs)
 ```
