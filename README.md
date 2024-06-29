@@ -31,7 +31,7 @@ pnpm install
 5. [Storage](./05_storage)
 6. Latency vs. Throughput
 7. Availability
-8. Caching
+8. [Caching](./08_caching)
 9. Proxies
 10. [Load Balancers](./10_load-balancers)
 11. [Hashing](./11_hashing)
