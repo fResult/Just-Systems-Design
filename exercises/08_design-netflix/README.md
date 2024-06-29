@@ -336,21 +336,21 @@ function mapFunction(
 }
 
 function reduceFunction(
-  input: Record<UserID, Array<[EventName, VideoID]>>
+  input: Record<UserID, Array<[VideoID, EventName]>>
 ): Array<[UserVideoCombinationID, Score]> {
   return Object.entries(input).flatMap<
     [UserVideoCombinationID, Score]
-  >(([userId, events]) => {
-    const videoScores: Record<VideoID, Score> = {}
+  >(([userId, videoEvents]) => {
+    const videoScoreDict: Record<VideoID, Score> = {}
 
-    events.forEach(([event, videoId]) => {
-      if (!videoScores[videoId]) {
-        videoScores[videoId] = 0
+    videoEvents.forEach(([videoId, event]) => {
+      if (!videoScoreDict[videoId]) {
+        videoScoreDict[videoId] = 0
       }
-      videoScores[videoId] += fakeScore(event)
+      videoScoreDict[videoId] += fakeScore(event)
     })
 
-    return Object.entries(videoScores).map<
+    return Object.entries(videoScoreDict).map<
       [UserVideoCombinationID, Score]
     >(([videoId, score]) => {
       const combinationId = `${userId}|${videoId}` as UserVideoCombinationID
