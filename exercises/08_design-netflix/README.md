@@ -286,6 +286,7 @@ Alternatively, they could return k/v pairs indexed by **userId**, pointing to li
 ### Code
 
 ```typescript
+type List<T> = Array<T>
 type UserID = `userId${number}`
 type VideoID = `videoId${number}`
 type Score = number
@@ -304,7 +305,7 @@ interface UserVideoEvent {
   event: EventName;
 }
 
-const mapInputs: Array<UserVideoEvent> = [
+const mapInputs: List<UserVideoEvent> = [
   { userId: "userId1", videoId: "videoId1", event: EventName.Click },
   { userId: "userId1", videoId: "videoId1", event: EventName.Click },
   { userId: "userId1", videoId: "videoId1", event: EventName.Pause },
@@ -321,10 +322,10 @@ const mapInputs: Array<UserVideoEvent> = [
 ]
 
 function mapFunction(
-  input: Array<UserVideoEvent>
-): Record<UserID, Array<[VideoID, EventName]>> {
+  input: List<UserVideoEvent>
+): Record<UserID, List<[VideoID, EventName]>> {
   return input.reduce<
-    Record<UserID, Array<[VideoID, EventName]>>
+    Record<UserID, List<[VideoID, EventName]>>
   >((acc, { userId, videoId, event }) => {
     return {
       ...acc,
@@ -336,8 +337,8 @@ function mapFunction(
 }
 
 function reduceFunction(
-  input: Record<UserID, Array<[VideoID, EventName]>>
-): Array<[UserVideoCombinationID, Score]> {
+  input: Record<UserID, List<[VideoID, EventName]>>
+): List<[UserVideoCombinationID, Score]> {
   return Object.entries(input).flatMap<
     [UserVideoCombinationID, Score]
   >(([userId, videoEvents]) => {
