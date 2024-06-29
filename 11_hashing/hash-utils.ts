@@ -1,22 +1,21 @@
 function hashString(str: string): number {
-  let hash = 0
-
-  if (str.length === 0) return hash
+  if (str.length === 0) return 0
+  let hashed = 0
 
   for (let i = 0; i < str.length; i++) {
-    const char = str.charCodeAt(i)
-    hash = ((hash << 5) - hash) + char
-    hash = hash & hash
+    const charCode = str.charCodeAt(i)
+    hashed = ((hashed << 5) - hashed) + charCode
+    hashed |= 0
   }
 
-  return hash
+  return hashed
 }
 
 function computeScore(username: string, server: string): number {
-  const usernameHash = hashString(username)
-  const serverHash = hashString(server)
+  const usernameHashed = hashString(username)
+  const serverHashed = hashString(server)
 
-  return (usernameHash * 13 + serverHash * 11) % 67
+  return (usernameHashed * 13 + serverHashed * 11) % 67
 }
 
 export { hashString, computeScore }
