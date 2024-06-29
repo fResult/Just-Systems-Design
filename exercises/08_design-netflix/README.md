@@ -320,14 +320,19 @@ const mapInputs: Array<UserVideoEvent> = [
   { userId: "userId3", videoId: "videoId2", event: EventName.MouseMove },
 ]
 
-function mapFunction(input: Array<UserVideoEvent>): Record<UserID, Array<[EventName, VideoID]>> {
-  return input.reduce((acc, curr) => {
-    if (!acc[curr.userId]) {
-      acc[curr.userId] = []
+function mapFunction(
+  input: Array<UserVideoEvent>
+): Record<UserID, Array<[VideoID, EventName]>> {
+  return input.reduce<
+    Record<UserID, Array<[VideoID, EventName]>>
+  >((acc, { userId, videoId, event }) => {
+    return {
+      ...acc,
+      [userId]: acc[userId]
+        ? [...acc[userId], [videoId, event]]
+        : [[videoId, event]]
     }
-    acc[curr.userId].push([curr.event, curr.videoId])
-    return acc
-  }, {} as Record<UserID, Array<[EventName, VideoID]>>)
+  }, {})
 }
 
 function reduceFunction(
