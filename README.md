@@ -34,7 +34,7 @@ pnpm install
 8. Caching
 9. Proxies
 10. [Load Balancers](./10_load-balancers)
-11. Hashing (No Example)
+11. [Hashing](./11_hashing)
 12. [Relational Databases](./12_relational_databases)
 13. [Key–Value Stores](./13_key-value-stores)
 14. [Specialized Storage Paradigms](./14_specialized-storage-paradigms)
