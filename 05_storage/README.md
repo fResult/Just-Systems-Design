@@ -7,8 +7,39 @@
 
 ## Scripts
 
-```bash
-```
+1. Run server
+
+    ```bash
+    ./run.md
+    # OR if you are in the root directory
+    ./05_storage/run.md
+    ```
+
+2. Test API routes
+
+    1. POST `/memory/:key`
+
+        ```bash
+        curl -H 'Content-Type: application/json' -d "{\"data\": \"[$(date '+%Y-%m-%d %H:%M:%S')] Here is some data\"}" localhost:3001/memory/a
+        ```
+
+    2. GET `/memory/:key`
+
+        ```bash
+        curl -w '\n' localhost:3001/memory/a
+        ```
+
+    3. POST `/disk/:key`
+
+        ```bash
+        curl -H 'Content-Type: application/json' -d "{\"data\": \"[$(date '+%Y-%m-%d %H:%M:%S')] Here is some data\"}" localhost:3001/disk/a
+        ```
+
+    4. GET `/disk/:key`
+
+        ```bash
+        curl -w '\n' localhost:3001/disk/a
+        ```
 
 ## Estimation Cheat Sheet
 
