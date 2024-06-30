@@ -48,4 +48,7 @@ nc – arbitrary TCP and UDP connections and listens
 Then type anything and enter...
 Then see the result in the first terminal's session
 
-We can type and enter repeatedly and see result in the first terminal's session
+We can type and enter repeatedly and see results in the first terminal's session
+
+![image](https://github.com/fResult/Just-Systems-Design/assets/19329932/2920e142-d2e2-4b91-8d6d-14a1132d84a8)
+
