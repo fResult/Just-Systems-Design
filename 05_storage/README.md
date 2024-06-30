@@ -20,25 +20,37 @@
     1. POST `/memory/:key`
 
         ```bash
-        curl -H 'Content-Type: application/json' -d "{\"data\": \"[$(date '+%Y-%m-%d %H:%M:%S')] Here is some data\"}" localhost:3001/memory/a
+        curl -H 'Content-Type: application/json' -d "{\"data\": \"[$(date '+%Y-%m-%d %H:%M:%S')] Here is some data\"}" localhost:3001/memory/foo
         ```
 
     2. GET `/memory/:key`
 
         ```bash
-        curl -w '\n' localhost:3001/memory/a
+        curl -w '\n' localhost:3001/memory/foo
         ```
 
-    3. POST `/disk/:key`
+    3. DELETE `/memory/:key`
 
         ```bash
-        curl -H 'Content-Type: application/json' -d "{\"data\": \"[$(date '+%Y-%m-%d %H:%M:%S')] Here is some data\"}" localhost:3001/disk/a
+        curl -X DELETE localhost:3001/memory/foo
         ```
 
-    4. GET `/disk/:key`
+    4. POST `/disk/:key`
 
         ```bash
-        curl -w '\n' localhost:3001/disk/a
+        curl -H 'Content-Type: application/json' -d "{\"data\": \"[$(date '+%Y-%m-%d %H:%M:%S')] Here is some data\"}" localhost:3001/disk/foo
+        ```
+
+    5. GET `/disk/:key`
+
+        ```bash
+        curl -w '\n' localhost:3001/disk/foo
+        ```
+
+    6. DELETE `/disk/:key`
+
+        ```bash
+        curl -X DELETE localhost:3001/disk/foo
         ```
 
 ## Estimation Cheat Sheet
