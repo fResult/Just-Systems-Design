@@ -12,11 +12,16 @@ export WORK_DIR=$(/bin/pwd)
 
 ### Set up exit trap to stop NGINX when the script exits
 
-trap 'nginx -s stop' EXIT
+nginx_stop() {
+    nginx -s stop
+    echo "NGINX service stopped"
+}
+trap nginx_stop EXIT
 
 ## Run NGINX
 
 nginx -c $WORK_DIR/nginx.conf
+echo "NGINX is listening on port 8080!"
 
 ## Teardown
 
