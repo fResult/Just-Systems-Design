@@ -1,5 +1,4 @@
-<!-- markdownlint-disable-next-line MD018 MD041 -->
-#!/bin/bash
+#!/bin/bash # <!-- markdownlint-disable-line MD018 MD041 -->
 
 # Publisher/Subscriber Pattern
 
