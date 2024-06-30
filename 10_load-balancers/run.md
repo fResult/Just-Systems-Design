@@ -8,10 +8,12 @@ cd "$(dirname "$0")" || return
 
 export WORK_DIR=10_load-balancers
 
-## Run servers
-
-### nginx -c $PATH/$WORK_DIR/nginx.conf
+## Run servers and reverse proxy server
 
 pnpm concurrently "./$WORK_DIR/run-local-nginx.md"\
   "PORT=3000 pnpm ts-node $WORK_DIR/server.ts"\
   "PORT=3001 pnpm ts-node $WORK_DIR/server.ts"
+
+### Stop NGINX after terminating server
+
+nginx -s stop
