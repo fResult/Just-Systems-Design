@@ -24,9 +24,9 @@ pnpm install
 
 ## Table of Code Example
 
-1. Introduction
-2. What Are Design Fundamental?
-3. Client–Server Model
+1. Introduction (No example)
+2. What Are Design Fundamental? (No example)
+3. Client–Server Model (No example)
 4. [Network Protocols](./04_network-protocols)
 5. [Storage](./05_storage)
 6. Latency vs. Throughput (No example)
