@@ -6,7 +6,7 @@ This repository is created for studying the Systems Design from AlgoExpert.io pu
 
 - [Node](https://nodejs.org/en/download)
 - [PNPM](https://pnpm.io/installation)
-- [NGINX](https://nginx.org/en/download.html) (For the example of [\[10. Load Balancers\]](./10_load-balancers))
+- [NGINX](https://nginx.org/en/download.html) (For the example of [\[9. Proxies\]](./09-proxies), and [\[10. Load Balancers\]](./10_load-balancers))
 - [PostgreSQL](https://www.postgresql.org/download) (For the example of [\[12. Relational Databases\]](./12_relational_databases))
 - [Redis Stack](https://redis.io/docs/latest/operate/oss_and_stack/install/install-stack) (For the example of [\[13. Key-Value Store\]](./13_key-value-stores))
 
@@ -32,7 +32,7 @@ pnpm install
 6. Latency vs. Throughput
 7. Availability
 8. [Caching](./08_caching)
-9. Proxies
+9. [Proxies](./09-proxies)
 10. [Load Balancers](./10_load-balancers)
 11. [Hashing](./11_hashing)
 12. [Relational Databases](./12_relational_databases)
