@@ -1,3 +1,6 @@
+<!-- markdownlint-disable-next-line MD018 MD041 -->
+#!/bin/bash
+
 # Load Balancers - Local NGINX
 
 ## Jump to the current directory

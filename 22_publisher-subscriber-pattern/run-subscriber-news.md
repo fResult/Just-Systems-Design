@@ -1,3 +1,4 @@
+<!-- markdownlint-disable-next-line MD018 MD041 -->
 #!/bin/bash
 
 # Publisher/Subscriber Pattern - Subscriber (News Alerts)
