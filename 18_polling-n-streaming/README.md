@@ -27,3 +27,5 @@
     ```
 
 4. Then, test the result by type and enter in both **polling client** and **streaming client**
+
+    ![image](https://github.com/fResult/Just-Systems-Design/assets/19329932/d5a68d23-8fa4-4a97-b6bd-e207c1f1aa58)
