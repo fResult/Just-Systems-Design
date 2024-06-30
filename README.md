@@ -40,8 +40,8 @@ pnpm install
 14. [Specialized Storage Paradigms](./14_specialized-storage-paradigms)
 15. [Replication And Sharding](./15_replication-n-sharding)
 16. Leader Election
-17. Peer-To-Peer Networks
-18. Polling and Streaming
+17. Peer-To-Peer Networks (No example)
+18. [Polling and Streaming](./18_polling-n-streaming)
 19. Configuration
 20. [Rate Limiting](./20_rate-limiting)
 21. Logging and Monitoring (No Example)
