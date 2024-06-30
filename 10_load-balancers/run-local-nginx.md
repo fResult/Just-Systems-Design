@@ -13,8 +13,8 @@ export WORK_DIR=$(/bin/pwd)
 ### Set up exit trap to stop NGINX when the script exits
 
 nginx_stop() {
-    nginx -s stop
-    echo "NGINX service stopped"
+  nginx -s stop
+  echo "NGINX service stopped"
 }
 trap nginx_stop EXIT
 
