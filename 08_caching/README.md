@@ -34,4 +34,4 @@
     curl localhost:3000/with-cache/index.html
     ```
 
-    > We will no tice that we have to wait for 3 seconds or more only 1st time we visit `/no-cache/index.html`, after that, the response is responded almost immediately.
+    > We will notice that we have to wait for 3 seconds or more only 1st time we visit `/no-cache/index.html`, after that, the response is responded almost immediately.

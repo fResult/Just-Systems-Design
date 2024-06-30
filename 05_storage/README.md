@@ -1,5 +1,10 @@
 # Storage
 
+- Databases
+- Disk
+- Memory
+- Persistent Storage
+
 ## Scripts
 
 ```bash

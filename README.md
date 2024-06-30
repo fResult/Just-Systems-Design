@@ -29,8 +29,8 @@ pnpm install
 3. Client–Server Model
 4. Network Protocols
 5. [Storage](./05_storage)
-6. Latency vs. Throughput
-7. Availability
+6. Latency vs. Throughput (No example)
+7. Availability (No example)
 8. [Caching](./08_caching)
 9. [Proxies](./09-proxies)
 10. [Load Balancers](./10_load-balancers)
