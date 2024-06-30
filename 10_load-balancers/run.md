@@ -14,6 +14,6 @@ pnpm concurrently "./$WORK_DIR/run-local-nginx.md"\
   "PORT=3000 pnpm ts-node $WORK_DIR/server.ts"\
   "PORT=3001 pnpm ts-node $WORK_DIR/server.ts"
 
-### Stop NGINX after terminating server
+### Stop NGINX after terminating services
 
 nginx -s stop
