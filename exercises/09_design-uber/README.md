@@ -101,7 +101,6 @@ The *Ride* entity will have a unique id, info about its passenger and its driv
 
 We'll explain why the *driverInfo* is optional when we get to the API endpoints.
 
-
 **PassengerInfo:**
 
 - `id`: *string*
@@ -120,3 +119,41 @@ We'll explain why the *driverInfo* is optional when we get to the API endpoint
 
 - `licensePlate`: *string*
 - `description`: *string*
+
+### 4. Passenger API
+
+The passenger-facing API will be fairly straightforward.\
+It'll consist of simple CRUD operations around the *Ride* entity, as well as an endpoint to stream a driver's location throughout a ride.
+
+```python
+CreateRide(userId: string, pickup: GeoLocation, destination: GeoLocation)
+  => Ride
+```
+
+**Usage:** called when a passenger books a ride; a *Ride* is created with no *DriverInfo* and with a **CREATED** *RideStatus*; the Uber backend calls an internal *FindDriver* API that uses an algorithm to find the most appropriate driver; once a driver is found and accepts the ride, the backend calls *EditRide* with the driver's info and with a **MATCHED** *RideStatus*.
+
+```python
+GetRide(userId: string)
+  => Ride
+```
+
+**Usage:** polled every couple of seconds after a ride has been created and until the ride has a status of **MATCHED**; afterwards, polled every 20-90 seconds throughout the trip to update the ride's estimated price, its time to destination, its *RideStatus* if it's been canceled by the driver, etc..
+
+```python
+EditRide(userId: string, [...params?: all properties on the Ride object that need to be edited])
+  => Ride
+```
+
+```python
+CancelRide(userId: string)
+  => void
+```
+
+Wrapper around *EditRide* — effectively calls *EditRide*(userId: string, rideStatus: CANCELLED)*.
+
+```python
+StreamDriverLocation(userId: string)
+  => GeoLocation
+```
+
+**Usage:** continuously streams the location of a driver over a long-lived websocket connection; the driver whose location is streamed is the one associated with the *Ride* tied to the passed *userId*.
