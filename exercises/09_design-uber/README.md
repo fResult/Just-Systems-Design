@@ -203,3 +203,19 @@ PushLocation(userId: string, location: Geolocation)
 ```
 
 **Usage:** continuously called by a driver's phone throughout a ride; pushes the driver's location to the relevant passenger who's streaming the location; the passenger is the one associated with the *Ride* tied to the passed *userId*.
+
+### 6. UberPool
+
+As a stretch goal, your interviewer might ask you to think about how you'd expand your design to handle UberPool rides.
+
+UberPool rides allow multiple passengers (different Uber accounts) to share an Uber ride for a cheaper price.
+
+One way to handle UberPool rides would be to allow *Ride* objects to have multiple *passengerInfo*s.\
+In this case, *Ride*s would also have to maintain a list of all destinations that the ride will stop at, as well as the relevant final destinations for individual passengers.
+
+Perhaps a cleaner way to handle UberPool rides would be to introduce an entirely new entity, a *PoolRide* entity, which would have a list of *Ride*s attached to it.\
+Passengers would still call the *CreateRide* endpoint when booking an UberPool ride, and so they would still have their own, normal *Ride* entity, but this entity would be attached to a *PoolRide* entity with the rest of the UberPool ride information.
+
+Drivers would likely have an extra *DriverStatus* value to indicate if they were in a ride but still accepting new UberPool passengers.
+
+Most of the other functionality would remain the same; passengers and drivers would still continuously poll the *GetRide* endpoint for updated information about the ride, passengers would still stream their driver's location, passengers would still be able to cancel their individual rides, etc..
