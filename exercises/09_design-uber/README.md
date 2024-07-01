@@ -70,3 +70,15 @@ We're designing the core ride-hailing service that Uber offers.\
 Passengers can book a ride from their phone, at which point they're matched with a driver; they can track their driver's location throughout the ride, up until the ride is finished or canceled; and they can also see the price of the ride as well as the estimated time to destination throughout the trip, amongst other things.
 
 The core taxiing service that Uber offers has a passenger-facing side and a driver-facing side; we're going to be designing the API for both sides.
+
+### 2. Coming Up With A Plan
+
+It's important to organize ourselves and to lay out a clear plan regarding how we're going to tackle our design.
+What are the major, potentially contentious parts of our API? Why are we making certain design decisions?
+
+We're going to center our API around a *Ride* entity; every Uber ride will have an associated *Ride* containing information about the ride, including information about its passenger and driver.
+
+Since a normal Uber ride can only have one passenger (one passenger account—the one that hails the ride) and one driver, we're going to cleverly handle all permissioning related to ride operations through passenger and driver IDs.
+In other words, operations like *GetRide* and *EditRide* will purely rely on a passed userId, the userId of the passenger or driver calling them, to return the appropriate ride tied to that passenger or driver.
+
+We'll start by defining the *Ride* entity before designing the passenger-facing API and then the driver-facing API.
