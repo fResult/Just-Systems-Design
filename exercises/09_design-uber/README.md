@@ -86,7 +86,7 @@ We'll start by defining the *Ride* entity before designing the passenger-facin
 
 ### 3. Entities
 
-**Ride:**
+**Ride:**\
 The *Ride* entity will have a unique id, info about its passenger and its driver, a status, and other details about the ride.
 
 - `rideId`: *string*
