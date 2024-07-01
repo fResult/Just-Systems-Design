@@ -79,12 +79,12 @@ Why are we making certain design decisions?
 
 We're going to center our API around a *Ride* entity; every Uber ride will have an associated *Ride* containing information about the ride, including information about its passenger and driver.
 
-Since a normal Uber ride can only have one passenger (one passenger account—the one that hails the ride) and one driver, we're going to cleverly handle all permissioning related to ride operations through passenger and driver IDs.
+Since a normal Uber ride can only have one passenger (one passenger account—the one that hails the ride) and one driver, we're going to cleverly handle all permissioning related to ride operations through passenger and driver IDs.\
 In other words, operations like *GetRide* and *EditRide* will purely rely on a passed userId, the userId of the passenger or driver calling them, to return the appropriate ride tied to that passenger or driver.
 
 We'll start by defining the *Ride* entity before designing the passenger-facing API and then the driver-facing API.
 
-### ### 3. Entities
+### 3. Entities
 
 **Ride:**
 The *Ride* entity will have a unique id, info about its passenger and its driver, a status, and other details about the ride.
