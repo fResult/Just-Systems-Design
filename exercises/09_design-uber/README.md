@@ -73,8 +73,9 @@ The core taxiing service that Uber offers has a *passenger-facing* side and a *d
 
 ### 2. Coming Up With A Plan
 
-It's important to organize ourselves and to lay out a clear plan regarding how we're going to tackle our design.
-What are the major, potentially contentious parts of our API? Why are we making certain design decisions?
+It's important to organize ourselves and to lay out a clear plan regarding how we're going to tackle our design.\
+What are the major, potentially contentious parts of our API?\
+Why are we making certain design decisions?
 
 We're going to center our API around a *Ride* entity; every Uber ride will have an associated *Ride* containing information about the ride, including information about its passenger and driver.
 
