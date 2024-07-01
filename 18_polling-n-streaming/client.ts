@@ -11,14 +11,23 @@ const terminal = readline.createInterface({
   input: process.stdin,
 })
 
-terminal.on("line", async (text) => {
+async function terminalLineHandler(text: string) {
   const username = process.env.NAME || "Anonymous"
   const id = helpers.getRandomInt(1_000_000)
   displayedMessages[id] = true
 
   const message: Message = { id, text, username }
   await messagingApi.sendMessage(message)
-})
+}
+
+function socketMessageHandler(data: RawData) {
+  const message = JSON.parse(data.toString()) as Message
+  const messageAlreadyDisplayed = message.id in displayedMessages
+
+  if (!messageAlreadyDisplayed) displayMessage(message)
+}
+
+terminal.on("line", terminalLineHandler)
 
 function displayMessage(message: Message) {
   console.log(`> ${message.username}: ${message.text}`)
@@ -41,11 +50,7 @@ function pollMessages() {
 function streamMessages() {
   const messagingSocket = messagingApi.createMessagingSocket()
 
-  messagingSocket.on("message", (data: RawData) => {
-    const message = JSON.parse(data.toString()) as Message
-    const messageAlreadyDisplayed = message.id in displayedMessages
-    if (!messageAlreadyDisplayed) displayMessage(message)
-  })
+  messagingSocket.on("message", socketMessageHandler)
 }
 
 async function main() {

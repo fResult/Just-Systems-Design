@@ -7,7 +7,7 @@
     ```bash
     ./run-server.md
     # OR if you are in the root directory
-    18_polling-n-streaming/run-server.md
+    ./18_polling-n-streaming/run-server.md
     ```
 
 2. Run client - Polling
@@ -15,7 +15,7 @@
     ```bash
     ./run-client-polling.md
     # OR if you are in the root directory
-    18_polling-n-streaming/run-client-polling.md
+    ./18_polling-n-streaming/run-client-polling.md
     ```
 
 3. Run client - Streaming
