@@ -39,7 +39,7 @@ And yes, let’s design both, starting with the passenger-facing API.
 - Throughout this process, there are a few more features to support, like being able to track where the passenger's driver is before the passenger gets picked up, maybe being able to cancel rides, etc..
 - Does this capture most of what you had in mind?
 
-**A:**
+**A:**\
 Yes, this is precisely what I had in mind.\
 And you can work out the details as you start designing the API.
 
@@ -50,12 +50,12 @@ And you can work out the details as you start designing the API.
 - *Do we need to handle things like creating an Uber account, setting up payment preferences, contacting Uber, etc..?*
 - *What about things like rating a driver, tipping a driver, etc.?*
 
-**A:**
+**A:**\
 For now, let’s skip those and really focus on the core taxiing service.
 
 ### Question 5
 
-**Q:**
+**Q:**\
 Just to confirm, you want me to write out function signatures for various API endpoints, including parameters, their types, return values, etc., right?
 
 **A:** Yup, exactly.
