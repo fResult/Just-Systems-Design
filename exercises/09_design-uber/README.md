@@ -157,3 +157,49 @@ StreamDriverLocation(userId: string)
 ```
 
 **Usage:** continuously streams the location of a driver over a long-lived websocket connection; the driver whose location is streamed is the one associated with the *Ride* tied to the passed *userId*.
+
+### 5. Driver API
+
+The driver-facing API will rely on some of the same CRUD operations around the *Ride* entity, and it'll also have a *SetDriverStatus* endpoint as well as an endpoint to push the driver's location to passengers who are streaming it.
+
+```python
+SetDriverStatus(userId: string, driverStatus: DriverStatus)
+  => void
+
+DriverStatus: enum UNAVAILABLE/IN RIDE/STANDBY
+```
+
+**Usage:** called when a driver wants to look for a ride, is starting a ride, or is done for the day; when called with **STANDBY**, the Uber backend calls an internal *FindRide* API that uses an algorithm to enqueue the driver in a queue of drivers waiting for rides and to find the most appropriate ride; once a ride is found, the ride is internally locked to the driver for 30 seconds, during which the driver can accept or reject the ride; once the driver accepts the ride, the internal backend calls *EditRide* with the driver's info and with a **MATCHED** *RideStatus*.
+
+```python
+GetRide(userId: string)
+  => Ride
+```
+
+**Usage:** polled every 20-90 seconds throughout the trip to update the ride's estimated price, its time to destination, whether it's been canceled, etc..
+
+```python
+EditRide(userId: string, [...params?: all properties on the Ride object that need to be edited])
+  => Ride
+```
+
+```python
+AcceptRide(userId: string)
+  => void
+```
+
+Calls *EditRide(userId, MATCHED)* and *SetDriverStatus(userId, IN_RIDE)*.
+
+```python
+CancelRide(userId: string)
+  => void
+```
+
+Wrapper around *EditRide* — effectively calls *EditRide(userId, CANCELLED)*.
+
+```python
+PushLocation(userId: string, location: Geolocation)
+  => void
+```
+
+**Usage:** continuously called by a driver's phone throughout a ride; pushes the driver's location to the relevant passenger who's streaming the location; the passenger is the one associated with the *Ride* tied to the passed *userId*.
