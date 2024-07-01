@@ -82,3 +82,41 @@ Since a normal Uber ride can only have one passenger (one passenger account—th
 In other words, operations like *GetRide* and *EditRide* will purely rely on a passed userId, the userId of the passenger or driver calling them, to return the appropriate ride tied to that passenger or driver.
 
 We'll start by defining the *Ride* entity before designing the passenger-facing API and then the driver-facing API.
+
+### ### 3. Entities
+
+**Ride:**
+The *Ride* entity will have a unique id, info about its passenger and its driver, a status, and other details about the ride.
+
+- `rideId`: *string*
+- `passengerInfo`: *PassengerInfo*
+- `driverInfo`?: *DriverInfo*
+- `rideStatus`: *RideStatus* - enum CREATED/MATCHED/STARTED/FINISHED/CANCELED
+- `start`: *GeoLocation*
+- `destination`: *GeoLocation*
+- `createdAt`: *timestamp*
+- `startTime`: *timestamp*
+- `estimatedPrice`: *int*
+- `timeToDestination`: *int*
+
+We'll explain why the *driverInfo* is optional when we get to the API endpoints.
+
+
+**PassengerInfo:**
+
+- `id`: *string*
+- `name`: *string*
+- `rating`: *int*
+
+**DriverInfo:**
+
+- `id`: *string*
+- `name`: *string*
+- `rating`: *int*
+- `ridesCount`: *int*
+- `vehicleInfo`: *VehicleInfo*
+
+**VehicleInfo:**
+
+- `licensePlate`: *string*
+- `description`: *string*
