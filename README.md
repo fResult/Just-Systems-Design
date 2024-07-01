@@ -42,7 +42,7 @@ pnpm install
 16. Leader Election
 17. Peer-To-Peer Networks (No example)
 18. [Polling and Streaming](./18_polling-n-streaming)
-19. Configuration
+19. Configuration (No example)
 20. [Rate Limiting](./20_rate-limiting)
 21. Logging and Monitoring (No Example)
 22. [Publisher/Subscriber Pattern](./22_publisher-subscriber-pattern)
