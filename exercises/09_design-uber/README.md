@@ -17,7 +17,7 @@ Before looking at them, we encourage you to take few minutes to think about what
 
 **Q:**
 
-*Uber has a lot of different services: there’s the core ride-hailing Uber service, there’s UberEats, there’s UberPool—are we designing the API for all of these services, or just for one of them?*
+*Uber has a lot of different services: there’s the core ride-hailing Uber service, there’s UberEats, there’s UberPool — are we designing the API for all of these services, or just for one of them?*
 
 **A:**
 Let’s just design the core rides API — not UberEats or UberPool.
@@ -27,7 +27,7 @@ Let’s just design the core rides API — not UberEats or UberPool.
 **Q:**\
 *At first thought, it seems like we're going to need both a passenger-facing API and a driver-facing API — does that make sense, and if yes, should we design both?*
 
-**A:**
+**A:**\
 Yes, that totally makes sense.\
 And yes, let’s design both, starting with the passenger-facing API.
 
