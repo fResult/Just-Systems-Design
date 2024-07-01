@@ -25,7 +25,7 @@ Let’s just design the core rides API — not UberEats or UberPool.
 ### Question 2
 
 **Q:**\
-*At first thought, it seems like we're going to need both a passenger-facing API and a driver-facing API--does that make sense, and if yes, should we design both?*
+*At first thought, it seems like we're going to need both a passenger-facing API and a driver-facing API — does that make sense, and if yes, should we design both?*
 
 **A:**
 Yes, that totally makes sense.\
