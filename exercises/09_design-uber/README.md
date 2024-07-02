@@ -136,11 +136,11 @@ CreateRide(userId: string, pickup: GeoLocation, destination: GeoLocation)
 
 **Usage:**\
 *CreateRide* is called when a passenger books a ride.\
-A [*Ride*](#ride) is created with no [*DriverInfo*](#driverinfo) and with a **CREATED** *RideStatus*.\
+A [*Ride*](#ride) is created with no [*DriverInfo*](#driverinfo) and with a `*RideStatus.CREATED*`.\
 The Uber backend calls an internal *FindDriver* API that uses an algorithm to find the most appropriate driver.\
-Once a driver is found and accepts the ride, the backend calls [*EditRide*](#editride) with the driver's info and with a **MATCHED** *RideStatus*.
+Once a driver is found and accepts the ride, the backend calls [*EditRide*](#passenger-api__edit-ride) with the driver's info and with a *`RideStatus.MATCHED`*.
 
-#### GetRide
+<h4 id="passenger-api__get-ride">GetRide</h4> <!-- markdownlint-disable-line MD033 -->
 
 ```python
 GetRide(userId: string)
@@ -148,24 +148,24 @@ GetRide(userId: string)
 ```
 
 **Usage:**\
-*GetRide* is polled every couple of seconds after a ride has been created and until the ride has a status of **MATCHED**.\
+*GetRide* is polled every couple of seconds after a ride has been created and until the ride has a status of *`RideStatus.MATCHED`*.\
 Afterwards, polled every 20-90 seconds throughout the trip to update the ride's estimated price, its time to destination, its *RideStatus* if it's been canceled by the driver, etc..
 
-#### EditRide
+<h4 id="passenger-api__edit-ride">EditRide</h4> <!-- markdownlint-disable-line MD033 -->
 
 ```python
 EditRide(userId: string, [...params?: all properties on the Ride object that need to be edited])
   => Ride
 ```
 
-#### CancelRide
+<h4 id="passenger-api__cancel-ride">CancelRide</h4> <!-- markdownlint-disable-line MD033 -->
 
 ```python
 CancelRide(userId: string)
   => void
 ```
 
-Wrapper around [*EditRide*](#editride) — effectively calls *`EditRide(userId: string, rideStatus: CANCELLED)`*.
+Wrapper around [*EditRide*](#passenger-api__edit-ride) — effectively calls *`EditRide(userId: string, rideStatus: RideStatus.CANCELLED)`*.
 
 #### StreamDriverLocation
 
