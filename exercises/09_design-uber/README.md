@@ -136,9 +136,9 @@ CreateRide(userId: string, pickup: GeoLocation, destination: GeoLocation)
 
 **Usage:**\
 *CreateRide* is called when a passenger books a ride.\
-A *Ride* is created with no *DriverInfo* and with a **CREATED** *RideStatus*.\
+A [*Ride*](#ride) is created with no [*DriverInfo*](#driverinfo) and with a **CREATED** *RideStatus*.\
 The Uber backend calls an internal *FindDriver* API that uses an algorithm to find the most appropriate driver.\
-Once a driver is found and accepts the ride, the backend calls *EditRide* with the driver's info and with a **MATCHED** *RideStatus*.
+Once a driver is found and accepts the ride, the backend calls [*EditRide*](#editride) with the driver's info and with a **MATCHED** *RideStatus*.
 
 #### GetRide
 
@@ -147,7 +147,9 @@ GetRide(userId: string)
   => Ride
 ```
 
-**Usage:** polled every couple of seconds after a ride has been created and until the ride has a status of **MATCHED**; afterwards, polled every 20-90 seconds throughout the trip to update the ride's estimated price, its time to destination, its *RideStatus* if it's been canceled by the driver, etc..
+**Usage:**\
+*GetRide* is polled every couple of seconds after a ride has been created and until the ride has a status of **MATCHED**.\
+Afterwards, polled every 20-90 seconds throughout the trip to update the ride's estimated price, its time to destination, its *RideStatus* if it's been canceled by the driver, etc..
 
 #### EditRide
 
@@ -172,7 +174,9 @@ StreamDriverLocation(userId: string)
   => GeoLocation
 ```
 
-**Usage:** continuously streams the location of a driver over a long-lived websocket connection; the driver whose location is streamed is the one associated with the *Ride* tied to the passed *userId*.
+**Usage:**\
+*StreamDriverLocation* continuously streams the location of a driver over a long-lived websocket connection.\
+The driver whose location is streamed is the one associated with the [*Ride*](#ride) tied to the passed *userId*.
 
 ### 5. Driver API
 
