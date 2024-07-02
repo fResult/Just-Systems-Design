@@ -86,7 +86,8 @@ We'll start by defining the *Ride* entity before designing the passenger-facin
 
 ### 3. Entities
 
-**Ride:**\
+#### Ride
+
 The *Ride* entity will have a unique id, info about its passenger and its driver, a status, and other details about the ride.
 
 - `id`: *string*
@@ -102,13 +103,13 @@ The *Ride* entity will have a unique id, info about its passenger and its driv
 
 We'll explain why the *driverInfo* is optional when we get to the API endpoints.
 
-**PassengerInfo:**
+#### PassengerInfo
 
 - `id`: *string*
 - `name`: *string*
 - `rating`: *int*
 
-**DriverInfo:**
+#### DriverInfo
 
 - `id`: *string*
 - `name`: *string*
@@ -116,7 +117,7 @@ We'll explain why the *driverInfo* is optional when we get to the API endpoint
 - `ridesCount`: *int*
 - `vehicleInfo`: *VehicleInfo*
 
-**VehicleInfo:**
+#### VehicleInfo
 
 - `licensePlate`: *string*
 - `description`: *string*
