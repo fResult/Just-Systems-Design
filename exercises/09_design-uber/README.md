@@ -180,7 +180,9 @@ The driver whose location is streamed is the one associated with the [*Ride*](#
 
 ### 5. Driver API
 
-The driver-facing API will rely on some of the same CRUD operations around the *Ride* entity, and it'll also have a *SetDriverStatus* endpoint as well as an endpoint to push the driver's location to passengers who are streaming it.
+The driver-facing API will rely on some of the same CRUD operations around the [*Ride*](#ride) entity, and it'll also have a *SetDriverStatus* endpoint as well as an endpoint to push the driver's location to passengers who are streaming it.
+
+#### SetDriverStatus
 
 ```python
 SetDriverStatus(userId: string, driverStatus: DriverStatus)
@@ -189,7 +191,8 @@ SetDriverStatus(userId: string, driverStatus: DriverStatus)
 DriverStatus: enum UNAVAILABLE/IN RIDE/STANDBY
 ```
 
-**Usage:** called when a driver wants to look for a ride, is starting a ride, or is done for the day; when called with **STANDBY**, the Uber backend calls an internal *FindRide* API that uses an algorithm to enqueue the driver in a queue of drivers waiting for rides and to find the most appropriate ride; once a ride is found, the ride is internally locked to the driver for 30 seconds, during which the driver can accept or reject the ride; once the driver accepts the ride, the internal backend calls *EditRide* with the driver's info and with a **MATCHED** *RideStatus*.
+**Usage:**\
+*SetDriverStatus* is called when a driver wants to look for a ride, is starting a ride, or is done for the day; when called with **STANDBY**, the Uber backend calls an internal *FindRide* API that uses an algorithm to enqueue the driver in a queue of drivers waiting for rides and to find the most appropriate ride; once a ride is found, the ride is internally locked to the driver for 30 seconds, during which the driver can accept or reject the ride; once the driver accepts the ride, the internal backend calls [*EditRide*](#editride) with the driver's info and with a **MATCHED** *RideStatus*.
 
 ```python
 GetRide(userId: string)
@@ -215,7 +218,7 @@ CancelRide(userId: string)
   => void
 ```
 
-Wrapper around *EditRide* — effectively calls *EditRide(userId, CANCELLED)*.
+Wrapper around [*EditRide*](#editride) — effectively calls *EditRide(userId, CANCELLED)*.
 
 ```python
 PushLocation(userId: string, location: Geolocation)
