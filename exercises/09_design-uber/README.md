@@ -204,7 +204,7 @@ GetRide(userId: string)
 ```
 
 **Usage:**\
-*GetRide* polled every 20-90 seconds throughout the trip to update the ride's estimated price, its time to destination, whether it's been canceled, etc..
+*GetRide* is polled every 20-90 seconds throughout the trip to update the ride's estimated price, its time to destination, whether it's been canceled, etc..
 
 <h4 id="driver-api__edit-ride">EditRide</h4> <!-- markdownlint-disable-line MD033 -->
 
