@@ -188,11 +188,13 @@ The driver-facing API will rely on some of the same CRUD operations around the [
 SetDriverStatus(userId: string, driverStatus: DriverStatus)
   => void
 
-DriverStatus: enum UNAVAILABLE/IN RIDE/STANDBY
+DriverStatus: enum UNAVAILABLE/IN_RIDE/STANDBY
 ```
 
 **Usage:**\
-*SetDriverStatus* is called when a driver wants to look for a ride, is starting a ride, or is done for the day; when called with **STANDBY**, the Uber backend calls an internal *FindRide* API that uses an algorithm to enqueue the driver in a queue of drivers waiting for rides and to find the most appropriate ride; once a ride is found, the ride is internally locked to the driver for 30 seconds, during which the driver can accept or reject the ride; once the driver accepts the ride, the internal backend calls [*EditRide*](#editride) with the driver's info and with a **MATCHED** *RideStatus*.
+*SetDriverStatus* is called when a driver wants to look for a ride, is starting a ride, or is done for the day; when called with *`DriverStatus.STANDBY`*, the Uber backend calls an internal *FindRide* API that uses an algorithm to enqueue the driver in a queue of drivers waiting for rides and to find the most appropriate ride; once a ride is found, the ride is internally locked to the driver for 30 seconds, during which the driver can accept or reject the ride; once the driver accepts the ride, the internal backend calls [*EditRide*](#passenger-api__edit-ride) with the driver's info and with a *`RideStatus.MATCHED`*.
+
+<h4 id="driver-api__get-ride">GetRide</h4> <!-- markdownlint-disable-line MD033 -->
 
 ```python
 GetRide(userId: string)
@@ -201,31 +203,40 @@ GetRide(userId: string)
 
 **Usage:** polled every 20-90 seconds throughout the trip to update the ride's estimated price, its time to destination, whether it's been canceled, etc..
 
+<h4 id="driver-api__edit-ride">EditRide</h4> <!-- markdownlint-disable-line MD033 -->
+
 ```python
 EditRide(userId: string, [...params?: all properties on the Ride object that need to be edited])
   => Ride
 ```
+
+#### AcceptRide
 
 ```python
 AcceptRide(userId: string)
   => void
 ```
 
-Calls *EditRide(userId, MATCHED)* and *SetDriverStatus(userId, IN_RIDE)*.
+Calls *`EditRide(userId, RideStatus.MATCHED)`* and *`SetDriverStatus(userId, DriverStatus.IN_RIDE)`*.
+
+<h4 id="driver-api__cancel-ride">CancelRide</h4> <!-- markdownlint-disable-line MD033 -->
 
 ```python
 CancelRide(userId: string)
   => void
 ```
 
-Wrapper around [*EditRide*](#editride) — effectively calls *EditRide(userId, CANCELLED)*.
+Wrapper around [*EditRide*](#driver-api__edit-ride) — effectively calls *EditRide(userId, RideStatus.CANCELLED)*.
+
+#### PushLocation
 
 ```python
-PushLocation(userId: string, location: Geolocation)
+PushLocation(userId: string, location: GeoLocation)
   => void
 ```
 
-**Usage:** continuously called by a driver's phone throughout a ride; pushes the driver's location to the relevant passenger who's streaming the location; the passenger is the one associated with the *Ride* tied to the passed *userId*.
+**Usage:**\
+*PushLocation* is continuously called by a driver's phone throughout a ride; pushes the driver's location to the relevant passenger who's streaming the location; the passenger is the one associated with the [*Ride*](#ride) tied to the passed *`userId`*.
 
 ### 6. UberPool
 
