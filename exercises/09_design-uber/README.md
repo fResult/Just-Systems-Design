@@ -194,7 +194,8 @@ DriverStatus: enum UNAVAILABLE/IN_RIDE/STANDBY
 **Usage:**\
 *SetDriverStatus* is called when a driver wants to look for a ride, is starting a ride, or is done for the day.\
 When we called *SetDriverStatus* with *`DriverStatus.STANDBY`*, the Uber backend calls an internal *FindRide* API that uses an algorithm to enqueue the driver in a queue of drivers waiting for rides and to find the most appropriate ride.\
-Once a ride is found, the ride is internally locked to the driver for 30 seconds, during which the driver can accept or reject the ride; once the driver accepts the ride, the internal backend calls [*EditRide*](#driver-api__edit-ride) with the driver's info and with a *`RideStatus.MATCHED`*.
+Once a ride is found, the ride is internally locked to the driver for 30 seconds, during which the driver can accept or reject the ride.\
+Once the driver accepts the ride, the internal backend calls [*EditRide*](#driver-api__edit-ride) with the driver's info and with a *`RideStatus.MATCHED`*.
 
 <h4 id="driver-api__get-ride">GetRide</h4> <!-- markdownlint-disable-line MD033 -->
 
