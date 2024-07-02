@@ -92,7 +92,7 @@ The *Ride* entity will have a unique id, info about its passenger and its driv
 - `id`: *string*
 - `passengerInfo`: *PassengerInfo*
 - `driverInfo`?: *DriverInfo*
-- `rideStatus`: *RideStatus* - enum CREATED/MATCHED/STARTED/FINISHED/CANCELED
+- `rideStatus`: *RideStatus* – enum `CREATED`/`MATCHED`/`STARTED`/`FINISHED`/`CANCELED`
 - `start`: *GeoLocation*
 - `destination`: *GeoLocation*
 - `createdAt`: *timestamp*
@@ -131,7 +131,11 @@ CreateRide(userId: string, pickup: GeoLocation, destination: GeoLocation)
   => Ride
 ```
 
-**Usage:** called when a passenger books a ride; a *Ride* is created with no *DriverInfo* and with a **CREATED** *RideStatus*; the Uber backend calls an internal *FindDriver* API that uses an algorithm to find the most appropriate driver; once a driver is found and accepts the ride, the backend calls *EditRide* with the driver's info and with a **MATCHED** *RideStatus*.
+**Usage:**\
+*CreateRide* is called when a passenger books a ride.\
+A *Ride* is created with no *DriverInfo* and with a **CREATED** *RideStatus*.\
+The Uber backend calls an internal *FindDriver* API that uses an algorithm to find the most appropriate driver.\
+Once a driver is found and accepts the ride, the backend calls *EditRide* with the driver's info and with a **MATCHED** *RideStatus*.
 
 ```python
 GetRide(userId: string)
