@@ -165,7 +165,7 @@ CancelRide(userId: string)
   => void
 ```
 
-Wrapper around *EditRide* — effectively calls *EditRide*(userId: string, rideStatus: CANCELLED)*.
+Wrapper around [*EditRide*](#editride) — effectively calls *`EditRide(userId: string, rideStatus: CANCELLED)`*.
 
 #### StreamDriverLocation
 
