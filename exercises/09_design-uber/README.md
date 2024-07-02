@@ -126,6 +126,8 @@ We'll explain why the *driverInfo* is optional when we get to the API endpoint
 The passenger-facing API will be fairly straightforward.\
 It'll consist of simple CRUD operations around the *Ride* entity, as well as an endpoint to stream a driver's location throughout a ride.
 
+#### CreateRide
+
 ```python
 CreateRide(userId: string, pickup: GeoLocation, destination: GeoLocation)
   => Ride
@@ -137,6 +139,8 @@ A *Ride* is created with no *DriverInfo* and with a **CREATED** *RideStatu
 The Uber backend calls an internal *FindDriver* API that uses an algorithm to find the most appropriate driver.\
 Once a driver is found and accepts the ride, the backend calls *EditRide* with the driver's info and with a **MATCHED** *RideStatus*.
 
+#### GetRide
+
 ```python
 GetRide(userId: string)
   => Ride
@@ -144,10 +148,14 @@ GetRide(userId: string)
 
 **Usage:** polled every couple of seconds after a ride has been created and until the ride has a status of **MATCHED**; afterwards, polled every 20-90 seconds throughout the trip to update the ride's estimated price, its time to destination, its *RideStatus* if it's been canceled by the driver, etc..
 
+#### EditRide
+
 ```python
 EditRide(userId: string, [...params?: all properties on the Ride object that need to be edited])
   => Ride
 ```
+
+#### CancelRide
 
 ```python
 CancelRide(userId: string)
@@ -155,6 +163,8 @@ CancelRide(userId: string)
 ```
 
 Wrapper around *EditRide* — effectively calls *EditRide*(userId: string, rideStatus: CANCELLED)*.
+
+#### StreamDriverLocation
 
 ```python
 StreamDriverLocation(userId: string)
