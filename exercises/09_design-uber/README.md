@@ -113,7 +113,7 @@ We'll explain why the *driverInfo* is optional when we get to the API endpoint
 
 - `id`: *string*
 - `name`: *string*
-- `status`: *DriverStatus* - enum `UNAVAILABLE`/`IN_RIDE`/`STANDBY`
+- `status`: *DriverStatus* – enum `UNAVAILABLE`/`IN_RIDE`/`STANDBY`
 - `rating`: *int*
 - `ridesCount`: *int*
 - `vehicleInfo`: *VehicleInfo*
