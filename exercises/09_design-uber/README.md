@@ -136,7 +136,7 @@ CreateRide(userId: string, pickup: GeoLocation, destination: GeoLocation)
 
 **Usage:**\
 *CreateRide* is called when a passenger books a ride.\
-A [*Ride*](#ride) is created with no [*DriverInfo*](#driverinfo) and with a `*RideStatus.CREATED*`.\
+A [*Ride*](#ride) is created with no [*DriverInfo*](#driverinfo) and with a *`RideStatus.CREATED`*.\
 The Uber backend calls an internal *FindDriver* API that uses an algorithm to find the most appropriate driver.\
 Once a driver is found and accepts the ride, the backend calls [*EditRide*](#passenger-api__edit-ride) with the driver's info and with a *`RideStatus.MATCHED`*.
 
