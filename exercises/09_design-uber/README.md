@@ -93,7 +93,7 @@ The *Ride* entity will have a unique id, info about its passenger and its driv
 - `id`: *string*
 - `passengerInfo`: *PassengerInfo*
 - `driverInfo`?: *DriverInfo*
-- `rideStatus`: *RideStatus* – enum `CREATED`/`MATCHED`/`STARTED`/`FINISHED`/`CANCELED`
+- `status`: *RideStatus* – enum `CREATED`/`MATCHED`/`STARTED`/`FINISHED`/`CANCELED`
 - `start`: *GeoLocation*
 - `destination`: *GeoLocation*
 - `createdAt`: *timestamp*
@@ -113,6 +113,7 @@ We'll explain why the *driverInfo* is optional when we get to the API endpoint
 
 - `id`: *string*
 - `name`: *string*
+- `status`: *DriverStatus* - enum `UNAVAILABLE`/`IN_RIDE`/`STANDBY`
 - `rating`: *int*
 - `ridesCount`: *int*
 - `vehicleInfo`: *VehicleInfo*
