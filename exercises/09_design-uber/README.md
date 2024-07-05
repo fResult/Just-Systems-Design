@@ -236,6 +236,9 @@ CancelRide(userId: string)
 
 Wrapper around [*EditRide*](#driver-api__edit-ride) — effectively calls *`EditRide(userId, RideStatus.CANCELLED)`*.
 
+> Note:
+> $CancelRide\to EditRide$ by Uber’s internally API
+
 #### PushLocation
 
 ```python
