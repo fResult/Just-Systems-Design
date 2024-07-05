@@ -141,6 +141,9 @@ A [*Ride*](#ride) is created with no [*DriverInfo*](#driverinfo) and with a�
 The Uber backend calls an internal *FindDriver* API that uses an algorithm to find the most appropriate driver.\
 Once a driver is found and accepts the ride, the backend calls [*EditRide*](#passenger-api__edit-ride) with the driver's info and with a *`RideStatus.MATCHED`*.
 
+> Note:
+> $CreateRide\to FindDriver\to EditRide$ by Uber’s internally API
+
 <h4 id="passenger-api__get-ride">GetRide</h4> <!-- markdownlint-disable-line MD033 -->
 
 ```python
@@ -259,3 +262,23 @@ Passengers would still call the *CreateRide* endpoint when booking an UberPool
 Drivers would likely have an extra *DriverStatus* value to indicate if they were in a ride but still accepting new UberPool passengers.
 
 Most of the other functionality would remain the same; passengers and drivers would still continuously poll the *GetRide* endpoint for updated information about the ride, passengers would still stream their driver's location, passengers would still be able to cancel their individual rides, etc..
+
+### 7. Uber Backend API
+
+Run in the background as asynchronous algorithm.
+
+#### FindDriver
+
+```python
+FindDriver(rideId: string)
+  => Driver
+```
+
+#### FindRide
+
+```python
+FindRide()
+  => Ride | null
+```
+
+Return `null` when the driver is not matched by any ride.
