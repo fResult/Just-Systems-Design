@@ -235,6 +235,7 @@ CancelRide(userId: string)
 ```
 
 Wrapper around [*EditRide*](#driver-api__edit-ride) — effectively calls *`EditRide(userId, RideStatus.CANCELLED)`*.
+And also *`SetDriverStatus(userId, DriverStatus.STANDBY)`*.
 
 > Note:
 > $CancelRide\to EditRide$ by Uber’s internally API
@@ -266,7 +267,7 @@ Drivers would likely have an extra *DriverStatus* value to indicate if they we
 
 Most of the other functionality would remain the same; passengers and drivers would still continuously poll the *GetRide* endpoint for updated information about the ride, passengers would still stream their driver's location, passengers would still be able to cancel their individual rides, etc..
 
-### 7. Uber Backend API
+### 7. Uber Backend API (Optional)
 
 Run in the background as asynchronous algorithm.
 
