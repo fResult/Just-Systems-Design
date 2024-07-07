@@ -133,8 +133,7 @@ We'll explain why the *driverInfo* is optional when we get to the API endpoint
 
 ### 4. Passenger API
 
-The passenger-facing API will be fairly straightforward.\
-It'll consist of simple CRUD operations around the *Ride* entity, as well as an endpoint to stream a driver's location throughout a ride.
+The passenger-facing API will consist of simple CRUD operations around the [*Ride*](#ride) entity and an endpoint to stream a driver's location throughout a ride.
 
 #### CreateRide
 
@@ -143,14 +142,14 @@ CreateRide(userId: string, pickup: GeoLocation, destination: GeoLocation)
   => Ride
 ```
 
-**Usage:**\
-*CreateRide* is called when a passenger books a ride.\
-A [*Ride*](#ride) is created with no [*DriverInfo*](#driverinfo) and with a *`RideStatus.CREATED`*.\
-The Uber backend calls an internal *FindDriver* API that uses an algorithm to find the most appropriate driver.\
-Once a driver is found and accepts the ride, the backend calls [*EditRide*](#passenger-api__edit-ride) with the driver's info and with a *`RideStatus.MATCHED`*.
+**Usage:**
+*CreateRide* is called when a passenger books a ride.
+A [*Ride*](#ride) is created with no [*DriverInfo*](#driverinfo) (that's why `driverInfo` in the Ride entity is `null`) and with a *`RideStatus.CREATED`*.
+The Uber backend calls an internal [*FindDriver*](#finddriver) API that uses an algorithm to find the most appropriate driver.
+When a driver is found and accepts the ride, the backend calls [*EditRide*](#passenger-api__edit-ride) with the driver's info and a *`RideStatus.MATCHED`*.
 
-> Note:
-> $CreateRide\to FindDriver\to EditRide$ by Uber’s internally API
+> Note:\
+> $CreateRide\to FindDriver\to EditRide$ by Uber’s internal API
 
 <h4 id="passenger-api__get-ride">GetRide</h4> <!-- markdownlint-disable-line MD033 -->
 
