@@ -142,7 +142,7 @@ CreateRide(userId: string, pickup: GeoLocation, destination: GeoLocation)
   => Ride
 ```
 
-**Usage:**
+**Usage:**\
 *CreateRide* is called when a passenger books a ride.\
 A [*Ride*](#ride) is created with no [*DriverInfo*](#driverinfo) (that's why `driverInfo` in the Ride entity is `null`) and with a *`RideStatus.CREATED`*.\
 The Uber backend calls an internal [*FindDriver*](#finddriver) API that uses an algorithm to find the most appropriate driver.\
@@ -159,8 +159,8 @@ GetRide(userId: string)
 ```
 
 **Usage:**\
-*GetRide* is polled every couple of seconds after a ride has been created and until the ride has a status of *`RideStatus.MATCHED`*.\
-Afterwards, polled every 20-90 seconds throughout the trip to update the ride's estimated price, its time to destination, its *RideStatus* if it's been canceled by the driver, etc..
+*GetRide* is polled every couple of seconds after creating a ride until the ride has a status of *`RideStatus.MATCHED`*.\
+Afterwards, it is polled every 20-90 seconds throughout the trip to update the ride's estimated price, time to destination, *RideStatus* if the driver cancels, etc.
 
 <h4 id="passenger-api__edit-ride">EditRide</h4> <!-- markdownlint-disable-line MD033 -->
 
