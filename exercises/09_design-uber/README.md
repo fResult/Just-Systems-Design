@@ -37,8 +37,8 @@ And yes, let’s design both, starting with the passenger-facing API.
 
 To make sure we’re on the same page, this is the functionality that I'm envisioning this API will support:
 
-- A user (a passenger) goes on their phone and hails a ride.
-    They get matched with a driver.
+- A user (a passenger) goes on their phone and hails a ride.\
+    They get matched with a driver.\
     Then they can track their ride as it’s in progress, until they reach their destination, at which point the ride is complete.
 - Throughout this process, there are a few more features to support, like being able to track where the passenger's driver is before the passenger gets picked up, maybe being able to cancel rides, etc..
 - Does this capture most of what you had in mind?
