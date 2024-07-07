@@ -96,7 +96,7 @@ We'll start by defining the *Ride* entity before designing the *passenger-facing
 
 #### Ride
 
-The *Ride* entity will have a unique id, info about its passenger and its driver, a status, and other details about the ride.
+The *Ride* entity will have a unique id, information about its passenger and driver, a status, and other ride details.
 
 - `id`: *string*
 - `passengerInfo`: *PassengerInfo*
