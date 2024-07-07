@@ -83,12 +83,14 @@ It's important to organize ourselves and to lay out a clear plan regarding how w
 What are the major, potentially contentious parts of our API?\
 Why are we making certain design decisions?
 
-We're going to center our API around a *Ride* entity; every Uber ride will have an associated *Ride* containing information about the ride, including information about its passenger and driver.
+We'll centre our API around a [*Ride*](#ride) entity.\
+Every Uber ride will have an associated *Ride* containing information about the ride, including details about the passenger and the driver.
 
-Since a normal Uber ride can only have one passenger (one passenger account—the one that hails the ride) and one driver, we're going to cleverly handle all permissioning related to ride operations through passenger and driver IDs.\
-In other words, operations like *GetRide* and *EditRide* will purely rely on a passed userId, the userId of the passenger or driver calling them, to return the appropriate ride tied to that passenger or driver.
+Because a typical Uber ride can only have one passenger (one passenger account hailing the ride) and one driver.\
+So we'll handle all permissions related to ride operations through passenger and driver IDs.\
+So to speak, operations like *GetRide* and *EditRide* will rely on a passed `userId`, the `userId` of the passenger or driver, to return the appropriate ride tied to that user.
 
-We'll start by defining the *Ride* entity before designing the passenger-facing API and then the driver-facing API.
+We'll start by defining the *Ride* entity before designing the *passenger-facing* API and then the *driver-facing* API.
 
 ### 3. Entities
 
