@@ -186,8 +186,8 @@ StreamDriverLocation(userId: string)
 ```
 
 **Usage:**\
-*StreamDriverLocation* continuously streams the location of a driver over a long-lived websocket connection.\
-The driver whose location is streamed is the one associated with the [*Ride*](#ride) tied to the passed *userId*.
+*StreamDriverLocation* continuously streams the location of a driver over a long-lived WebSocket connection.\
+The driver whose streams the location is the one associated with the [*Ride*](#ride) tied to the passed *userId*.
 
 ### 5. Driver API
 
