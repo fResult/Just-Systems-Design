@@ -73,7 +73,8 @@ As with any API design interview question, the first thing that we want to do is
 We're designing the core ride-hailing service that Uber offers.\
 Passengers can book a ride from their phone, at which point they're matched with a driver; they can track their driver's location throughout the ride, up until the ride is finished or canceled; and they can also see the price of the ride as well as the estimated time to destination throughout the trip, amongst other things.
 
-The core taxiing service that Uber offers has a *passenger-facing* side and a *driver-facing* side; we're going to be designing the API for both sides.
+The Uber core service has both a *passenger-facing* side and a *driver-facing* side.\
+We will design the API for both sides.
 
 ### 2. Coming Up With A Plan
 
