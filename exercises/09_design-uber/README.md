@@ -70,8 +70,9 @@ Just to confirm, you want me to write out function signatures for various API en
 
 As with any API design interview question, the first thing that we want to do is to gather API requirements; we need to figure out what API we're building exactly.
 
-We're designing the core ride-hailing service that Uber offers.\
-Passengers can book a ride from their phone, at which point they're matched with a driver; they can track their driver's location throughout the ride, up until the ride is finished or canceled; and they can also see the price of the ride as well as the estimated time to destination throughout the trip, amongst other things.
+We're focusing on the core ride-hailing service that Uber offers.\
+Passengers can book a ride from their phone, get matched with a driver, and track the driver's location throughout the ride.\
+They can also see the ride's price and the estimated time to their destination throughout the trip, among other details.
 
 The Uber core service has both a *passenger-facing* side and a *driver-facing* side.\
 We will design the API for both sides.
