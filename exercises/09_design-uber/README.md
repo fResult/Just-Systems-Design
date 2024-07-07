@@ -191,7 +191,8 @@ The driver whose streams the location is the one associated with the [*Ride*](#r
 
 ### 5. Driver API
 
-The driver-facing API will rely on some of the same CRUD operations around the [*Ride*](#ride) entity, and it'll also have a *SetDriverStatus* endpoint as well as an endpoint to push the driver's location to passengers who are streaming it.
+The driver-facing API will use some of the same CRUD operations around the [*Ride*](#ride) entity.\
+It will also have a *SetDriverStatus* endpoint and an endpoint to push the driver's location to passengers who are streaming it.
 
 #### SetDriverStatus
 
