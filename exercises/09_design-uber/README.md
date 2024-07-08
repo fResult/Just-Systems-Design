@@ -285,6 +285,13 @@ Passengers and drivers would still poll the *GetRide* endpoint for updated ride 
 Passengers would still stream their driver's location.\
 And they can still cancel their rides.
 
+#### Entities
+
+**PoolRide:**
+
+- `driverInfo`: *DriverInfo* — (It is redundant with the `Ride.driverInfo`, but it is okay)
+- `rides`: *List\[Ride\]*
+
 ### 7. Uber Backend API (Optional)
 
 Here is my more note.
