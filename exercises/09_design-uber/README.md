@@ -259,8 +259,9 @@ PushLocation(userId: string, location: GeoLocation)
 ```
 
 **Usage:**\
-*PushLocation* is continuously called by a driver's phone throughout a ride; pushes the driver's location to the relevant passenger who's streaming the location.\
-The passenger is the one associated with the [*Ride*](#ride) tied to the passed *`userId`*.
+*PushLocation* is continuously called by a driver's phone throughout a ride.\
+It pushes the driver's location to the relevant passenger who's streaming the location.\
+The passenger is the one associated with the *Ride* tied to the passed *`userId`*.
 
 ### 6. UberPool
 
