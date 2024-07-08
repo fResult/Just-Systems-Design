@@ -1,0 +1,15 @@
+#!/bin/bash # <!-- markdownlint-disable-line MD018 MD041 -->
+
+# Publisher/Subscriber Pattern - Publisher (Youtube)
+
+## Jump to the current directory
+
+cd "$(dirname "$0")" || return
+
+## Setup variable before running the code
+
+export WORK_DIR=22_publisher-subscriber-pattern
+
+## Run code
+
+(for i in `seq 1 10000`; do sleep 1; echo New Stock Price; done) | NAME=YOUTUBE TOPIC_ID=youtube-notifications pnpm ts-node $WORK_DIR/publisher.ts
