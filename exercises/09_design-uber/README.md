@@ -265,19 +265,25 @@ The passenger is the one associated with the *Ride* tied to the passed *`userId`
 
 ### 6. UberPool
 
-As a stretch goal, your interviewer might ask you to think about how you'd expand your design to handle UberPool rides.
+As a stretch goal, we will consider how to expand the design to handle UberPool rides.
 
 UberPool rides allow multiple passengers (different Uber accounts) to share an Uber ride for a cheaper price.
 
-One way to handle UberPool rides would be to allow *Ride* objects to have multiple *passengerInfo*s.\
-In this case, *Ride*s would also have to maintain a list of all destinations that the ride will stop at, as well as the relevant final destinations for individual passengers.
+One approach is to allow *Ride* objects to have multiple *passengerInfo*s.\
+In this case, *Ride*s would also have to maintain a list of all destinations the ride will stop at and the relevant final destinations for individual passengers.
 
-Perhaps a cleaner way to handle UberPool rides would be to introduce an entirely new entity, a *PoolRide* entity, which would have a list of *Ride*s attached to it.\
-Passengers would still call the *CreateRide* endpoint when booking an UberPool ride, and so they would still have their own, normal *Ride* entity, but this entity would be attached to a *PoolRide* entity with the rest of the UberPool ride information.
+Another approach is to introduce a new entity.\
+It's called a *PoolRide*, with the list of *Ride*s attached.\
+Passengers would still call the *CreateRide* endpoint when booking an UberPool ride.\
+That means they still have their own, normal *Ride* entity.\
+However, this entity would be attached to a *PoolRide* entity with the rest of the UberPool ride information.
 
-Drivers would likely have an extra *DriverStatus* value to indicate if they were in a ride but still accepting new UberPool passengers.
+Drivers might have an extra *DriverStatus* value to indicate if they are in a ride but still accepting new UberPool passengers.
 
-Most of the other functionality would remain the same; passengers and drivers would still continuously poll the *GetRide* endpoint for updated information about the ride, passengers would still stream their driver's location, passengers would still be able to cancel their individual rides, etc..
+Most of the other functionality would remain the same.\
+Passengers and drivers would still poll the *GetRide* endpoint for updated ride information.\
+Passengers would still stream their driver's location.\
+And they can still cancel their rides.
 
 ### 7. Uber Backend API (Optional)
 
