@@ -96,3 +96,17 @@ As far as reliability is concerned, let's not worry too much about it for the sa
 You can assume that you have a highly available SQL setup out of the box, without worrying about the availability details.
 
 ## Solution Walkthrough
+
+### 1. Gathering System Requirements
+
+As with any systems design interview question, the first thing that we want to do is to gather system requirements; we need to figure out what system we're building exactly.
+
+We're designing the core system behind Tinder, which allows users to create a profile and swipe through a seemingly endless deck of potential matches.\
+Users can also super-like potential matches, putting themselves at the top of the other users' decks, and they can undo their most recent swipe if it was a left swipe.\
+Users don't have any limitations on the number of swipes, Super Likes, and Undos that they can do per day.
+
+We're explicitly not designing any functionality that's available after two users match, including any kind of notification system to alert users that they've gotten a match, unless the match occurs directly when they swipe right on a potential match.
+
+Our system should serve a global userbase of about 50 million users who are evenly distributed across the world, and we'd like to have mostly instant swipes, allowing for some latency when the Tinder app first loads up and after a user has swiped through a good number of potential matches.
+
+We're told not to focus on the availability of our system, which should help us narrow down our design a little bit.
