@@ -211,13 +211,13 @@ This table will be indexed on *`swipeeId`* and *`timestamp`* in order to all
 
 This matches table will mainly be used for the part of the system that is beyond the scope of this question.
 
-On app load, the Tinder app will fetch all of the rows in the swipes table where *`swipeeId`* matches the user's *`userId`*.
+On app load, the Tinder app will fetch all of the rows in the swipes table where *`swipeeId`* matches the user's *`userId`*.\
 Then, every 30 seconds, it'll fetch the same rows, except only those with a timestamp after the most recent previously-fetched swipe's timestamp.
 
-The Tinder app will keep all of the swipes in memory, in a hashtable-like structure, meaning that for any potential match, the app can know right away if they've already swiped on the user.
+The Tinder app will keep all of the swipes in memory, in a hashtable-like structure, meaning that for any potential match, the app can know right away if they've already swiped on the user.\
 This data can easily fit in memory on a phone (~20 bytes per swipe * maximum of 100k swipes = 2MB).
 
-When a user swipes, the app will write the swipe to the swipes table.
+When a user swipes, the app will write the swipe to the swipes table.\
 If the swipe is a **LIKE**, the backend will check for a matching swipe, and if there is one, it'll write a match to the matches table.
 
 On the app's side, if there's a match (instantly knowable because of the local cache of swipes), the app will display a notification to the user; this is instant because we don't rely on the backend's response.
