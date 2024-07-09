@@ -221,3 +221,18 @@ When a user swipes, the app will write the swipe to the swipes table.\
 If the swipe is a **LIKE**, the backend will check for a matching swipe, and if there is one, it'll write a match to the matches table.
 
 On the app's side, if there's a match (instantly knowable because of the local cache of swipes), the app will display a notification to the user; this is instant because we don't rely on the backend's response.
+
+### 7. Super-Liking
+
+**The Super Like feature can be implemented with the following tweaks to our existing system:**
+
+1. A new **SUPER-LIKE** value is added to the *`swipeType`* in the swipes table.
+2. When a user (**Foo**) super-likes a potential match (**Bar**), the recorded swipe gets set to a **SUPER-LIKE**.
+   If the backend notices a match, nothing else happens, except for writing the match to the matches table.\
+   Otherwise, the backend writes **Foo**'s *`userId`* to **Bar**'s deck row in the decks table, putting **Foo** at the top of **Bar**'s deck, behind other super-likes, because older super-likes have precedence.\
+   If **Foo**'s *`userId`* was already in **Bar**'s deck, it simply gets moved.
+
+Our deck-generation algorithm is smart enough to keep super-likes at the top of decks, ordered by timestamp, such that older super-likes appear first.
+
+As far as the Tinder UI is concerned, when the potential match at the top of a user's deck has super-liked the user (instantly knowable because of the local cache of swipes), a visual indicator is displayed.\
+If a user gets super-liked while on the app by a user whose profile hasn't yet been fetched (i.e., a user who isn't in the 20-40 locally stored profiles), as soon as the app fetches the next 20 profiles from their deck, they'll see the Super Like at the top.
