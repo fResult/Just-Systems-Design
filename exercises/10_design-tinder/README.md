@@ -153,7 +153,7 @@ The user's `geoLocation` can be updated any time that the user opens the Tinder 
 With 50 million users and an estimated upper bound of ~2KB per profile (pictures excluded), we'll need 2KB * 50e6 = 100GB of storage per region, or 1-5TB in total, assuming 10-50 regional databases.\
 This is very little storage space.
 
-As far as pictures are concerned, we can assume that users will have an average of five pictures each, with an upper bound of ~2MB per picture (high-quality, 1920x1080p).\
+As far as pictures are concerned, we can assume that users will have an average of five pictures each, with an upper bound of ~2MB per picture (high-quality, 1920×1080p).\
 We'll almost certainly want to reduce the dimensions of pictures, since they'll only be viewable on small mobile screens, and we'll perform some lossy compression on them, because we can afford to lose a bit of quality.\
 We can assume that this will bring pictures down to roughly ~50KB per picture (~200-500KB after dimension reduction and ~50KB after lossy compression).
 
@@ -163,4 +163,5 @@ $$
   \sim250\text{KB}\times 50\mathrm{e}6\text{ users} =& 12.5\text{TB (not a lot)}
 \end{aligned}
 $$
+
 Clearly, the pictures account for most of our storage needs.
