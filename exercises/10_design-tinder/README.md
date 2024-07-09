@@ -110,3 +110,26 @@ We're explicitly not designing any functionality that's available after two user
 Our system should serve a global userbase of about 50 million users who are evenly distributed across the world, and we'd like to have mostly instant swipes, allowing for some latency when the Tinder app first loads up and after a user has swiped through a good number of potential matches.
 
 We're told not to focus on the availability of our system, which should help us narrow down our design a little bit.
+
+### 2. Coming Up With A Plan
+
+**We'll tackle this system by dividing it into four main sections:**
+
+- Storage Overview
+- Profile Creation
+- Deck Generation
+- Swiping
+
+We'll cover super-liking and undoing at the end, which will likely involve making tweaks to our design for swiping.
+
+### 3. Storage Overview
+
+Most of the data that we expect to store (profiles, decks, swipes, and matches), makes sense to be structured, so we'll use a SQL storage solution for it, and it'll be served directly from relevant SQL tables.
+
+All of this data will be stored in regional databases, located based on user hot spots (e.g., a database on the east coast of the U.S., one in central U.S., one in western Europe, one in India, etc.), and users fetching Tinder data will be automatically routed to the closest regional database after being routed to intermediary API servers via some round-robin load balancing.
+
+The only exception is users' profile pictures, which we'll store in a global blob store and which will be served via CDN.
+
+We'll have some asynchronous replication between the regional databases, which should take anywhere from a few minutes to a few hours to occur.\
+The asynchronicity of the replication should be fine, because the people that users interact with will usually, by the nature of the app, be close to them and therefore be using the same regional database as them.
+
