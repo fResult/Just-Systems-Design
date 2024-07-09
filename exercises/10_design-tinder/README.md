@@ -236,3 +236,12 @@ Our deck-generation algorithm is smart enough to keep super-likes at the top of 
 
 As far as the Tinder UI is concerned, when the potential match at the top of a user's deck has super-liked the user (instantly knowable because of the local cache of swipes), a visual indicator is displayed.\
 If a user gets super-liked while on the app by a user whose profile hasn't yet been fetched (i.e., a user who isn't in the 20-40 locally stored profiles), as soon as the app fetches the next 20 profiles from their deck, they'll see the Super Like at the top.
+
+### 8. Undoing
+
+The Undo feature can be implemented by simply delaying the API calls that occur on a left swipe until the next swipe or until the Tinder app is closed.
+This avoids doing multiple writes to the swipes table, which would otherwise be required in order to undo a left swipe.
+
+### 9. System Diagram
+
+![Tinder System Diagram](./img/tinder-system-diagram.svg)
