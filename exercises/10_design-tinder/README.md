@@ -132,3 +132,35 @@ The only exception is users' profile pictures, which we'll store in a global blo
 
 We'll have some asynchronous replication between the regional databases, which should take anywhere from a few minutes to a few hours to occur.\
 The asynchronicity of the replication should be fine, because the people that users interact with will usually, by the nature of the app, be close to them and therefore be using the same regional database as them.
+
+### 4. Profile Creation
+
+**We'll store Tinder profiles in an individual SQL table, where each row will represent a profile:**
+
+- `userId`: *string*, the unique id of the user
+- `geoLocation`: *point*
+- `name`: *string*
+- `age`: *int*
+- `gender`: *enum*
+- `sexualPreference`: *enum*
+- `job`: *string*
+- `bio`: *string*
+- `pictures`: *string\[\]*, a list of blob-store addresses
+
+The *`userId`* field will be automatically assigned to the user, while most of the other fields will be set by the user when creating or editing their profile.\
+The user's `geoLocation` can be updated any time that the user opens the Tinder app and is in a different location than the one stored in their profile.
+
+With 50 million users and an estimated upper bound of ~2KB per profile (pictures excluded), we'll need 2KB * 50e6 = 100GB of storage per region, or 1-5TB in total, assuming 10-50 regional databases.\
+This is very little storage space.
+
+As far as pictures are concerned, we can assume that users will have an average of five pictures each, with an upper bound of ~2MB per picture (high-quality, 1920x1080p).\
+We'll almost certainly want to reduce the dimensions of pictures, since they'll only be viewable on small mobile screens, and we'll perform some lossy compression on them, because we can afford to lose a bit of quality.\
+We can assume that this will bring pictures down to roughly ~50KB per picture (~200-500KB after dimension reduction and ~50KB after lossy compression).
+
+$$
+\begin{aligned}
+  \sim50\text{KB}\times 5 =& 250\text{KB of pictures per user}\\
+  \sim250\text{KB}\times 50\mathrm{e}6\text{ users} =& 12.5\text{TB (not a lot)}
+\end{aligned}
+$$
+Clearly, the pictures account for most of our storage needs.
