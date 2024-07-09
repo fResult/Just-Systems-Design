@@ -132,4 +132,3 @@ The only exception is users' profile pictures, which we'll store in a global blo
 
 We'll have some asynchronous replication between the regional databases, which should take anywhere from a few minutes to a few hours to occur.\
 The asynchronicity of the replication should be fine, because the people that users interact with will usually, by the nature of the app, be close to them and therefore be using the same regional database as them.
-
