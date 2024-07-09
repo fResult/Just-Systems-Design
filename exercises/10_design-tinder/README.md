@@ -168,8 +168,8 @@ Clearly, the pictures account for most of our storage needs.
 
 ### 5. Deck Generation
 
-For deck generation, we're going to have our smart deck-generation algorithm continuously generate decks of 200 potential matches for each user every day.
-This will ensure that user decks are as relevant as possible when users interact with them.
+For deck generation, we're going to have our smart deck-generation algorithm continuously generate decks of 200 potential matches for each user every day.\
+This will ensure that user decks are as relevant as possible when users interact with them.\
 For example, if someone is traveling out of a location and therefore no longer relevant to a particular user, they'll be removed from the user's deck within a day, minimizing the chance for a user to see irrelevant profiles.
 
 The deck-generation algorithm can be smart enough not to re-generate decks for users who are inactive for more than a day, and it can also be told to re-generate decks for users who've just changed location (i.e., when a user opens the Tinder app and is in a different location than the one stored in their profile row, the app tells the deck-generation algorithm to re-generate a deck for the user).
@@ -179,22 +179,22 @@ The deck-generation algorithm can be smart enough not to re-generate decks for u
 - `userId`: *string*, the id of the user that this deck belongs to
 - `potentialMatches`: *string\[\]*, a list of userIds
 
-On app load, the Tinder app will request the 40 profiles at the top of their deck, remove them from the top of their deck (i.e., by updating their deck's row in the decks table), and locally store them.
-It's worth noting that, had we not compressed the profile images at the time of profile creation, each user would be requesting and attempting to store 400MB of data, which would be way too much data.
+On app load, the Tinder app will request the 40 profiles at the top of their deck, remove them from the top of their deck (i.e., by updating their deck's row in the decks table), and locally store them.\
+It's worth noting that, had we not compressed the profile images at the time of profile creation, each user would be requesting and attempting to store 400MB of data, which would be way too much data.\
 With our compression, where each picture is ~50KB, 40 profiles becomes just 10MB of data, which is acceptable.
 
 It's also worth noting that, if the user shuts their phone down or completely closes the Tinder app process, any locally stored profiles that the user hadn't swiped on will simply be read to their deck at a later time by the deck-generation algorithm, since they were presumably relevant profiles and haven't yet been swiped on by the user.
 
-The Tinder app will ensure that the number of locally cached profiles never goes below 20, such that the user almost never feels like they've run out of profiles to swipe on, even for a few seconds.
+The Tinder app will ensure that the number of locally cached profiles never goes below 20, such that the user almost never feels like they've run out of profiles to swipe on, even for a few seconds.\
 To accomplish this, the user's phone will eagerly fetch 20 additional profiles from the top of their deck when the user has 20 locally stored profiles left.
 
-When the user runs out of potential matches (i.e., their deck has gone from 200 to 0 potential matches), the request for 20 more profiles triggers a new deck to be generated on demand.
+When the user runs out of potential matches (i.e., their deck has gone from 200 to 0 potential matches), the request for 20 more profiles triggers a new deck to be generated on demand.\
 This is the only time that we might expect some potential loading time in the middle of using the app, but this happens infrequently, since the user would have to swipe on 200 potential matches within a day and would have to be swiping right extremely fast to go through their final 20 profiles before a new deck is generated.
 
 ### 6. Swiping
 
-For swiping, we'll have two more SQL tables: one for swipes and one for matches.
-The SQL table for swipes will look like this:
+**For swiping, we'll have two more SQL tables: one for swipes and one for matches.
+The SQL table for swipes will look like this:**
 
 - `swiperId`: *string*, the id of the user that performed the swipe
 - `swipeeId`: *string*, the id of the user that was swiped on
