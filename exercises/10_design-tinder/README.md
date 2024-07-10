@@ -238,7 +238,7 @@ This allows for fast lookups of a user's recent swipes (all of the recent swipes
 - `userTwoId`: *string*, the ID of the second user in the match
 - `timestamp`: *datetime*
 
-This matches table will mainly be used for parts of the system that are beyond the scope of this question.
+This **matches** table will mainly be used for parts of the system that are beyond the scope of this question.
 
 When the Tinder app loads, it fetches all rows in the **swipes** table where *`swipeeId`* matches the user's *`userId`*.\
 Then every 30 seconds, it fetches the same rows, except only rows with a *`timestamp`* after the most recent previously-fetched *swipe*'s *`timestamp`*.
@@ -247,10 +247,12 @@ The Tinder app stores all *swipes* in memory using a hashtable-like structure.\
 This allows the app to quickly determine if a user has already swiped on a potential match.\
 This data can easily fit in a phone's memory (~20 bytes per swipe × maximum of 100k swipes = 2MB).
 
-When a user swipes, the app will write the swipe to the swipes table.\
-If the swipe is a **LIKE**, the backend will check for a matching swipe, and if there is one, it'll write a match to the matches table.
+When a user swipes, the app writes the swipe to the **swipes** table.\
+If the swipe is a **LIKE**, the backend checks for a matching swipe.\
+If there is a match, it writes a match to the **matches** table.
 
-On the app's side, if there's a match (instantly knowable because of the local cache of swipes), the app will display a notification to the user; this is instant because we don't rely on the backend's response.
+On the app's side, if there is a match (instantly knowable because of the local cache of **swipes**), the app displays a notification to the user.\
+This is instant because it does not rely on the backend's response.
 
 ### 7. Super-Liking
 
