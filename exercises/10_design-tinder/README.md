@@ -58,7 +58,8 @@ Naturally, if a user were to swipe through every single potential match within t
 
 **Q:**
 
-- *Regarding the deck of potential matches, here are some assumptions that I'm making; let me know if this sounds appropriate.*
+*Regarding the deck of potential matches, here are some assumptions that I'm making; let me know if this sounds appropriate.*
+
 - *Every user has an endless deck of potential matches that are within their distance parameters, as we just mentioned, and this deck should be ordered in some way (perhaps based on a matchability score).*
 - *The deck should only consist of users who have either already liked this user or not yet swiped on them.*
 - *For users who have already swiped left on the main user, we should probably, in a best-effort type of way, try to remove them from the main user's deck.*
