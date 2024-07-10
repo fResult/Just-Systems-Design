@@ -173,7 +173,7 @@ This will bring pictures down to roughly ~50KB per picture (~200-500KB after dim
 $$
 \begin{aligned}
   \sim50\text{KB}\times 5 =& 250\text{KB of pictures per user}\\
-  \sim250\text{KB}\times 50\mathrm{e}6\text{ users} =& 12.5\text{TB (not a lot)}
+  \sim250\text{KB}\times 50\text{ million users} =& 12.5\text{TB (not a lot)}
 \end{aligned}
 $$
 
