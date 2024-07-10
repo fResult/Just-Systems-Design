@@ -129,7 +129,7 @@ We'll cover super-liking and undoing at the end, which will likely involve makin
 
 ### 3. Storage Overview
 
-Most of the data we expect to store (profiles, decks, swipes, and matches) makes sense to be structured.\
+Most of the data we expect to store (*`profiles`*, *`decks`*, *`swipes`*, and *`matches`*) makes sense to be structured.\
 So, we will use a SQL storage solution and serve it directly from relevant SQL tables.
 
 We will store all this data in regional databases based on user hot spots.\
@@ -181,13 +181,13 @@ Clearly, the pictures account for most of our storage needs.
 
 ### 5. Deck Generation
 
-For deck generation, our smart deck-generation algorithm will continuously create decks of 200 potential matches for each user every day.\
+For deck generation, our smart deck-generation algorithm will continuously create **decks** of 200 potential matches for each user every day.\
 This ensures that user decks remain relevant when users interact with them.\
 For instance, if someone travels out of a location and is no longer relevant to a particular user, they'll be removed from the user's deck within a day.\
-This minimizes the chance of showing irrelevant profiles.
+This minimizes the chance of showing irrelevant **profiles**.
 
 The deck-generation algorithm will not re-generate decks for users who inactive for more than a day.\
-It will also re-generate decks for users who change location.\
+It will also re-generate *decks* for users who change location.\
 When a user opens the Tinder app and is in a different location than the one stored in their profile, the app will tell the deck-generation algorithm to re-generate a new deck for the user.
 
 **We'll store each user's deck of potential matches in an individual SQL table.\
@@ -197,7 +197,7 @@ Each row will represent a deck:**
 - `potentialMatches`: *string\[\]*, a list of `userId`s
 
 When the Tinder app loads, it requests the top 40 profiles from their deck.\
-It removes these profiles from the top of their deck by updating the deck's row in the decks table and stores them locally.\
+It removes these profiles from the top of their deck by updating the deck's row in the **decks** table and stores them locally.\
 Without image compression at profile creation, each user would be requesting and trying to store 400MB of data.\
 This amount is too much.\
 With our compression, where each picture is ~50KB, 40 profiles only use 10MB of data.\
@@ -265,7 +265,7 @@ This is instant because it does not rely on the backend's response.
    This puts **Foo** at the top of **Bar**'s deck, behind other super-likes, because older super-likes have precedence.\
    If **Foo**'s *`userId`* is already in **Bar**'s deck, it simply moves to the top.
 
-Our deck-generation algorithm keeps super-likes at the top of decks, ordered by `timestamp`.\
+Our deck-generation algorithm keeps super-likes at the top of **decks**, ordered by `timestamp`.\
 So, the older super-likes appear first.
 
 In the Tinder UI, when a potential match at the top of a user's deck has super-liked the user, a visual indicator appears.\
@@ -274,8 +274,9 @@ If a user gets super-liked while on the app by a user whose profile hasn't been 
 
 ### 8. Undoing
 
-The Undo feature can be implemented by simply delaying the API calls that occur on a left swipe until the next swipe or until the Tinder app is closed.
-This avoids doing multiple writes to the swipes table, which would otherwise be required in order to undo a left swipe.
+We can implement the Undo feature by delaying the API calls that happen on a left swipe.\
+These calls are delayed until the next swipe or until the Tinder app is closed.\
+This approach avoids multiple writes to the **swipes** table, which would otherwise be needed to undo a left swipe.
 
 ### 9. System Diagram
 
