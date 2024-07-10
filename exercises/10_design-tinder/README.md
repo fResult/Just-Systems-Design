@@ -147,7 +147,7 @@ The asynchronicity of the replication should be acceptable because users usually
 
 **We will store Tinder profiles in a single SQL table. Each row will represent a profile:**
 
-- `userId`: *string*, the unique id of the user
+- `userId`: *string*, the unique ID of the user
 - `geoLocation`: *GeoLocation*
 - `name`: *string*
 - `age`: *int*
@@ -193,7 +193,7 @@ When a user opens the Tinder app and is in a different location than the one sto
 **We'll store each user's deck of potential matches in an individual SQL table.\
 Each row will represent a deck:**
 
-- `userId`: *string*, the id of the user that this deck belongs to
+- `userId`: *string*, the ID of the user that this deck belongs to
 - `potentialMatches`: *string\[\]*, a list of `userId`s
 
 When the Tinder app loads, it requests the top 40 profiles from their deck.\
@@ -221,17 +221,18 @@ The user would have to swipe on 200 potential matches in a day and swipe right v
 
 ### 6. Swiping
 
-**For swiping, we'll have two more SQL tables: one for swipes and one for matches.
-The SQL table for swipes will look like this:**
+**For swiping, we'll have two more SQL tables: one for swipes and one for matches.\
+The SQL table for swipes will look like this:**
 
-- `swiperId`: *string*, the id of the user that performed the swipe
-- `swipeeId`: *string*, the id of the user that was swiped on
+- `swiperId`: *string*, the ID of the user that performed the swipe
+- `swipeeId`: *string*, the ID of the user that was swiped on
 - `swipeType`: *enum* (**`LIKE`**, **`PASS`**)
 - `timestamp`: *datetime*
 
-This table will be indexed on *`swipeeId`* and *`timestamp`* in order to allow for fast lookups of a user's recent swipes (all of the recent swipes that were performed ***on*** the user).
+This table will be indexed on *`swipeeId`* and *`timestamp`*.\
+This allows for fast lookups of a user's recent swipes (all of the recent swipes performed on the user).
 
-**The SQL table for matches will look like this:**
+**The SQL table for matches will look like this:**
 
 - `userOneId`: *string*, the id of the first user in the match
 - `userTwoId`: *string*, the id of the second user in the match
