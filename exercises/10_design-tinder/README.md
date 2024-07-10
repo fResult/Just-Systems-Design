@@ -17,18 +17,20 @@ Before looking at them, we encourage you to take few minutes to think about what
 
 **Q:**
 
-- *As far as I know, users who sign up on Tinder first create a profile (name, age, job, bio, sexual preference, etc.).\
-  After which they can start swiping on other users near them, who appear in a stacked deck of potential matches on the main page of the app.*
+- *As far as I know, users who sign up on Tinder first create a profile (name, age, job, bio, sexual preference, etc.).*
+- *After which they can start swiping on other users near them, who appear in a stacked deck of potential matches on the main page of the app.*
 - *If two users swipe right on each other, they match, and they can now directly communicate with one another.*
 - *Are we designing all of this?*
 
 **A:**\
 Yes, but you don't have to design the messaging feature or any functionality that's available after two users match.\
-You should also design both the Super Like feature and the Undo feature.\
-Super Like allows a user to effectively arrive at the top of another user's deck, indicating that they super-liked them.\
-Undo allows a user to unswipe the last user that they swiped on.\
+You should also design both the Super Like feature and the Undo feature.
+
+- *Super Like* allows a user to effectively arrive at the top of another user's deck, indicating that they super-liked them.
+- *Undo* allows a user to unswipe the last user that they swiped on.
+
 So if they accidentally swiped left on someone, they can undo that.\
-But this can only be done for the last user; you can't spam undo.
+But this can only be done for the **last user**; you can't spam undo.
 
 ### Question 2
 
