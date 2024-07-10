@@ -129,14 +129,19 @@ We'll cover super-liking and undoing at the end, which will likely involve makin
 
 ### 3. Storage Overview
 
-Most of the data that we expect to store (profiles, decks, swipes, and matches), makes sense to be structured, so we'll use a SQL storage solution for it, and it'll be served directly from relevant SQL tables.
+Most of the data we expect to store (profiles, decks, swipes, and matches) makes sense to be structured.\
+So, we will use a SQL storage solution and serve it directly from relevant SQL tables.
 
-All of this data will be stored in regional databases, located based on user hot spots (e.g., a database on the east coast of the U.S., one in central U.S., one in western Europe, one in India, etc.), and users fetching Tinder data will be automatically routed to the closest regional database after being routed to intermediary API servers via some round-robin load balancing.
+We will store all this data in regional databases based on user hot spots.\
+For example, we will have databases on the east coast of the U.S., in central U.S., in western Europe, and in India.\
+Users fetching Tinder data will be routed to the nearest regional database after passing through intermediary API servers using round-robin load balancing.
 
-The only exception is users' profile pictures, which we'll store in a global blob store and which will be served via CDN.
+The only exception is users' profile pictures.\
+We will store these in a global blob store and serve them via CDN.
 
-We'll have some asynchronous replication between the regional databases, which should take anywhere from a few minutes to a few hours to occur.\
-The asynchronicity of the replication should be fine, because the people that users interact with will usually, by the nature of the app, be close to them and therefore be using the same regional database as them.
+We'll have asynchronous replication between the regional databases.\
+This replication will take a few minutes to a few hours to occur.\
+The asynchronicity of the replication should be acceptable because users usually interact with people close to them, who will use the same regional database.
 
 ### 4. Profile Creation
 
