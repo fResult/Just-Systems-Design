@@ -34,10 +34,11 @@ But this can only be done for the **last user**; you can't spam undo.
 
 ### Question 2
 
-**Q:** *Regarding the Undo feature, can a user undo a match?*
+**Q:**\
+*Regarding the Undo feature, can a user undo a match?*
 
 **A:**\
-For the sake of this design, let's only allow undoing when you swipe left—not when you swipe right.
+For the sake of this design, let's only allow undoing when you swipe left—not when you swipe right.\
 And if you swipe left, then swipe right, you can no longer undo the left swipe from two swipes ago.
 
 ### Question 3
