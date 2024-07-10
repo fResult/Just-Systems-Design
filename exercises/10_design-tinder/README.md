@@ -196,17 +196,28 @@ Each row will represent a deck:**
 - `userId`: *string*, the id of the user that this deck belongs to
 - `potentialMatches`: *string\[\]*, a list of `userId`s
 
-On app load, the Tinder app will request the 40 profiles at the top of their deck, remove them from the top of their deck (i.e., by updating their deck's row in the decks table), and locally store them.\
-It's worth noting that, had we not compressed the profile images at the time of profile creation, each user would be requesting and attempting to store 400MB of data, which would be way too much data.\
-With our compression, where each picture is ~50KB, 40 profiles becomes just 10MB of data, which is acceptable.
+When the Tinder app loads, it requests the top 40 profiles from their deck.\
+It removes these profiles from the top of their deck by updating the deck's row in the decks table and stores them locally.\
+Without image compression at profile creation, each user would be requesting and trying to store 400MB of data.\
+This amount is too much.\
+With our compression, where each picture is ~50KB, 40 profiles only use 10MB of data.\
+This amount is acceptable.
 
-It's also worth noting that, if the user shuts their phone down or completely closes the Tinder app process, any locally stored profiles that the user hadn't swiped on will simply be read to their deck at a later time by the deck-generation algorithm, since they were presumably relevant profiles and haven't yet been swiped on by the user.
+It's worth noting that, if the user shuts down their phone or completely closes the Tinder app, any locally stored profiles that the user hadn't swiped on will be read back into their deck later.\
+The deck-generation algorithm will handle this.\
+These profiles are presumably relevant and haven't been swiped on yet by the user.
 
-The Tinder app will ensure that the number of locally cached profiles never goes below 20, such that the user almost never feels like they've run out of profiles to swipe on, even for a few seconds.\
-To accomplish this, the user's phone will eagerly fetch 20 additional profiles from the top of their deck when the user has 20 locally stored profiles left.
+The Tinder app makes sure that the number of locally cached profiles never drops below 20.\
+This way, the user almost never feels like they have run out of profiles to swipe on, even for a few seconds.\
+To achieve this, the user's phone fetches 20 additional profiles from the top of their deck when only 20 locally stored profiles are left.
 
-When the user runs out of potential matches (i.e., their deck has gone from 200 to 0 potential matches), the request for 20 more profiles triggers a new deck to be generated on demand.\
-This is the only time that we might expect some potential loading time in the middle of using the app, but this happens infrequently, since the user would have to swipe on 200 potential matches within a day and would have to be swiping right extremely fast to go through their final 20 profiles before a new deck is generated.
+The Tinder app makes sure that the number of locally cached profiles never drops below 20.\
+This way, the user seldom feels like they've run out of profiles to swipe on, even for a few seconds.\
+To achieve this, the user's phone eagerly fetches 20 additional profiles from the top of their deck when only 20 locally stored profiles are left.
+
+When the user runs out of potential matches (i.e., their deck has gone from 200 to 0 potential matches), the request for 20 more profiles triggers the generation of a new deck on demand.\
+This might cause some loading time in the middle of using the app, but it happens infrequently.\
+The user would have to swipe on 200 potential matches in a day and swipe right very quickly to go through the final 20 profiles before a new deck is generated.
 
 ### 6. Swiping
 
