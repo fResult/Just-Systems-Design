@@ -181,16 +181,20 @@ Clearly, the pictures account for most of our storage needs.
 
 ### 5. Deck Generation
 
-For deck generation, we're going to have our smart deck-generation algorithm continuously generate decks of 200 potential matches for each user every day.\
-This will ensure that user decks are as relevant as possible when users interact with them.\
-For example, if someone is traveling out of a location and therefore no longer relevant to a particular user, they'll be removed from the user's deck within a day, minimizing the chance for a user to see irrelevant profiles.
+For deck generation, our smart deck-generation algorithm will continuously create decks of 200 potential matches for each user every day.\
+This ensures that user decks remain relevant when users interact with them.\
+For instance, if someone travels out of a location and is no longer relevant to a particular user, they'll be removed from the user's deck within a day.\
+This minimizes the chance of showing irrelevant profiles.
 
-The deck-generation algorithm can be smart enough not to re-generate decks for users who are inactive for more than a day, and it can also be told to re-generate decks for users who've just changed location (i.e., when a user opens the Tinder app and is in a different location than the one stored in their profile row, the app tells the deck-generation algorithm to re-generate a deck for the user).
+The deck-generation algorithm will not re-generate decks for users who inactive for more than a day.\
+It will also re-generate decks for users who change location.\
+When a user opens the Tinder app and is in a different location than the one stored in their profile, the app will tell the deck-generation algorithm to re-generate a new deck for the user.
 
-**We'll store each user's deck of potential matches in an individual SQL table, where each row will represent a deck:**
+**We'll store each user's deck of potential matches in an individual SQL table.\
+Each row will represent a deck:**
 
 - `userId`: *string*, the id of the user that this deck belongs to
-- `potentialMatches`: *string\[\]*, a list of userIds
+- `potentialMatches`: *string\[\]*, a list of `userId`s
 
 On app load, the Tinder app will request the 40 profiles at the top of their deck, remove them from the top of their deck (i.e., by updating their deck's row in the decks table), and locally store them.\
 It's worth noting that, had we not compressed the profile images at the time of profile creation, each user would be requesting and attempting to store 400MB of data, which would be way too much data.\
