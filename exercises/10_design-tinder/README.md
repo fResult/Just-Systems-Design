@@ -234,11 +234,11 @@ This allows for fast lookups of a user's recent swipes (all of the recent swipes
 
 **The SQL table for matches will look like this:**
 
-- `userOneId`: *string*, the id of the first user in the match
-- `userTwoId`: *string*, the id of the second user in the match
+- `userOneId`: *string*, the ID of the first user in the match
+- `userTwoId`: *string*, the ID of the second user in the match
 - `timestamp`: *datetime*
 
-This matches table will mainly be used for the part of the system that is beyond the scope of this question.
+This matches table will mainly be used for parts of the system that are beyond the scope of this question.
 
 On app load, the Tinder app will fetch all of the rows in the swipes table where *`swipeeId`* matches the user's *`userId`*.\
 Then, every 30 seconds, it'll fetch the same rows, except only those with a timestamp after the most recent previously-fetched swipe's timestamp.
