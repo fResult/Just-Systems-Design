@@ -112,7 +112,7 @@ As with any systems design interview question, the first thing that we want to d
 
 - We're explicitly not designing any functionality that's available after two users match, including any kind of notification system to alert users that they've gotten a match, unless the match occurs directly when they swipe right on a potential match.
 
-- Our system should serve a global userbase of about 50 million users who are evenly distributed across the world, and we'd like to have mostly instant swipes, allowing for some latency when the Tinder app first loads up and after a user has swiped through a good number of potential matches.
+- Our system should serve a global user base of about 50 million users who are evenly distributed across the world, and we'd like to have mostly instant swipes, allowing for some latency when the Tinder app first loads up and after a user has swiped through a good number of potential matches.
 
 We're told not to focus on the availability of our system, which should help us narrow down our design a little bit.
 
