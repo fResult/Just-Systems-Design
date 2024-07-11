@@ -47,7 +47,7 @@ And if you swipe left, then swipe right, you can no longer undo the left swipe f
 
 - *Do users have a limited number of right swipes, Super Likes, and Undos per day?*
 - *What about the number of potential matches in their deck?*
-- *Is there a daily cap on that number, like 100 or 200 potential matches per day?*
+- *Is there a daily cap (capacity) on that number, like 100 or 200 potential matches per day?*
 
 **A:**\
 For the sake of this design, let's not have any caps whatsoever.\
