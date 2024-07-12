@@ -137,7 +137,7 @@ For example, we will have databases on the east coast of the U.S., in central U.
 Users fetching Tinder data will be routed to the nearest regional database after passing through intermediary API servers using round-robin load balancing.
 
 The only exception is users' profile pictures.\
-We will store these in a global blob store and serve them via CDN.
+We will store these in a global blob store and serve them via CDN (Content Delivery Network).
 
 We'll have asynchronous replication between the regional databases.\
 This replication will take a few minutes to a few hours to occur.\
