@@ -226,7 +226,7 @@ The user would have to swipe on 200 potential matches in a day and swipe right v
 ### 6. Swiping
 
 **For swiping, we'll have two more SQL tables: one for swipes and one for matches.\
-The SQL table for swipes will look like this:**
+The SQL table for *swipes* will look like this:**
 
 - `swiperId`: *string*, the ID of the user that performed the swipe
 - `swipeeId`: *string*, the ID of the user that was swiped on
@@ -236,7 +236,7 @@ The SQL table for swipes will look like this:**
 This table will be indexed on *`swipeeId`* and *`timestamp`*.\
 This allows for fast lookups of a user's recent swipes (all of the recent swipes performed on the user).
 
-**The SQL table for matches will look like this:**
+**The SQL table for *matches* will look like this:**
 
 - `userOneId`: *string*, the ID of the first user in the match
 - `userTwoId`: *string*, the ID of the second user in the match
@@ -250,6 +250,12 @@ Then every 30 seconds, it fetches the same rows, except only rows with a *`times
 The Tinder app stores all *swipes* in memory using a hashtable-like structure.\
 This allows the app to quickly determine if a user has already swiped on a potential match.\
 This data can easily fit in a phone's memory (~20 bytes per swipe × maximum of 100k swipes = 2MB).
+
+$$
+\begin{aligned}
+  \sim20\text{ bytes per swipe}\times\text{ maximum of } 100\text{k swipes}= 2\text{MB}
+\end{aligned}
+$$
 
 When a user swipes, the app writes the swipe to the **swipes** table.\
 If the swipe is a **LIKE**, the backend checks for a matching swipe.\
