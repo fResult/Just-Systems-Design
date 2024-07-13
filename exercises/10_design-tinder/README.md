@@ -203,6 +203,14 @@ This amount is too much.\
 With our compression, where each picture is ~50KB, 40 profiles only use 10MB of data.\
 This amount is acceptable.
 
+$$
+\begin{aligned}
+  \sim50\text{kB}\times5\text{ pictures}&=250kB\\
+  \sim250\text{kB}\times40\text{ profiles}&=10000\text{kB}\\
+    &=10\text{MB}
+\end{aligned}
+$$
+
 It's worth noting that, if the user shuts down their phone or completely closes the Tinder app, any locally stored profiles that the user hadn't swiped on will be read back into their deck later.\
 The deck-generation algorithm will handle this.\
 These profiles are presumably relevant and haven't been swiped on yet by the user.
