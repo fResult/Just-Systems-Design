@@ -60,8 +60,8 @@ pnpm install
 6. [Design Facebook News Feed](./exercises/06_design-facebook-news-feed)
 7. [Design Google Drive](./exercises/07_design-google-drive)
 8. [Design Netflix](./exercises/08_design-netflix)
-9.
-10.
+9. [Design The Uber API](./exercises/09_design-uber)
+10. [Design Tinder](./exercises/10_design-tinder)
 11.
 12.
 13. [Design Twitch API](./exercises/13_design-twitch-api)
