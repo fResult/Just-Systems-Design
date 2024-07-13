@@ -216,10 +216,6 @@ The deck-generation algorithm will handle this.\
 These profiles are presumably relevant and haven't been swiped on yet by the user.
 
 The Tinder app makes sure that the number of locally cached profiles never drops below 20.\
-This way, the user almost never feels like they have run out of profiles to swipe on, even for a few seconds.\
-To achieve this, the user's phone fetches 20 additional profiles from the top of their deck when only 20 locally stored profiles are left.
-
-The Tinder app makes sure that the number of locally cached profiles never drops below 20.\
 This way, the user seldom feels like they've run out of profiles to swipe on, even for a few seconds.\
 To achieve this, the user's phone eagerly fetches 20 additional profiles from the top of their deck when only 20 locally stored profiles are left.
 
