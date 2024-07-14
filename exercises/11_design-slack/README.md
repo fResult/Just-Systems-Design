@@ -136,7 +136,7 @@ That being said, for the purpose of this design, we should primarily focus on la
 
 ### 3. Persistent Storage Solution & App Load
 
-While a large component of our design involves real-time communication, another large part of it involves retrieving data (channels, messages, etc.) at any given time when the Slack app loads.
+While a large component of our design involves real-time communication, another large part of it involves retrieving data (channels, messages, etc.) at any given time when the Slack app loads.\
 To support this, we'll need a persistent storage solution.
 
 Specifically, we'll opt for a SQL database since we can expect this data to be structured and to be queried frequently.
@@ -149,7 +149,7 @@ We can start with a simple table that'll store every Slack channel.
 | ---------------------- | ------------- | -------------- | --------------------- |
 | ...                    | ...           | ...            | ...                   |
 
-Then, we can have another simple table representing channel-member pairs: each row in this table will correspond to a particular user who is in a particular channel.
+Then, we can have another simple table representing channel-member pairs: each row in this table will correspond to a particular user who is in a particular channel.\
 We'll use this table, along with the one above, to fetch a user's relevant when the app loads.
 
 #### Channel Members
@@ -158,8 +158,8 @@ We'll use this table, along with the one above, to fetch a user's relevant when 
 | ---------- | ------------- | ----------------- | -------------- |
 | ...        | ...           | ...               | ...            |
 
-We'll naturally need a table to store all historical messages sent on Slack.
-This will be our largest table, and it'll be queried every time a user fetches messages in a particular channel.
+We'll naturally need a table to store all historical messages sent on Slack.\
+This will be our largest table, and it'll be queried every time a user fetches messages in a particular channel.\
 The API endpoint that'll interact with this table will return a paginated response, since we'll typically only want the 50 or 100 most recent messages per channel.
 
 Also, this table will only be queried when a user clicks on a channel; we don't want to fetch messages for all of a user's channels on app load, since users will likely never look at most of their channels.
@@ -185,8 +185,8 @@ In order not to fetch recent messages for every channel on app load, all the whi
 | ---------- | ------------- | ----------------- | -------------- | --------------------- |
 | ...        | ...           | ...               | ...            | ...                   |
 
-For the number of unread user mentions that we want to display next to channel names, we'll have another table similar to the read-receipts one, except this one will have a count of unread user mentions instead of a timestamp.
-This count will be updated (incremented) whenever a user tags another user in a channel message, and it'll also be updated (reset to 0) whenever a user opens a channel with unread mentions of themself.
+For the number of unread user mentions that we want to display next to channel names, we'll have another table similar to the read-receipts one, except this one will have a count of unread user mentions instead of a timestamp.\
+This count will be updated (incremented) whenever a user tags another user in a channel message, and it'll also be updated (reset to 0) whenever a user opens a channel with unread mentions of themselves.
 
 #### Unread Channel-User-Mention Counts
 
@@ -206,12 +206,12 @@ Since our tables will be very large, especially the messages table, we'll need t
 
 The natural approach is to shard based on organization size: we can have the biggest organizations (with the biggest channels) in their individual shards, and we can have smaller organizations grouped together in other shards.
 
-An important point to note here is that, over time, organization sizes and Slack activity within organizations will change.
-Some organizations might double in size overnight, others might experience seemingly random surges of activity, etc..
+An important point to note here is that, over time, organization sizes and Slack activity within organizations will change.\
+Some organizations might double in size overnight, others might experience seemingly random surges of activity, etc..\
 This means that, despite our relatively sound sharding strategy, we might still run into hot spots, which is very bad considering the fact that we care about latency so much.
 
-To handle this, we can add a "smart" sharding solution: a subsystem of our system that'll asynchronously measure organization activity and "rebalance" shards accordingly.
-This service can be a strongly consistent key-value store like Etcd or ZooKeeper, mapping orgIds to shards.
+To handle this, we can add a "smart" sharding solution: a subsystem of our system that'll asynchronously measure organization activity and "rebalance" shards accordingly.\
+This service can be a strongly consistent key-value store like Etcd or ZooKeeper, mapping orgIds to shards.\
 Our API servers will communicate with this service to know which shard to route requests to.
 
 ### 6. Pub/Sub System for Real-Time Behavior
@@ -251,9 +251,8 @@ We'll then have a different set of API servers who subscribe to the various Kakf
 
 We'll want a load balancer in between the clients and these API servers, which will also use the "smart" sharding strategy to match clients with the appropriate API servers, which will be listening to the appropriate Kafka topics.
 
-When clients receive Pub/Sub messages, they'll handle them accordingly (mark a channel as unread, for example), and if the clients refresh their browser or their mobile app, they'll go through the entire "on app load" system that we described earlier.
-
 Since each Pub/Sub message comes with a timestamp, and since reading a channel and sending Slack messages involve writing to our persistent storage, the Pub/Sub messages will effectively be idempotent operations.
+
 
 ### 7. System Diagram
 
