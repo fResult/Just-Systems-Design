@@ -205,7 +205,7 @@ This amount is acceptable.
 
 $$
 \begin{aligned}
-  \sim50\text{kB}\times5\text{ pictures}&=250kB\\
+  \sim50\text{kB}\times5\text{ pictures}&=250\text{kB}\\
   \sim250\text{kB}\times40\text{ profiles}&=10000\text{kB}\\
     &=10\text{MB}
 \end{aligned}
