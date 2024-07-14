@@ -55,4 +55,48 @@ You'll have to handle this.
 **A:**\
 You'll only really focus on the backend systems for this question.
 
+### Question 5
+
+**Q:**
+
+- *Okay. Also, there are a lot of different features in actual Slack messages.*
+- *For example, adding custom emojis, pinning messages, saving messages, writing code snippets or text-blocks, etc..*
+- *Do you want me to handle all of this?*
+
+**A:**\
+No, you can just treat messages as pure text for now.\
+Of course, what you'll design will likely be extensible to different types of messages and will eventually be able to handle things like pinning or saving messages, but for this design, don't worry about that.
+
+### Question 6
+
+**Q:**
+
+- *How many users do we expect to be building this for?*
+- *And how large is the largest organization on slack?*
+- *How many users does it have?*
+
+**A:**\
+Slack has about 10 to 20 million users, so let's go with 20 million.\
+And as for organizations, let's say that the largest single Slack customer has 50,000 people in the same organization.\
+We can also approximate that the largest channel will be of that same size if all of an organization's employees are in the same channel (the typical **#general** channel, for example).
+
+### Question 7
+
+**Q:**
+
+- *Since this is a chat application, I'm assuming that low latency is one of our top priorities, and also, since this service impacts millions of users, I'm assuming that we should design with high availability in mind.*
+- *Are these correct assumptions?*
+
+**A:**\
+Yes to both of those things, but for the sake of being a little more focused, don't worry about optimizing for availability.\
+Let's focus primarily on latency and core functionality.
+
+### Question 8
+
+**Q:**\
+**Okay. And are we building this for a global audience, or should we focus on a single region?**
+
+**A:**\
+Let's handle a single region for this question, but just like with availability, don't focus too much on this aspect of the design.
+
 ## Solution Walkthrough
