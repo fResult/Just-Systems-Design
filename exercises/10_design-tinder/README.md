@@ -145,7 +145,7 @@ The asynchronicity of the replication should be acceptable because users usually
 
 ### 4. Profile Creation
 
-**We will store Tinder profiles in a single SQL table. Each row will represent a profile:**
+**We will store Tinder *profiles* in a single SQL table. Each row will represent a profile:**
 
 - `userId`: *string*, the unique ID of the user
 - `geoLocation`: *GeoLocation*
