@@ -253,7 +253,6 @@ We'll want a load balancer in between the clients and these API servers, which w
 
 Since each Pub/Sub message comes with a timestamp, and since reading a channel and sending Slack messages involve writing to our persistent storage, the Pub/Sub messages will effectively be idempotent operations.
 
-
 ### 7. System Diagram
 
 ![Slack System Diagram](./img/slack-system-diagram.svg)
