@@ -100,3 +100,7 @@ Let's focus primarily on latency and core functionality.
 Let's handle a single region for this question, but just like with availability, don't focus too much on this aspect of the design.
 
 ## Solution Walkthrough
+
+### 7. System Diagram
+
+![Slack System Diagram](./img/slack-system-diagram.svg)
