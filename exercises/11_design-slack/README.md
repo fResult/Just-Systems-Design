@@ -101,6 +101,95 @@ Let's handle a single region for this question, but just like with availability,
 
 ## Solution Walkthrough
 
+### 1. Gathering System Requirements
+As with any systems design interview question, the first thing that we want to do is to gather system requirements; we need to figure out what system we're building exactly.
+
+We're designing the core communication system behind Slack, which allows users to send instant messages in Slack channels.
+
+**Specifically, we'll want to support:**
+- Loading the most recent messages in a Slack channel when a user clicks on the channel.
+- Immediately seeing which channels have unread messages for a particular user when that user loads Slack.
+- Immediately seeing which channels have unread mentions of a particular user, for that particular user, when that user loads Slack, and more specifically, the number of these unread mentions in each relevant channel.
+- Sending and receiving Slack messages instantly, in real time.
+- Cross-device synchronization: if a user has both the Slack desktop app and the Slack mobile app open, with an unread channel in both, and if they read this channel on one device, the second device should immediately be updated and no longer display the channel as unread.
+
+The system should have low latencies and high availability, catering to a single region of roughly 20 million users.
+The largest Slack organizations will have as many as 50,000 users, with channels of the same size within them.
+
+That being said, for the purpose of this design, we should primarily focus on latency and core functionality; availability and regionality can be disregarded, within reason.
+
+### 2. Coming Up With A Plan
+**We'll tackle this system by dividing it into two main sections:**
+
+- Handling what happens when a Slack app loads.
+- Handling real-time messaging as well as cross-device synchronization.
+
+**We can further divide the first section as follows:**
+- Seeing all of the channels that a user is a part of.
+- Seeing messages in a particular channel.
+- Seeing which channels have unread messages.
+- Seeing which channels have unread mentions and how many they have.
+
+### 3. Persistent Storage Solution & App Load
+
+While a large component of our design involves real-time communication, another large part of it involves retrieving data (channels, messages, etc.) at any given time when the Slack app loads.
+To support this, we'll need a persistent storage solution.
+
+Specifically, we'll opt for a SQL database since we can expect this data to be structured and to be queried frequently.
+
+We can start with a simple table that'll store every Slack channel.
+
+#### Channels
+
+| id (channelId): *UUID* | orgId: *UUID* | name: *string* | description: *string* |
+| ---------------------- | ------------- | -------------- | --------------------- |
+| ...                    | ...           | ...            | ...                   |
+
+Then, we can have another simple table representing channel-member pairs: each row in this table will correspond to a particular user who is in a particular channel.
+We'll use this table, along with the one above, to fetch a user's relevant when the app loads.
+
+#### Channel Members
+
+| id: *uuid* | orgId: *UUID* | channelId: *UUID* | userId: *UUID* |
+| ---------- | ------------- | ----------------- | -------------- |
+| ...        | ...           | ...               | ...            |
+
+We'll naturally need a table to store all historical messages sent on Slack.
+This will be our largest table, and it'll be queried every time a user fetches messages in a particular channel.
+The API endpoint that'll interact with this table will return a paginated response, since we'll typically only want the 50 or 100 most recent messages per channel.
+
+Also, this table will only be queried when a user clicks on a channel; we don't want to fetch messages for all of a user's channels on app load, since users will likely never look at most of their channels.
+
+#### Historical Messages
+
+| id: *uuid* | orgId: *uuid* | channelId: *uuid* | senderId: *uuid* | sentAt: *timestamp* | body: *string* | mentions: *List\<UUID\>* |
+| ---------- | ------------- | ----------------- | ---------------- | ------------------- | -------------- | ------------------------ |
+| ...        | ...           | ...               | ...              | ...                 | ...            | ...                      |
+|            |               |                   |                  |                     |                |                          |
+
+In order not to fetch recent messages for every channel on app load, all the while supporting the feature of showing which channels have unread messages, we'll need to store two extra tables: one for the latest activity in each channel (this table will be updated whenever a user sends a message in a channel), and one for the last time a particular user has read a channel (this table will be updated whenever a user opens a channel).
+
+#### Latest Channel Timestamps
+
+| id: *UUID* | orgId: *UUID* | channelId: *UUID* | lastActive: *timestamp* |
+| ---------- | ------------- | ----------------- | ----------------------- |
+| ...        | ...           | ...               | ...                     |
+
+#### Channel Read Receipts
+
+| id: *UUID* | orgId: *UUID* | channelId: *UUID* | userId: *UUID* | lastSeen: *timestamp* |
+| ---------- | ------------- | ----------------- | -------------- | --------------------- |
+| ...        | ...           | ...               | ...            | ...                   |
+
+For the number of unread user mentions that we want to display next to channel names, we'll have another table similar to the read-receipts one, except this one will have a count of unread user mentions instead of a timestamp.
+This count will be updated (incremented) whenever a user tags another user in a channel message, and it'll also be updated (reset to 0) whenever a user opens a channel with unread mentions of themself.
+
+#### Unread Channel-User-Mention Counts
+
+| id: *UUID* | orgId: *UUID* | channelId: *UUID* | userId: **UUID** | count: *int* |
+| ---------- | ------------- | ----------------- | ---------------- | ------------ |
+| ...        | ...           | ...               | ...              | ...          |
+
 ### 7. System Diagram
 
 ![Slack System Diagram](./img/slack-system-diagram.svg)
