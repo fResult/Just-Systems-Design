@@ -15,9 +15,9 @@
 
 ### Question 1
 
-**Q:**
+**Q:**\
+*There are a lot of things that you can do on Slack.*
 
-- *There are a lot of things that you can do on Slack.*
 - *Primarily, you use Slack to communicate with people in one-on-one channels, private channels, or public channels, all within an organization.*
 - *But you can also do a bunch of other things on Slack, like create and delete channels, change channel settings, change Slack settings, invite people to channels, etc..*
 - *What exactly are we designing here?*
