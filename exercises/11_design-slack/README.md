@@ -116,8 +116,8 @@ We're designing the core communication system behind Slack, which allows users t
 - Sending and receiving Slack messages instantly, in real time.
 - Cross-device synchronization: if a user has both the Slack desktop app and the Slack mobile app open, with an unread channel in both, and if they read this channel on one device, the second device should immediately be updated and no longer display the channel as unread.
 
-The system should have low latencies and high availability, catering to a single region of roughly 20 million users.
-The largest Slack organizations will have as many as 50,000 users, with channels of the same size within them.
+The system should have low latencies and high availability, catering to a single region of roughly 20 million users.\
+The largest Slack organizations will have as many as 50,000 users, with channels of the same size within them (e.g. **#general**).
 
 That being said, for the purpose of this design, we should primarily focus on latency and core functionality; availability and regionality can be disregarded, within reason.
 
