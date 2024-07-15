@@ -75,10 +75,11 @@ Of course, what you'll design will likely be extensible to different types of me
 - *And how large is the largest organization on slack?*
 - *How many users does it have?*
 
-**A:**\
-Slack has about 10 to 20 million users, so let's go with 20 million.\
-And as for organizations, let's say that the largest single Slack customer has 50,000 people in the same organization.\
-We can also approximate that the largest channel will be of that same size if all of an organization's employees are in the same channel (the typical **#general** channel, for example).
+**A:**
+
+- Slack has about 10 to 20 million users, so let's go with 20 million.
+- And as for organizations, let's say that the largest single Slack customer has 50,000 people in the same organization.
+- We can also approximate that the largest channel will be of that same size if all of an organization's employees are in the same channel (the typical **#general** channel, for example).
 
 ### Question 7
 
