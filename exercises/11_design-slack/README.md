@@ -142,7 +142,7 @@ To support this, we'll need a persistent storage solution.
 
 Specifically, we'll opt for a SQL database since we can expect this data to be structured and to be queried frequently.
 
-We can start with a simple table that'll store every Slack channel.
+We can start with a simple table that'll store every Slack *channel*.
 
 #### Channels
 
@@ -150,7 +150,7 @@ We can start with a simple table that'll store every Slack channel.
 | ---------------------- | ------------- | -------------- | --------------------- |
 | ...                    | ...           | ...            | ...                   |
 
-Then, we can have another simple table representing channel-member pairs: each row in this table will correspond to a particular user who is in a particular channel.\
+Then, we can have another simple table representing *channel-member pairs*: each row in this table will correspond to a particular user who is in a particular channel.\
 We'll use this table, along with the one above, to fetch a user's relevant when the app loads.
 
 #### Channel Members
@@ -159,11 +159,12 @@ We'll use this table, along with the one above, to fetch a user's relevant when 
 | ---------- | ------------- | ----------------- | -------------- |
 | ...        | ...           | ...               | ...            |
 
-We'll naturally need a table to store all historical messages sent on Slack.\
+We'll naturally need a table to store all *historical messages* sent on Slack.\
 This will be our largest table, and it'll be queried every time a user fetches messages in a particular channel.\
 The API endpoint that'll interact with this table will return a paginated response, since we'll typically only want the 50 or 100 most recent messages per channel.
 
-Also, this table will only be queried when a user clicks on a channel; we don't want to fetch messages for all of a user's channels on app load, since users will likely never look at most of their channels.
+Also, this table will only be queried when a user clicks on a channel.\
+We don't want to fetch messages for all of a user's channels on app load, since users will likely never look at most of their channels.
 
 #### Historical Messages
 
@@ -172,7 +173,10 @@ Also, this table will only be queried when a user clicks on a channel; we don't 
 | ...        | ...           | ...               | ...              | ...                 | ...            | ...                      |
 |            |               |                   |                  |                     |                |                          |
 
-In order not to fetch recent messages for every channel on app load, all the while supporting the feature of showing which channels have unread messages, we'll need to store two extra tables: one for the latest activity in each channel (this table will be updated whenever a user sends a message in a channel), and one for the last time a particular user has read a channel (this table will be updated whenever a user opens a channel).
+In order not to fetch *recent messages* for every channel on app load, all the while supporting the feature of showing which channels have unread messages, we'll need to store two extra tables:
+
+- One for the *latest activity in each channel* (this table will be updated whenever a user sends a message in a channel)
+- Another one for the *last time a particular user has read a channel* (this table will be updated whenever a user opens a channel).
 
 #### Latest Channel Timestamps
 
@@ -186,7 +190,7 @@ In order not to fetch recent messages for every channel on app load, all the whi
 | ---------- | ------------- | ----------------- | -------------- | --------------------- |
 | ...        | ...           | ...               | ...            | ...                   |
 
-For the number of unread user mentions that we want to display next to channel names, we'll have another table similar to the read-receipts one, except this one will have a count of unread user mentions instead of a timestamp.\
+For the number of *unread user mentions* that we want to display next to channel names, we'll have another table similar to the *read-receipts* one, except this one will have a count of *unread user mentions* instead of a timestamp.\
 This count will be updated (incremented) whenever a user tags another user in a channel message, and it'll also be updated (reset to 0) whenever a user opens a channel with unread mentions of themselves.
 
 #### Unread Channel-User-Mention Counts
