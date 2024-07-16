@@ -215,8 +215,8 @@ An important point to note here is that, over time, organization sizes and Slack
 Some organizations might double in size overnight, others might experience seemingly random surges of activity, etc..\
 This means that, despite our relatively sound sharding strategy, we might still run into hot spots, which is very bad considering the fact that we care about latency so much.
 
-To handle this, we can add a "smart" sharding solution: a subsystem of our system that'll asynchronously measure organization activity and "rebalance" shards accordingly.\
-This service can be a strongly consistent key-value store like Etcd or ZooKeeper, mapping orgIds to shards.\
+To handle this, we can add a "smart" sharding solution: a subsystem of our system that'll asynchronously measure organization activity and "re-balance" shards accordingly.\
+This service can be a strongly consistent key-value store like Etcd or ZooKeeper, mapping `orgId`s to shards.\
 Our API servers will communicate with this service to know which shard to route requests to.
 
 ### 6. Pub/Sub System for Real-Time Behavior
