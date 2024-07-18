@@ -152,7 +152,8 @@ We can start with a simple table that'll store every Slack *channel*.
 
 #### Channel Members
 
-Then, we can have another simple table representing *channel-member pairs*: each row in this table will correspond to a particular user who is in a particular channel.\
+Then, we can have another simple table representing *channel-member pairs*.\
+Each row in this table will correspond to a particular user who is in a particular channel.\
 We'll use this table, along with the one above, to fetch a user's relevant when the app loads.
 
 | id: *uuid* | orgId: *UUID* | channelId: *UUID* | userId: *UUID* |
@@ -175,7 +176,7 @@ We don't want to fetch messages for all of a user's channels on app load, since 
 
 #### Latest Channel Timestamps
 
-To avoid fetching *recent messages* for every channel the on app load, while supporting the feature of showing which channels have unread messages, we'll need to store two extra tables
+To avoid fetching *recent messages* for every channel the on app load, while supporting the feature of showing which channels have unread messages, we'll need to store two extra tables.
 
 One for the *latest activity in each channel* (this table will be updated whenever a user sends a message in a channel)
 
