@@ -142,22 +142,24 @@ To support this, we'll need a persistent storage solution.
 
 Specifically, we'll opt for a SQL database since we can expect this data to be structured and to be queried frequently.
 
-We can start with a simple table that'll store every Slack *channel*.
-
 #### Channels
+
+We can start with a simple table that'll store every Slack *channel*.
 
 | id (channelId): *UUID* | orgId: *UUID* | name: *string* | description: *string* |
 | ---------------------- | ------------- | -------------- | --------------------- |
 | ...                    | ...           | ...            | ...                   |
 
+#### Channel Members
+
 Then, we can have another simple table representing *channel-member pairs*: each row in this table will correspond to a particular user who is in a particular channel.\
 We'll use this table, along with the one above, to fetch a user's relevant when the app loads.
-
-#### Channel Members
 
 | id: *uuid* | orgId: *UUID* | channelId: *UUID* | userId: *UUID* |
 | ---------- | ------------- | ----------------- | -------------- |
 | ...        | ...           | ...               | ...            |
+
+#### Historical Messages
 
 We'll naturally need a table to store all *historical messages* sent on Slack.\
 This will be our largest table, and it'll be queried every time a user fetches messages in a particular channel.\
@@ -165,8 +167,6 @@ The API endpoint that'll interact with this table will return a paginated respon
 
 Also, this table will only be queried when a user clicks on a channel.\
 We don't want to fetch messages for all of a user's channels on app load, since users will likely never look at most of their channels.
-
-#### Historical Messages
 
 | id: *uuid* | orgId: *uuid* | channelId: *uuid* | senderId: *uuid* | sentAt: *timestamp* | body: *string* | mentions: *List\<UUID\>* |
 | ---------- | ------------- | ----------------- | ---------------- | ------------------- | -------------- | ------------------------ |
