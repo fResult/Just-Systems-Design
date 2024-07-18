@@ -173,12 +173,11 @@ We don't want to fetch messages for all of a user's channels on app load, since 
 | ...        | ...           | ...               | ...              | ...                 | ...            | ...                      |
 |            |               |                   |                  |                     |                |                          |
 
-In order not to fetch *recent messages* for every channel on app load, all the while supporting the feature of showing which channels have unread messages, we'll need to store two extra tables:
-
-- One for the *latest activity in each channel* (this table will be updated whenever a user sends a message in a channel)
-- Another one for the *last time a particular user has read a channel* (this table will be updated whenever a user opens a channel).
-
 #### Latest Channel Timestamps
+
+To avoid fetching *recent messages* for every channel the on app load, while supporting the feature of showing which channels have unread messages, we'll need to store two extra tables
+
+One for the *latest activity in each channel* (this table will be updated whenever a user sends a message in a channel)
 
 | id: *UUID* | orgId: *UUID* | channelId: *UUID* | lastActive: *timestamp* |
 | ---------- | ------------- | ----------------- | ----------------------- |
@@ -186,14 +185,16 @@ In order not to fetch *recent messages* for every channel on app load, all the w
 
 #### Channel Read Receipts
 
+Another table for the *last time a particular user has read a channel* (this table will be updated whenever a user opens a channel).
+
 | id: *UUID* | orgId: *UUID* | channelId: *UUID* | userId: *UUID* | lastSeen: *timestamp* |
 | ---------- | ------------- | ----------------- | -------------- | --------------------- |
 | ...        | ...           | ...               | ...            | ...                   |
 
+#### Unread Channel-User-Mention Counts
+
 For the number of *unread user mentions* that we want to display next to channel names, we'll have another table similar to the *read-receipts* one, except this one will have a count of *unread user mentions* instead of a timestamp.\
 This count will be updated (incremented) whenever a user tags another user in a channel message, and it'll also be updated (reset to 0) whenever a user opens a channel with unread mentions of themselves.
-
-#### Unread Channel-User-Mention Counts
 
 | id: *UUID* | orgId: *UUID* | channelId: *UUID* | userId: **UUID** | count: *int* |
 | ---------- | ------------- | ----------------- | ---------------- | ------------ |
