@@ -106,7 +106,7 @@ Let's handle a single region for this question, but just like with availability,
 
 As with any systems design interview question, the first thing that we want to do is to gather system requirements; we need to figure out what system we're building exactly.
 
-We're designing the core communication system behind Slack, which allows users to send instant messages in Slack channels.
+We are designing the core communication system for Slack, which lets users send instant messages in Slack channels.
 
 **Specifically, we'll want to support:**
 
