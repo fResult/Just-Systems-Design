@@ -128,14 +128,14 @@ We can disregard availability and regionality within reason.
 **We'll tackle this system by dividing it into two main sections:**
 
 - Handling what happens when a Slack app loads.
-- Handling real-time messaging as well as cross-device synchronization.
+- Handling real-time messaging and cross-device synchronization.
 
 **We can further divide the first section as follows:**
 
-- Seeing all of the channels that a user is a part of.
+- Seeing all channels a user is part of.
 - Seeing messages in a particular channel.
 - Seeing which channels have unread messages.
-- Seeing which channels have unread mentions and how many they have.
+- Seeing which channels have unread mentions and the mentions count.
 
 ### 3. Persistent Storage Solution & App Load
 
