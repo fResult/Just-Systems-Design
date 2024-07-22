@@ -111,15 +111,17 @@ We are designing the core communication system for Slack, which lets users send 
 **Specifically, we'll want to support:**
 
 - Loading the most recent messages in a Slack channel when a user clicks on the channel.
-- Immediately seeing which channels have unread messages for a particular user when that user loads Slack.
-- Immediately seeing which channels have unread mentions of a particular user, for that particular user, when that user loads Slack, and more specifically, the number of these unread mentions in each relevant channel.
-- Sending and receiving Slack messages instantly, in real time.
-- Cross-device synchronization: if a user has both the Slack desktop app and the Slack mobile app open, with an unread channel in both, and if they read this channel on one device, the second device should immediately be updated and no longer display the channel as unread.
+- Immediately showing which channels have unread messages for users when they load Slack.
+- Immediately showing which channels have unread mentions of a user, and the number of these unread mentions in each relevant channel, when they load Slack.
+- Sending and receiving Slack messages instantly, in real-time.
+- Cross-device sync: When a user reads an unread channel on one device, the other device should immediately update.\
+   Both the Slack desktop and mobile apps should no longer show the channel as unread.
 
-The system should have low latencies and high availability, catering to a single region of roughly 20 million users.\
-The largest Slack organizations will have as many as 50,000 users, with channels of the same size within them (e.g. **#general**).
+The system should have low latency and high availability, catering a single region of around 20 million users.\
+The largest Slack organizations will have 50,000 users at most, with channels of the same size within them (e.g. **#general**).
 
-That being said, for the purpose of this design, we should primarily focus on latency and core functionality; availability and regionality can be disregarded, within reason.
+For this design, we will primarily focus on latency and core functionality.\
+We can disregard availability and regionality within reason.
 
 ### 2. Coming Up With A Plan
 
