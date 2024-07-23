@@ -139,10 +139,10 @@ We can disregard availability and regionality within reason.
 
 ### 3. Persistent Storage Solution & App Load
 
-While a large component of our design involves real-time communication, another large part of it involves retrieving data (channels, messages, etc.) at any given time when the Slack app loads.\
-To support this, we'll need a persistent storage solution.
+A huge part of our design involves real-time communication, but another large part involves retrieving data (channels, messages, etc.) when the Slack app loads.\
+To support this, we need a persistent storage solution.
 
-Specifically, we'll opt for a SQL database since we can expect this data to be structured and to be queried frequently.
+We will use an SQL database because the data is structured and will be queried frequently.
 
 #### Channels
 
@@ -154,9 +154,9 @@ We can start with a simple table that'll store every Slack *channel*.
 
 #### Channel Members
 
-Then, we can have another simple table representing *channel-member pairs*.\
-Each row in this table will correspond to a particular user who is in a particular channel.\
-We'll use this table, along with the one above, to fetch a user's relevant when the app loads.
+We can create another table for *channel-member pairs*.\
+Each row will represent a user in a specific channel.\
+We will use this table, along with the [*Channels*](#channels) table, to fetch a user's channels when the app loads.
 
 | id: *uuid* | orgId: *UUID* | channelId: *UUID* | userId: *UUID* |
 | ---------- | ------------- | ----------------- | -------------- |
@@ -164,12 +164,15 @@ We'll use this table, along with the one above, to fetch a user's relevant when 
 
 #### Historical Messages
 
-We'll naturally need a table to store all *historical messages* sent on Slack.\
-This will be our largest table, and it'll be queried every time a user fetches messages in a particular channel.\
-The API endpoint that'll interact with this table will return a paginated response, since we'll typically only want the 50 or 100 most recent messages per channel.
+We need a table to store all *historical messages* sent on Slack.\
+This will be our largest table.\
+It will be queried every time a user fetches messages in a channel.\
+The API endpoint for this table will return a paginated response.\
+We usually only want the 50 or 100 most recent messages per channel.
 
-Also, this table will only be queried when a user clicks on a channel.\
-We don't want to fetch messages for all of a user's channels on app load, since users will likely never look at most of their channels.
+We will only query this table when a user clicks on a channel.\
+We don't want to fetch messages for all of a user's channels when the app loads.\
+Because users will likely not look at most of their channels.
 
 | id: *uuid* | orgId: *uuid* | channelId: *uuid* | senderId: *uuid* | sentAt: *timestamp* | body: *string* | mentions: *List\<UUID\>* |
 | ---------- | ------------- | ----------------- | ---------------- | ------------------- | -------------- | ------------------------ |
