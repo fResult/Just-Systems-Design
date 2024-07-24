@@ -181,9 +181,10 @@ Because users will likely not look at most of their channels.
 
 #### Latest Channel Timestamps
 
-To avoid fetching *recent messages* for every channel the on app load, while supporting the feature of showing which channels have unread messages, we'll need to store two extra tables.
+We need two tables to avoid fetching *recent messages* for every channel when the app loads while supporting the feature of showing which channels have unread messages.
 
-One for the *latest activity in each channel* (this table will be updated whenever a user sends a message in a channel)
+One table will store the *latest activity* in each channel.\
+We will update this table whenever a user sends a message to a channel.
 
 | id: *UUID* | orgId: *UUID* | channelId: *UUID* | lastActive: *timestamp* |
 | ---------- | ------------- | ----------------- | ----------------------- |
@@ -191,7 +192,8 @@ One for the *latest activity in each channel* (this table will be updated whenev
 
 #### Channel Read Receipts
 
-Another table for the *last time a particular user has read a channel* (this table will be updated whenever a user opens a channel).
+Another table will store the *last time a user read a channel*.\
+We will update this table whenever a user opens a channel.
 
 | id: *UUID* | orgId: *UUID* | channelId: *UUID* | userId: *UUID* | lastSeen: *timestamp* |
 | ---------- | ------------- | ----------------- | -------------- | --------------------- |
