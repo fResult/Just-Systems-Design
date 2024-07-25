@@ -212,9 +212,10 @@ It will be reset to 0 whenever a user opens a channel with unread mentions.
 
 ### 4. Load Balancing
 
-For all of the API calls that clients will issue on app load, including writes to our database (when sending a message or marking a channel as read), we're going to want to load balance.
+For all API calls that clients make when the app loads, including database writes (like sending a message or marking a channel as read), we need to load balance.
 
-We can have a simple round-robin load balancer, forwarding requests to a set of server clusters that will then handle passing requests to our database.
+We can use a simple round-robin load balancer to forward requests to a set of server clusters.\
+These clusters will then handle passing requests to our database.
 
 ### 5. "Smart" Sharding
 
