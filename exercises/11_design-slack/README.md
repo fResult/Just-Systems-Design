@@ -219,16 +219,21 @@ These clusters will then handle passing requests to our database.
 
 ### 5. "Smart" Sharding
 
-Since our tables will be very large, especially the messages table, we'll need to have some sharding in place.
+Since our tables will be very large, especially the messages table, we need sharding.
 
-The natural approach is to shard based on organization size: we can have the biggest organizations (with the biggest channels) in their individual shards, and we can have smaller organizations grouped together in other shards.
+We can shard based on organization size.\
+The biggest organizations (with the biggest channels) can have their individual shards.\
+Smaller organizations can be grouped together in other shards.
 
-An important point to note here is that, over time, organization sizes and Slack activity within organizations will change.\
-Some organizations might double in size overnight, others might experience seemingly random surges of activity, etc..\
-This means that, despite our relatively sound sharding strategy, we might still run into hot spots, which is very bad considering the fact that we care about latency so much.
+However, organization sizes and Slack activity can change over time.\
+Some organizations might double in size overnight.\
+Others might see surges in activity.\
+Despite our sharding strategy, we might still face hot spots.\
+This is a problem because we care a lot about latency.
 
-To handle this, we can add a "smart" sharding solution: a subsystem of our system that'll asynchronously measure organization activity and "re-balance" shards accordingly.\
-This service can be a strongly consistent key-value store like Etcd or ZooKeeper, mapping `orgId`s to shards.\
+To handle this, we can add a "smart" sharding solution.\
+This subsystem in our system will asynchronously measure organization activity and "re-balance" shards accordingly.\
+This service can use a strongly consistent key-value store like Etcd or ZooKeeper to map `orgId`s to shards.\
 Our API servers will communicate with this service to know which shard to route requests to.
 
 ### 6. Pub/Sub System for Real-Time Behavior
