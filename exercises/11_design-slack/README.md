@@ -238,14 +238,17 @@ Our API servers will communicate with this service to know which shard to route 
 
 ### 6. Pub/Sub System for Real-Time Behavior
 
-**There are two types of real-time behavior that we want to support:**
+**We need to support two types of real-time behaviour:**
 
-- Sending and receiving messages in real time.
-- Cross-device synchronization (instantly marking a channel as read if you have Slack open on two devices and read the channel on one of them).
+- Sending and receiving messages in real-time.
+- Cross-device synchronization (marking a channel as read instantly if you have Slack open on two devices and read the channel on one of them).
 
-For both of these functionalities, we can rely on a Pub/Sub messaging system, which itself will rely on our previously described "smart" sharding strategy.
+For both functionalities, we can rely on a Pub/Sub messaging system.\
+This system will use our "smart" sharding strategy.
 
-Every Slack organization or group of organizations will be assigned to a Kafka topic, and whenever a user sends a message in a channel or marks a channel as read, our previously mentioned API servers, which handle speaking to our database, will also send a Pub/Sub message to the appropriate Kafka topic.
+Each Slack organization or group of organizations will be assigned to a Kafka topic.\
+When a user sends a message in a channel or marks a channel as read, our API servers will also send a Pub/Sub message to the appropriate Kafka topic.\
+These servers handle communication with our database.
 
 **The Pub/Sub messages will look like:**
 
