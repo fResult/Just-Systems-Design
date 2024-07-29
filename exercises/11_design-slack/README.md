@@ -272,11 +272,16 @@ These servers handle communication with our database.
 }
 ```
 
-We'll then have a different set of API servers who subscribe to the various Kakfa topics (probably one API server cluster per topic), and our clients (Slack users) will establish long-lived TCP connections with these API server clusters to receive Pub/Sub messages in real time.
+We will then have a different set of API servers that subscribe to the various Kafka topics.\
+Probably, there will be one API server cluster per topic.\
+Our clients (Slack users) will establish long-lived TCP connections with these API server clusters to receive Pub/Sub messages in real time.
 
-We'll want a load balancer in between the clients and these API servers, which will also use the "smart" sharding strategy to match clients with the appropriate API servers, which will be listening to the appropriate Kafka topics.
+We will use a load balancer between the clients and these API servers.\
+The load balancer will use the "smart" sharding strategy to match clients with the right API servers listening to the right Kafka topics.
 
-Since each Pub/Sub message comes with a timestamp, and since reading a channel and sending Slack messages involve writing to our persistent storage, the Pub/Sub messages will effectively be idempotent operations.
+Each Pub/Sub message has a timestamp.\
+Reading a channel and sending Slack messages involve writing to our persistent storage.\
+Therefore, the Pub/Sub messages will be idempotent operations.
 
 ### 7. System Diagram
 
