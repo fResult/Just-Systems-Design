@@ -174,7 +174,7 @@ We will only query this table when a user clicks on a channel.\
 We don't want to fetch messages for all of a user's channels when the app loads.\
 Because users will likely not look at most of their channels.
 
-| id: *uuid* | orgId: *uuid* | channelId: *uuid* | senderId: *uuid* | sentAt: *timestamp* | body: *string* | mentions: *List\<UUID\>* |
+| id: *uuid* | orgId: *uuid* | channelId: *uuid* | senderId: *uuid* | sentAt: *timestamp* | body: *string* | mentions: *List\[UUID\]* |
 | ---------- | ------------- | ----------------- | ---------------- | ------------------- | -------------- | ------------------------ |
 | ...        | ...           | ...               | ...              | ...                 | ...            | ...                      |
 |            |               |                   |                  |                     |                |                          |
