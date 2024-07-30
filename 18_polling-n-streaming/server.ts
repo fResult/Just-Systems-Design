@@ -19,7 +19,7 @@ const newMessageHandler: RequestHandler<null, null, Message> = (req) => {
   }
 }
 
-function webSocketMessagesHandler(socket: WebSocket) {
+function webSocketMessagesHandler(socket: WebSocket): void {
   sockets.push(socket)
 
   socket.on("close", () => sockets.splice(sockets.indexOf(socket), 1))

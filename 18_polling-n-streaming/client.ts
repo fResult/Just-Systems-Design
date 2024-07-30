@@ -11,7 +11,7 @@ const terminal = readline.createInterface({
   input: process.stdin,
 })
 
-async function terminalLineHandler(text: string) {
+async function terminalLineHandler(text: string): Promise<void> {
   const username = process.env.NAME || "Anonymous"
   const id = helpers.getRandomInt(1_000_000)
   displayedMessages[id] = true
@@ -20,7 +20,7 @@ async function terminalLineHandler(text: string) {
   await messagingApi.sendMessage(message)
 }
 
-function socketMessageHandler(data: RawData) {
+function socketMessageHandler(data: RawData): void {
   const message = JSON.parse(data.toString()) as Message
   const messageAlreadyDisplayed = message.id in displayedMessages
 
@@ -29,12 +29,12 @@ function socketMessageHandler(data: RawData) {
 
 terminal.on("line", terminalLineHandler)
 
-function displayMessage(message: Message) {
+function displayMessage(message: Message): void {
   console.log(`> ${message.username}: ${message.text}`)
   displayedMessages[message.id] = true
 }
 
-async function getAndDisplayMessages() {
+async function getAndDisplayMessages(): Promise<void> {
   const messages = await messagingApi.getMessages()
 
   for (const message of messages) {
@@ -43,17 +43,17 @@ async function getAndDisplayMessages() {
   }
 }
 
-function pollMessages() {
+function pollMessages(): void {
   setInterval(getAndDisplayMessages, 3000)
 }
 
-function streamMessages() {
+function streamMessages(): void {
   const messagingSocket = messagingApi.createMessagingSocket()
 
   messagingSocket.on("message", socketMessageHandler)
 }
 
-async function main() {
+async function main(): Promise<void> {
   if (process.env.MODE === "poll") {
     await getAndDisplayMessages()
     pollMessages()
