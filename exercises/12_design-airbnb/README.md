@@ -117,7 +117,7 @@ Regarding listings, we should focus on browsing and reserving them based on loca
 Browsing listings should be as quick as possible, and it should reflect newly created listings as fast as possible.\
 Lastly, reserved and booked listings shouldn't be browsable by renters.
 
-Our system should serve a U.S.-based audience with approximately 50 million users and 1 million listings.
+Our system should serve a U.S. — based audience with approximately 50 million users and 1 million listings.
 
 ### 2. Coming Up With A Plan
 
@@ -144,6 +144,7 @@ Since we're optimizing for speed, it'll make sense to store this quadtree in mem
 In this quadtree, we'll need to store all the information about listings that needs to be displayed on the UI when a renter is browsing through listings: a title, a description, a link pointing to a property image, a unique listing ID, etc..
 
 Assuming a single listing takes up roughly 10 KB of space (as an upper bound), some simple math confirms that we can store everything we need about listings in memory.
+
 $$
 \begin{aligned}
 &\sim10\text{ KB per listing}\\
