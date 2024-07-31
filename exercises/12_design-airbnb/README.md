@@ -108,8 +108,8 @@ We're designing the core system behind Airbnb, which allows hosts to create prop
 
 We don't need to support anything that happens after a reservation is made, except for freeing up the reservation after 15 minutes if the renter doesn't follow through with the booking and making the reservation permanent if the renter does actually book the listing in question.
 
-Regarding listings, we should focus on browsing and reserving them based on location and available date range; we can ignore any other property characteristics like price, number of bedrooms, etc..
-Browsing listings should be as quick as possible, and it should reflect newly created listings as fast as possible.
+Regarding listings, we should focus on browsing and reserving them based on location and available date range; we can ignore any other property characteristics like price, number of bedrooms, etc..\
+Browsing listings should be as quick as possible, and it should reflect newly created listings as fast as possible.\
 Lastly, reserved and booked listings shouldn't be browsable by renters.
 
 Our system should serve a U.S.-based audience with approximately 50 million users and 1 million listings.
@@ -129,7 +129,7 @@ Our system should serve a U.S.-based audience with approximately 50 million user
 
 ### 3. Listings Storage & Quadtree
 
-First and foremost, we can expect to store all of our listings in a SQL table.
+First and foremost, we can expect to store all of our listings in a SQL table.\
 This will be our primary source of truth for listings on Airbnb, and whenever a host creates or deletes a listing, this SQL table will be written to.
 
 Then, since we care about the latency of browsing listings on Airbnb, and since this browsing will require querying listings based on their location, we can store our listings in a region quadtree, to be traversed for all browsing functionality.
@@ -147,11 +147,11 @@ $$
 \end{aligned}
 $$
 
-Since we'll be storing our quadtree in memory, we'll want to make sure that a single machine failure doesn't bring down the entire browsing functionality.
+Since we'll be storing our quadtree in memory, we'll want to make sure that a single machine failure doesn't bring down the entire browsing functionality.\
 To ensure this, we can set up a cluster of machines, each holding an instance of our quadtree in memory, and these machines can use leader election to safeguard us from machine failures.
 
-Our quadtree solution works as follows: when our system boots up, the geo-index machines create the quadtree by querying our SQL table of listings.
-When listings are created or deleted, hosts first write to the SQL table, and then they synchronously update the geo-index leader's quadtree.
+Our quadtree solution works as follows: when our system boots up, the geo-index machines create the quadtree by querying our SQL table of listings.\
+When listings are created or deleted, hosts first write to the SQL table, and then they synchronously update the geo-index leader's quadtree.\
 Then, on an interval of say, 10 minutes, the geo-index leader and followers all recreate the quadtree from the SQL table, which allows them to stay up to date with new listings.
 
 If the leader dies at any point, one of the followers takes its place, and data in the new leader's quadtree will be stale for at most a few minutes until the interval forces the quadtree to be recreated.
