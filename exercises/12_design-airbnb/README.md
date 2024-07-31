@@ -158,12 +158,12 @@ If the leader dies at any point, one of the followers takes its place, and data 
 
 ### 4. Listing Listings
 
-When renters browse through listings, they'll have to hit some *ListListings* API endpoint.
+When renters browse through listings, they'll have to hit some *ListListings* API endpoint.\
 This API call will search through the geo-index leader's quadtree for relevant listings based on the location that the renter passes.
 
 Finding relevant locations should be fairly straightforward and very fast, especially since we can estimate that our quadtree will have a depth of approximately 10, since 4^10 is greater than 1 million.
 
-That being said, we'll have to make sure that we don't return listings that are unavailable during the date range specified by the renter.
+That being said, we'll have to make sure that we don't return listings that are unavailable during the date range specified by the renter.\
 In order to handle this, each listing in the quad tree will contain a list of unavailable date ranges, and we can perform a simple binary search on this list for each listing, in order to determine if the listing in question is available and therefore browsable by the renter.
 
 We can also make sure that our quadtree returns only a subset of relevant listings for pagination purposes, and we can determine this subset by using an offset: the first page of relevant listings would have an offset of 0, the second page would have an offset of 50 (if we wanted pages to have a size of 50), the third page would have an offset of 100, and so on and so forth.
@@ -174,13 +174,13 @@ This API call should be extremely simple; we can expect to have listing IDs from
 
 ### 6. Reserving Listings
 
-Reserved listings will need to be reflected both in our quadtree and in our persistent storage solution.
+Reserved listings will need to be reflected both in our quadtree and in our persistent storage solution.\
 In our quadtree, because they'll have to be excluded from the list of browsable listings; in our persistent storage solution, because if our quadtree needs to have them, then the main source of truth also needs to have them.
 
-We can have a second SQL table for reservations, holding listing IDs as well as date ranges and timestamps for when their reservations expire.
+We can have a second SQL table for reservations, holding listing IDs as well as date ranges and timestamps for when their reservations expire.\
 When a renter tries to start the booking process of a listing, the reservation table will first be checked to see if there's currently a reservation for the given listing during the specified date range; if there is, an error is returned to the renter; if there isn't, a reservation is made with an expiration timestamp 15 minutes into the future.
 
-Following the write to the reservation table, we synchronously update the geo-index leader's quadtree with the new reservation.
+Following the write to the reservation table, we synchronously update the geo-index leader's quadtree with the new reservation.\
 This new reservation will simply be an unavailability interval in the list of unavailabilities on the relevant listing, but we'll also specify an expiration for this unavailability, since it's a reservation.
 
 **A listing in our quadtree might look something like this:**
@@ -206,10 +206,10 @@ This new reservation will simply be an unavailability interval in the list of un
 
 ### 7. Load Balancing
 
-On the host side, we can load balance requests to create and delete listings across a set of API servers using a simple round-robin approach.
+On the host side, we can load balance requests to create and delete listings across a set of API servers using a simple round-robin approach.\
 The API servers will then be in charge of writing to the SQL database and of communicating with the geo-index leader.
 
-On the renter side, we can load balance requests to list, get, and reserve listings across a set of API servers using an API-path-based server-selection strategy.
+On the renter side, we can load balance requests to list, get, and reserve listings across a set of API servers using an API-path-based server-selection strategy.\
 Since workloads for these three API calls will be considerably different from one another, it makes sense to separate these calls across different sets of API servers.
 
 Of note is that we don't want any caching done at our API servers, because otherwise we'll naturally run into stale data as reservations, bookings, and new listings appear.
