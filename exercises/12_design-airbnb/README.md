@@ -17,7 +17,9 @@
 
 **Q:**
 
-- *Like a lot of other sharing-economy products out there, Airbnb has two sides: a host-facing side and a renter-facing side.*
+*Like a lot of other sharing-economy products out there, Airbnb has two sides:*
+
+- A host-facing side and a renter-facing side.*
 - *Are we designing both of these sides or just one of them?*
 
 **A:**
