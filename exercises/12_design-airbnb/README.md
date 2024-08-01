@@ -147,9 +147,9 @@ Assuming a single listing takes up roughly 10 KB of space (as an upper bound), s
 
 $$
 \begin{aligned}
-&\sim10\text{ KB per listing}\\
+&\sim10\text{ kB per listing}\\
 &\sim1\text{ million listings}\\
-&\sim10\text{ KB}\times 1000^2 = 10\text{ GB}
+&\sim10\text{ kB}\times 1000^2 = 10\text{ GB}
 \end{aligned}
 $$
 
