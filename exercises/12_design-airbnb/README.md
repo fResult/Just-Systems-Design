@@ -167,7 +167,7 @@ If the leader dies at any point, one of the followers takes its place, and data 
 When renters browse through listings, they'll have to hit some *ListListings* API endpoint.\
 This API call will search through the geo-index leader's quadtree for relevant listings based on the location that the renter passes.
 
-Finding relevant locations should be fairly straightforward and very fast, especially since we can estimate that our quadtree will have a depth of approximately 10, since 4^10 is greater than 1 million.
+Finding relevant locations should be fairly straightforward and very fast, especially since we can estimate that our quadtree will have a depth of approximately 10, since $4^{10}$ is greater than 1 million.
 
 That being said, we'll have to make sure that we don't return listings that are unavailable during the date range specified by the renter.\
 In order to handle this, each listing in the quad tree will contain a list of unavailable date ranges, and we can perform a simple binary search on this list for each listing, in order to determine if the listing in question is available and therefore browsable by the renter.
