@@ -180,8 +180,10 @@ This API call should be extremely simple; we can expect to have listing IDs from
 
 ### 6. Reserving Listings
 
-Reserved listings will need to be reflected both in our quadtree and in our persistent storage solution.\
-In our quadtree, because they'll have to be excluded from the list of browsable listings; in our persistent storage solution, because if our quadtree needs to have them, then the main source of truth also needs to have them.
+Reserved listings will need to be reflected both in our quadtree and in our persistent storage solution.
+
+- In our quadtree, because they'll have to be excluded from the list of browsable listings
+- In our persistent storage solution, because if our quadtree needs to have them, then the main source of truth also needs to have them.
 
 We can have a second SQL table for reservations, holding listing IDs as well as date ranges and timestamps for when their reservations expire.\
 When a renter tries to start the booking process of a listing, the reservation table will first be checked to see if there's currently a reservation for the given listing during the specified date range; if there is, an error is returned to the renter; if there isn't, a reservation is made with an expiration timestamp 15 minutes into the future.
