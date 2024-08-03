@@ -159,7 +159,7 @@ To ensure this, we can set up a cluster of machines, each holding an instance of
 
 **Our quadtree solution works as follows:**
 
-- When our system boots up, the geo-index machines create the quadtree by querying our SQL table of listings.
+- When our system boots up, the geo-index machines create the quadtree by querying our SQL table of `listings`.
 - When listings are created or deleted, hosts first write to the SQL table, and then they synchronously update the geo-index leader's quadtree.
 - Then, on an interval of say, 10 minutes, the geo-index leader and followers all recreate the quadtree from the SQL table, which allows them to stay up to date with new listings.
 - If the leader dies at any point, one of the followers takes its place, and data in the new leader's quadtree will be stale for at most a few minutes until the interval forces the quadtree to be recreated.
@@ -178,7 +178,7 @@ We can also make sure that our quadtree returns only a subset of relevant listin
 
 ### 5. Getting Individual Listings
 
-This API call should be extremely simple; we can expect to have listing IDs from the list of listings that a renter is browsing through, and we can simply query our SQL table of listings for the given ID.
+This API call should be extremely simple; we can expect to have listing IDs from the list of listings that a renter is browsing through, and we can simply query our SQL table of `listings` for the given ID.
 
 ### 6. Reserving Listings
 
@@ -187,10 +187,10 @@ Reserved listings will need to be reflected both in our quadtree and in our pers
 - In our quadtree, because they'll have to be excluded from the list of browsable listings
 - In our persistent storage solution, because if our quadtree needs to have them, then the main source of truth also needs to have them.
 
-We can have a second SQL table for *reservations*, holding listing IDs as well as date ranges and timestamps for when their reservations expire.\
-When a renter tries to start the booking process of a listing, the reservation table will first be checked to see if there's currently a reservation for the given listing during the specified date range; if there is, an error is returned to the renter; if there isn't, a reservation is made with an expiration timestamp 15 minutes into the future.
+We can have a second SQL table for **reservations**, holding listing IDs as well as date ranges and timestamps for when their reservations expire.\
+When a renter tries to start the booking process of a listing, the `reservation` table will first be checked to see if there's currently a reservation for the given listing during the specified date range; if there is, an error is returned to the renter; if there isn't, a reservation is made with an expiration timestamp 15 minutes into the future.
 
-Following the write to the reservation table, we synchronously update the geo-index leader's quadtree with the new reservation.\
+Following the write to the `reservation` table, we synchronously update the geo-index leader's quadtree with the new reservation.\
 This new reservation will simply be an unavailability interval in the list of unavailabilities on the relevant listing, but we'll also specify an expiration for this unavailability, since it's a reservation.
 
 **A listing in our quadtree might look something like this:**
