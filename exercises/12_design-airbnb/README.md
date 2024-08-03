@@ -194,7 +194,7 @@ When a renter tries to start the booking process of a listing, the `reservation`
 - If there isn't, a reservation is made with an expiration timestamp 15 minutes into the future.
 
 Following the write to the `reservation` table, we synchronously update the geo-index leader's quadtree with the new reservation.\
-This new reservation will simply be an unavailability interval in the list of unavailabilities on the relevant listing, but we'll also specify an expiration for this unavailability, since it's a reservation.
+This new reservation will simply be an unavailability interval in the list of `unavailabilities` on the relevant listing, but we'll also specify an expiration for this unavailability, since it's a reservation.
 
 **A listing in our quadtree might look something like this:**
 
