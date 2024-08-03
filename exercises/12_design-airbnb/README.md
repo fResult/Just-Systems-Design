@@ -74,7 +74,8 @@ Let's really just focus on browsing and booking. We can ignore the rest.
 *Is that correct?*
 
 **A:**\
-Yes. But actually, for this design, let's purely filter based on location and available date range as far as listing characteristics are concerned; let's not worry about other criteria like pricing and property details.
+Yes. But actually, for this design, let's purely filter based on location and available date range as far as listing characteristics are concerned.\
+So, let's not worry about other criteria like pricing and property details.
 
 ### Question 7
 
