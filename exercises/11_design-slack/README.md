@@ -201,7 +201,7 @@ We will update this table whenever a user opens a channel.
 
 #### Unread Channel-User-Mention Counts
 
-To display the number of *unread user mentions* next to channel names, we will have another table similar to the *read-receipts* table.\
+To display the number of *unread user mentions* next to channel names, we will have another table similar to the [*read-receipts*](#channel-read-receipts) table.\
 This table will have a count of *unread user mentions* instead of the timestamp.\
 The count will be updated (incremented) whenever a user tags another user in a channel message.\
 It will be reset to 0 whenever a user opens a channel with unread mentions.
