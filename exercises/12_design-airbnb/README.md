@@ -134,7 +134,7 @@ Our system should serve a U.S. audience with approximately 50 million users and 
 
 **We can further divide the renter side as follows:**
 
-- Browsing (listing) listings.
+- Browsing listings.
 - Getting a single listing.
 - Reserving a listing.
 
