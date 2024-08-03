@@ -156,11 +156,12 @@ $$
 Since we'll be storing our quadtree in memory, we'll want to make sure that a single machine failure doesn't bring down the entire browsing functionality.\
 To ensure this, we can set up a cluster of machines, each holding an instance of our quadtree in memory, and these machines can use leader election to safeguard us from machine failures.
 
-Our quadtree solution works as follows: when our system boots up, the geo-index machines create the quadtree by querying our SQL table of listings.\
-When listings are created or deleted, hosts first write to the SQL table, and then they synchronously update the geo-index leader's quadtree.\
-Then, on an interval of say, 10 minutes, the geo-index leader and followers all recreate the quadtree from the SQL table, which allows them to stay up to date with new listings.
+**Our quadtree solution works as follows:**
 
-If the leader dies at any point, one of the followers takes its place, and data in the new leader's quadtree will be stale for at most a few minutes until the interval forces the quadtree to be recreated.
+- When our system boots up, the geo-index machines create the quadtree by querying our SQL table of listings.
+- When listings are created or deleted, hosts first write to the SQL table, and then they synchronously update the geo-index leader's quadtree.
+- Then, on an interval of say, 10 minutes, the geo-index leader and followers all recreate the quadtree from the SQL table, which allows them to stay up to date with new listings.
+- If the leader dies at any point, one of the followers takes its place, and data in the new leader's quadtree will be stale for at most a few minutes until the interval forces the quadtree to be recreated.
 
 ### 4. Listing Listings
 
