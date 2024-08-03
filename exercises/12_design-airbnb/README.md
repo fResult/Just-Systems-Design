@@ -103,22 +103,27 @@ Ideally, we don't want any downtime for renters browsing listings.
 
 As with any systems design interview question, the first thing that we want to do is to gather system requirements; we need to figure out what system we're building exactly.
 
-We're designing the core system behind Airbnb, which allows hosts to create property listings and renters to browse through these listings and book them.
+We're designing the core system behind Airbnb.\
+This system allows hosts to create property listings and renters to browse through these listings and book them.
 
 **Specifically, we'll want to support:**
 
-- On the host side, creating and deleting listings.
-- On the renter side, browsing through listings, getting individual listings, and "reserving" listings.
+- **Hosts** creating and deleting listings.
+- **Renters** browsing listings, viewing individual listings, and "reserving" listings.
 
 **More about renter side:**
 
-- "Reserving" listings should happen when a renter presses some "Book Now" button and should effectively lock (or reserve) the listing for some predetermined period of time (say, 15 minutes), during which any other renter shouldn't be able to reserve the listing or to even browse it (unless they were already browsing it).
-- We don't need to support anything that happens after a reservation is made, except for freeing up the reservation after 15 minutes if the renter doesn't follow through with the booking and making the reservation permanent if the renter does actually book the listing in question.
-- Regarding listings, we should focus on browsing and reserving them based on location and available date range; we can ignore any other property characteristics like price, number of bedrooms, etc..
-- Browsing listings should be as quick as possible, and it should reflect newly created listings as fast as possible.
-- Lastly, reserved and booked listings shouldn't be browsable by renters.
+- "Reserving" a listing happens when a renter clicks the "Book Now" button.\
+    This action should lock (or reserve) the listing for some time (say, 15 minutes).\
+    Then prevent other renters from reserving or browsing it (unless they were already viewing it).
+- We don't need to support post-reservation actions except for freeing up the reservation after 15 minutes if the renter doesn't follow through.\
+    If the renter books the listing, the reservation becomes permanent.
+- For listings, focus on browsing and reserving based on location and available date range.\
+    We can ignore other property characteristics like price, number of bedrooms, etc.
+- Browsing listings should be quick and reflect newly created listings as fast as possible.
+- Reserved and booked listings should not be browsable by renters.
 
-Our system should serve a U.S. — based audience with approximately 50 million users and 1 million listings.
+Our system should serve a U.S. audience with approximately 50 million users and 1 million listings.
 
 ### 2. Coming Up With A Plan
 
