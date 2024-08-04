@@ -98,38 +98,38 @@ We'll start by defining the *Ride* entity before designing the *passenger-facing
 
 The *Ride* entity will have a unique id, information about its passenger and driver, a status, and other ride details.
 
-- `id`: *string*
+- `id`: *String*
 - `passengerInfo`: *PassengerInfo*
-- `driverInfo`?: *DriverInfo*
+- `driverInfo`: *Optional[DriverInfo]*
 - `status`: *RideStatus* – enum `CREATED`/`MATCHED`/`STARTED`/`FINISHED`/`CANCELED`
 - `start`: *GeoLocation*
 - `destination`: *GeoLocation*
-- `createdAt`: *timestamp*
-- `startTime`: *timestamp*
-- `estimatedPrice`: *int*
-- `timeToDestination`: *int*
+- `createdAt`: *Timestamp*
+- `startTime`: *Timestamp*
+- `estimatedPrice`: *Int*
+- `timeToDestination`: *Int*
 
-We'll explain why the *driverInfo* is optional when we get to the API endpoints.
+We'll explain why the *`driverInfo`* is optional when we get to the API endpoints.
 
 #### PassengerInfo
 
-- `id`: *string*
-- `name`: *string*
-- `rating`: *int*
+- `id`: *String*
+- `name`: *String*
+- `rating`: *Int*
 
 #### DriverInfo
 
-- `id`: *string*
-- `name`: *string*
+- `id`: *String*
+- `name`: *String*
 - `status`: *DriverStatus* – enum `UNAVAILABLE`/`IN_RIDE`/`STANDBY`
-- `rating`: *int*
-- `ridesCount`: *int*
+- `rating`: *Int*
+- `ridesCount`: *Int*
 - `vehicleInfo`: *VehicleInfo*
 
 #### VehicleInfo
 
-- `licensePlate`: *string*
-- `description`: *string*
+- `licensePlate`: *String*
+- `description`: *String*
 
 ### 4. Passenger API
 
@@ -138,7 +138,7 @@ The passenger-facing API will consist of simple CRUD operations around the [*Rid
 #### CreateRide
 
 ```haskell
-CreateRide(userId: string, pickup: GeoLocation, destination: GeoLocation)
+CreateRide(userId: String, pickup: GeoLocation, destination: GeoLocation)
   => Ride
 ```
 
@@ -154,7 +154,7 @@ When a driver is found and accepts the ride, the backend calls [*EditRide*](#pas
 <h4 id="passenger-api__get-ride">GetRide</h4> <!-- markdownlint-disable-line MD033 -->
 
 ```haskell
-GetRide(userId: string)
+GetRide(userId: String)
   => Ride
 ```
 
@@ -165,23 +165,23 @@ Afterwards, it is polled every 20-90 seconds throughout the trip to update the r
 <h4 id="passenger-api__edit-ride">EditRide</h4> <!-- markdownlint-disable-line MD033 -->
 
 ```haskell
-EditRide(userId: string, [...params?: all properties on the Ride object that need to be edited])
+EditRide(userId: String, [...Optional[Params]: all properties on the Ride object that need to be edited])
   => Ride
 ```
 
 <h4 id="passenger-api__cancel-ride">CancelRide</h4> <!-- markdownlint-disable-line MD033 -->
 
 ```haskell
-CancelRide(userId: string)
-  => void
+CancelRide(userId: String)
+  => Unit
 ```
 
-Wrapper around [*EditRide*](#passenger-api__edit-ride) — effectively calls *`EditRide(userId: string, rideStatus: RideStatus.CANCELLED)`*.
+Wrapper around [*EditRide*](#passenger-api__edit-ride) — effectively calls *`EditRide(userId: String, rideStatus: RideStatus.CANCELLED)`*.
 
 #### StreamDriverLocation
 
 ```haskell
-StreamDriverLocation(userId: string)
+StreamDriverLocation(userId: String)
   => GeoLocation
 ```
 
@@ -197,8 +197,8 @@ It will also have a *SetDriverStatus* endpoint and an endpoint to push the drive
 #### SetDriverStatus
 
 ```haskell
-SetDriverStatus(userId: string, driverStatus: DriverStatus)
-  => void
+SetDriverStatus(userId: String, driverStatus: DriverStatus)
+  => Unit
 
 DriverStatus: enum UNAVAILABLE/IN_RIDE/STANDBY
 ```
@@ -212,7 +212,7 @@ Once the driver **accepts** the ride, the internal backend calls [*EditRide*](#d
 <h4 id="driver-api__get-ride">GetRide</h4> <!-- markdownlint-disable-line MD033 -->
 
 ```haskell
-GetRide(userId: string)
+GetRide(userId: String)
   => Ride
 ```
 
@@ -225,15 +225,15 @@ GetRide(userId: string)
 <h4 id="driver-api__edit-ride">EditRide</h4> <!-- markdownlint-disable-line MD033 -->
 
 ```haskell
-EditRide(userId: string, [...params?: all properties on the Ride object that need to be edited])
+EditRide(userId: String, [...Optional[Params]: all properties on the Ride object that need to be edited])
   => Ride
 ```
 
 #### AcceptRide
 
 ```haskell
-AcceptRide(userId: string)
-  => void
+AcceptRide(userId: String)
+  => Unit
 ```
 
 *AcceptRide* calls *`EditRide(userId, RideStatus.MATCHED)`* and *`SetDriverStatus(userId, DriverStatus.IN_RIDE)`*.
@@ -241,8 +241,8 @@ AcceptRide(userId: string)
 <h4 id="driver-api__cancel-ride">CancelRide</h4> <!-- markdownlint-disable-line MD033 -->
 
 ```haskell
-CancelRide(userId: string)
-  => void
+CancelRide(userId: String)
+  => Void
 ```
 
 Wrapper around [*EditRide*](#driver-api__edit-ride) — effectively calls *`EditRide(userId, RideStatus.CANCELLED)`*.
@@ -254,8 +254,8 @@ And also *`SetDriverStatus(userId, DriverStatus.STANDBY)`*.
 #### PushLocation
 
 ```haskell
-PushLocation(userId: string, location: GeoLocation)
-  => void
+PushLocation(userId: String, location: GeoLocation)
+  => Unit
 ```
 
 **Usage:**\
@@ -301,7 +301,7 @@ Run in the background as asynchronous algorithm.
 #### FindDriver
 
 ```haskell
-FindDriver(rideId: string)
+FindDriver(rideId: String)
   => Driver
 ```
 
@@ -309,7 +309,8 @@ FindDriver(rideId: string)
 
 ```haskell
 FindRide()
-  => Ride | null
+  => Optional[Ride]
 ```
 
-Return `null` when the driver is not matched by any ride.
+- Return `Some(Ride)` when the some driver is matched to the ride.
+- Return `None` when the driver is not matched by any ride.
