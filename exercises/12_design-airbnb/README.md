@@ -231,7 +231,7 @@ We will also specify an expiration for this unavailability since it is a reserva
     }
     {
       "dateRange": ["2020-10-02T12:00:00-05:00", "2020-10-10T12:00:00-05:00"],
-      "expiration": null
+      "expiration": None
     },
   ],
   "title": "Listing Title",
