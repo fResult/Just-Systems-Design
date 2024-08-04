@@ -62,6 +62,6 @@ pnpm install
 8. [Design Netflix](./exercises/08_design-netflix)
 9. [Design The Uber API](./exercises/09_design-uber)
 10. [Design Tinder](./exercises/10_design-tinder)
-11.
-12.
+11. [Design Slack](./exercises/11_design-slack)
+12. [Design Airbnb](./12_relational_databases)
 13. [Design Twitch API](./exercises/13_design-twitch-api)
