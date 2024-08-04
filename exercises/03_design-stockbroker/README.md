@@ -160,7 +160,7 @@ PlaceTrade(
   stockTicker: String,
   type: enum (BUY/SELL),
   quantity: Int,
-  createdAt: Iimestamp,
+  createdAt: Timestamp,
   status: enum (PLACED),
   reason: Optional[String],
 )
