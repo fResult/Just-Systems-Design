@@ -180,15 +180,21 @@ These machines will use leader election to safeguard us from machine failures.
 
 ### 4. Listing Listings
 
-When renters browse through listings, they'll have to hit some *ListListings* API endpoint.\
-This API call will search through the geo-index leader's quadtree for relevant listings based on the location that the renter passes.
+When renters browse listings, they hit the *ListListings* API endpoint.\
+This API call searches the geo-index leader's quadtree for relevant listings based on the location provided by the renter.
 
-Finding relevant locations should be fairly straightforward and very fast, especially since we can estimate that our quadtree will have a depth of approximately 10, since $4^{10}$ is greater than 1 million.
+Finding relevant locations should be straightforward and fast.\
+We estimate that our quadtree will have a depth of about 10 (since  $4^{10}$ exceeds 1 million).
 
-That being said, we'll have to make sure that we don't return listings that are unavailable during the date range specified by the renter.\
-In order to handle this, each listing in the quad tree will contain a list of unavailable date ranges, and we can perform a simple binary search on this list for each listing, in order to determine if the listing in question is available and therefore browsable by the renter.
+However, we must ensure that we do not return listings unavailable during the renter's specified date range.\
+Each listing in the quadtree will include a list of unavailable date ranges.\
+We can perform a simple binary search on this list to check if a listing is available and therefore browsable by the renter.
 
-We can also make sure that our quadtree returns only a subset of relevant listings for pagination purposes, and we can determine this subset by using an offset: the first page of relevant listings would have an offset of 0, the second page would have an offset of 50 (if we wanted pages to have a size of 50), the third page would have an offset of 100, and so on and so forth.
+Additionally, our quadtree should return only a subset of relevant listings for **pagination**.\
+We can determine this subset using an **offset**.\
+For example, the first page of relevant listings would have an offset of 0.\
+The second page would have an offset of 50 (if each page contains 50 listings).\
+The third page would have an offset of 100, and so on.
 
 ### 5. Getting Individual Listings
 
