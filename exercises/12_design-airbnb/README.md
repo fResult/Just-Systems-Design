@@ -204,19 +204,21 @@ Then we can query the SQL table of `listings` for the given ID.
 
 ### 6. Reserving Listings
 
-Reserved listings will need to be reflected both in our quadtree and in our persistent storage solution.
+We need to reflect reserved listings in both our quadtree and our persistent storage solution.
 
-- In our quadtree, because they'll have to be excluded from the list of browsable listings
-- In our persistent storage solution, because if our quadtree needs to have them, then the main source of truth also needs to have them.
+- In the quadtree, exclude them from the list of browsable listings.
+- In the persistent storage, to ensure the main source of truth consistent with the quadtree.
 
-We can have a second SQL table for **reservations**, holding listing IDs as well as date ranges and timestamps for when their reservations expire.\
-When a renter tries to start the booking process of a listing, the `reservation` table will first be checked to see if there's currently a reservation for the given listing during the specified date range.
+We can create a second SQL table for **reservations**.\
+This table will hold listing IDs, date ranges, and timestamps for when reservations expire.\
+When a renter starts the booking process of listing, we first check the `reservation` table to see if there is a reservation for the given listing during the specified date range.
 
-- If there is, an error is returned to the renter.
-- If there isn't, a reservation is made with an expiration timestamp 15 minutes into the future.
+- If a *reservation* exists, we will return an error to the renter.
+- If it isn't, we will make a *reservation* with an `expiration` timestamp 15 minutes into the future.
 
-Following the write to the `reservation` table, we synchronously update the geo-index leader's quadtree with the new reservation.\
-This new reservation will simply be an unavailability interval in the list of `unavailabilities` on the relevant listing, but we'll also specify an expiration for this unavailability, since it's a reservation.
+After writing to the `reservation` table, we synchronously update the geo-index leader's quadtree with the new reservation.
+This new reservation will be an *unavailability* interval in the list of `unavailabilities` for the relevant listing.
+We will also specify an expiration for this unavailability since it is a reservation.
 
 **A listing in our quadtree might look something like this:**
 
@@ -224,11 +226,11 @@ This new reservation will simply be an unavailability interval in the list of `u
 {
   "unavailabilities": [
     {
-      "range": ["2020-09-22T12:00:00-05:00", "2020-09-28T12:00:00-05:00"],
+      "dateRange": ["2020-09-22T12:00:00-05:00", "2020-09-28T12:00:00-05:00"],
       "expiration": "2020-09-16T12:00:00-04:00"
     }
     {
-      "range": ["2020-10-02T12:00:00-05:00", "2020-10-10T12:00:00-05:00"],
+      "dateRange": ["2020-10-02T12:00:00-05:00", "2020-10-10T12:00:00-05:00"],
       "expiration": null
     },
   ],
