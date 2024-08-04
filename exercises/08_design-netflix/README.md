@@ -207,7 +207,7 @@ We can use a CDN like **Cloudflare** to serve our video content from the CDN's P
 
 Because **PoPs** cannot cache all of Netflix's video metadata, an external service can regularly update CDN PoPs with the most popular content (the movies and shows viewers are most likely to watch).
 
-> **Note:**\
+> [!note]
 > We can also use **Internet Exchange Point** (IXP) instance of *POP*.
 
 ### 8. User-Activity Data Processing
