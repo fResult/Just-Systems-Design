@@ -2,11 +2,11 @@
 
 Design every API endpoint that's interacted with when a user is on an individual Twitch streamer's channel page, watching their livestream.
 
-Many systems design questions are intentionally left very vague and are literally given in the form of `Design Foobar`.\
-It's your job to ask clarifying questions to better understand the system that you have to build.
+*Many systems design questions are intentionally left very vague and are literally given in the form of `Design Foobar`.*\
+*It's your job to ask clarifying questions to better understand the system that you have to build.*
 
-We've laid out some of these questions below; their answers should give you some guidance on the problem.\
-Before looking at them, we encourage you to take few minutes to think about what questions you'd ask in a real interview.
+*We've laid out some of these questions below; their answers should give you some guidance on the problem.*\
+*Before looking at them, we encourage you to take few minutes to think about what questions you'd ask in a real interview.*
 
 ## Table of Content
 
