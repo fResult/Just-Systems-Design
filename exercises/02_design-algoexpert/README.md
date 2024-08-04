@@ -91,6 +91,7 @@ We'll need a robust API backing our UI and a database backing our API for storin
 - Accessing and interacting with questions (question completion status, saving solutions, etc.)
 - Running code
 
+> [!note]
 > Note that the second bullet point will likely get further divided.
 
 ### 3. Static UI Content
@@ -98,7 +99,7 @@ We'll need a robust API backing our UI and a database backing our API for storin
 For static UI content, we'll store public assets like images and JavaScript bundles in a blob store such as **S3** or **Google Cloud Storage**.\
 To improve global responsiveness, we'll use a **Content Delivery Network (CDN)**, like Cloudflare, GCS Cloud CDN, or Amazon CloudFront, especially to enhance the mobile experience given slow connections.
 
-> Note:\
+> [!note]
 > For the CDN, we can use Cloudflare, GCS Cloud CDN, or Amazon CloudFront
 
 ### 4. Main Clusters And Load Balancing
@@ -108,7 +109,7 @@ For our main backend servers, we'll have **2 primary clusters** in the U.S. and 
 We will have the DNS load balancing to route API requests to the cluster which nearest the client who issues the requests.\
 Within a region, **path-based load balancing** will separate services (e.g., payments, authentication, code execution), with round-robin load balancing at the service level to distribute requests evenly.
 
-> **Note:**\
+> [!note]
 > **Region Level (DNS Load Balancing)**
 >
 > - The US
@@ -131,7 +132,7 @@ AlgoExpert has substantial static API content, including the list of questions a
 1. **Client-side caching**: This will enhance user experience and reduce backend load by caching questions once per session.
 2. **In-memory caching on servers**: With approximately 5MB of data (100 questions, 10 languages, 5KB per solution), this is manageable.
 
-> **Note:**\
+> [!note]
 > We want to update the static API content every couple of days and that we want those changes to be reflected in production as soon as possible.\
 > So, we'll update server-side caches every 30 minutes to reflect new content promptly.
 
@@ -154,7 +155,7 @@ For user data (question completion status and user solutions), a SQL database li
 
     We will add a uniqueness constraint on (`user_id`, `question_id`) and index `user_id` for quick queries.
 
-    > **Note:**\
+    > [!note]
     > We added an index on the `user_id` column because there will be a lot of users (including the users who haven’t purchased yet) in the `question_completion_status` table.
 
 2. **`user_solutions`**:
