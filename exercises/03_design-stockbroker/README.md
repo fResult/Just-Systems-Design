@@ -149,20 +149,20 @@ What are the major, distinguishable components of our how system?
 
 The core API call to implement is *PlaceTrade*.
 
-```txt
+```haskell
 PlaceTrade(
-  customerId: string,
-  stockTicker: string,
-  type: string (BUY/SELL),
-  quantity: integer,
+  customerId: String,
+  stockTicker: String,
+  type: enum (BUY/SELL),
+  quantity: Int,
 ) => (
-  tradeId: string,
-  stockTicker: string,
-  type: string (BUY/SELL),
-  quantity: integer,
-  createdAt: timestamp,
-  status: string (PLACED),
-  reason: string,
+  tradeId: String,
+  stockTicker: String,
+  type: enum (BUY/SELL),
+  quantity: Int,
+  createdAt: Iimestamp,
+  status: enum (PLACED),
+  reason: Optional[String],
 )
 ```
 
@@ -202,7 +202,7 @@ API servers will store trades in a SQL table within the same database as the `ba
 - `created_at`: *timestamp*, trade creation time.
 - `reason`: *string*, the human-readable justification of the trade's status.
 
-> **Note:**\
+> [!note]
 > For monitoring to ensure that the trades that have status is `PLACED` or `IN PROGRESS` will not be get lost (at minute 56.48 til the end of the solution video).\
 > We’ll add index to `customer_id`, because we will query `trades` frequently by `customer_id`.\
 > And also add index to `status` will be useful.\
