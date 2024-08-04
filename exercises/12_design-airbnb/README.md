@@ -198,7 +198,9 @@ The third page would have an offset of 100, and so on.
 
 ### 5. Getting Individual Listings
 
-This API call should be extremely simple; we can expect to have listing IDs from the list of listings that a renter is browsing through, and we can simply query our SQL table of `listings` for the given ID.
+This API call should be extremely simple.\
+We expect we have listing IDs from the list of listings that a renter is browsing.\
+Then we can query the SQL table of `listings` for the given ID.
 
 ### 6. Reserving Listings
 
