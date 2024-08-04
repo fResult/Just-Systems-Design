@@ -140,16 +140,20 @@ Our system should serve a U.S. audience with approximately 50 million users and 
 
 ### 3. Listings Storage & Quadtree
 
-First and foremost, we can expect to store all of our listings in a SQL table.\
-This will be our primary source of truth for listings on Airbnb, and whenever a host creates or deletes a listing, this SQL table will be written to.
+First, we will store all our listings in a SQL table.\
+This table will be the primary source of truth for Airbnb listings.\
+Whenever a host creates or deletes a listing, the SQL table will also be updated.
 
-Then, since we care about the latency of browsing listings on Airbnb, and since this browsing will require querying listings based on their location, we can store our listings in a region quadtree, to be traversed for all browsing functionality.
+To reduce latency when browsing listings based on their location.\
+We will store the listings in a region quadtree.\
+This quadtree will allow us to traverse all browsing functionality.
 
-Since we're optimizing for speed, it'll make sense to store this quadtree in memory on some auxiliary machine, which we can call a "geo index," but we need to make sure that we can actually fit this quadtree in memory.
+For speed optimization, it makes sense to store the quadtree in memory on an auxiliary machine, called a "geo index".\
+We need to ensure that the quadtree fits in memory.
 
-In this quadtree, we'll need to store all the information about listings that needs to be displayed on the UI when a renter is browsing through listings: a title, a description, a link pointing to a property image, a unique listing ID, etc..
+The quadtree will store all necessary information for the UI, such as the title, description, image link, and unique listing ID.
 
-Assuming a single listing takes up roughly 10 KB of space (as an upper bound), some simple math confirms that we can store everything we need about listings in memory.
+**Assuming each listing takes up about 10 KB of space (as an upper bound), we can calculate the memory requirement as follows:**
 
 $$
 \begin{aligned}
@@ -159,15 +163,20 @@ $$
 \end{aligned}
 $$
 
-Since we'll be storing our quadtree in memory, we'll want to make sure that a single machine failure doesn't bring down the entire browsing functionality.\
-To ensure this, we can set up a cluster of machines, each holding an instance of our quadtree in memory, and these machines can use leader election to safeguard us from machine failures.
+Because we store quadtree in memory.\
+To prevent a single machine failure from disrupting browsing functionality, we will set up a cluster of machines.\
+Each machine will hold an instance of the quadtree in memory.\
+These machines will use leader election to safeguard us from machine failures.
 
 **Our quadtree solution works as follows:**
 
-- When our system boots up, the geo-index machines create the quadtree by querying our SQL table of `listings`.
-- When listings are created or deleted, hosts first write to the SQL table, and then they synchronously update the geo-index leader's quadtree.
-- Then, on an interval of say, 10 minutes, the geo-index leader and followers all recreate the quadtree from the SQL table, which allows them to stay up to date with new listings.
-- If the leader dies at any point, one of the followers takes its place, and data in the new leader's quadtree will be stale for at most a few minutes until the interval forces the quadtree to be recreated.
+- On system boot, the geo-index machines create the quadtree by querying the SQL table of `listings`.
+- When listings are *created* or *deleted*, hosts first write to the SQL table.\
+    Then, they synchronously update the geo-index leader's quadtree.
+- Then every 10 minutes, the geo-index leader and followers recreate the quadtree from the SQL table.\
+    This keeps them up to date with new listings.
+- If the leader dies, a follower will take its place.\
+    Data in the new leader's quadtree will be stale for a few minutes until the interval forces a recreation.
 
 ### 4. Listing Listings
 
