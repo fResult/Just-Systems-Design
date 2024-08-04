@@ -179,18 +179,20 @@ The *StreamChat* endpoint streams the stream's chat messages over a long-lived
 The *SendMessage* endpoint will naturally be called whenever the user sends a message, and we can have the backend take care of timestamping messages and providing both the sender and the timestamp on the *Message* entity.
 
 We can handle Twitch emotes by representing them with a special string format, like wrapping unique emote IDs in colons, as follows: **:emote-id:**.
+
 **A Twitch a message will therefore look like this in string format:**
 
 ```txt
 "This stream is so fun to watch :kappa:"
 ```
 
-The UI knows to detect this special string format and to display emotes appropriately.
+The UI knows to detect this special string format and to display emotes appropriately.\
 The UI also knows not to display messages sent by the user in question and received via *StreamChat*, since those messages will be displayed as soon as the user sends them via *SendMessage*.
 
-While *SendMessage* returns an error if the user is banned from the chat, we won't actually allow the user to hit this endpoint if they're banned.
-That being said, we haven't yet handled how to know whether a user is banned.
-See the **Relationship To Channel** section for details.
+While *SendMessage* returns an error if the user is banned from the chat, we won't actually allow the user to hit this endpoint if they're banned.\
+That being said, we haven't yet handled how to know whether a user is banned.\
+See the [**Relationship To Channel**](#9relationship-to-channel) section for details.
+
 ### 7. Video
 
 To display the actual video of the livestream, we'll open another long-lived websocket connection on page load, which will stream the video.
