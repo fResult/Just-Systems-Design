@@ -167,7 +167,7 @@ For user data (question completion status and user solutions), a SQL database li
 
     We will add a uniqueness constraint on (`user_id`, `question_id`, `language`) and index `user_id` and `question_id`.
 
-    > **Note:**\
+    > [!note]
     > Suppose the number of programming languages goes up significantly.
     > In that case, we might also want to index on the `language` column to allow for fast per-language querying so that the UI doesn't fetch all of a user's solutions at the same time (this might be a lot of data for slow connections).
     >
