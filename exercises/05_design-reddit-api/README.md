@@ -102,17 +102,17 @@ This field will likely be populated by the backend upon fetching Posts or when c
 
 #### Post Fields
 
-- `postId`: *string*
-- `creatorId`: *string*
-- `subredditId`: *string*
-- `title`: *string*
-- `description`: *string*
-- `createdAt`: *timestamp*
-- `votesCount`: *int*
-- `commentsCount`: *int*
-- `awardsCount`: *int*
-- `deletedAt`: *timestamp?*
-- `currentVote`: *enum UP/DOWN?*
+- `postId`: *String*
+- `creatorId`: *String*
+- `subredditId`: *String*
+- `title`: *String*
+- `description`: *String*
+- `createdAt`: *Timestamp*
+- `votesCount`: *Int*
+- `commentsCount`: *Int*
+- `awardsCount`: *Int*
+- `deletedAt`: *Optional[Timestamp]*
+- `currentVote`: *Optional[enum UP/DOWN]*
 
 Our *CreatePost*, *EditPost*, *GetPost*, and *DeletePost* methods will be very straightforward.\
 One thing to note, however, is that all of these operations will take in the **`userId`** of the user performing them; this id, which will likely contain authentication information, will be used for ACL (Access Control List) checks to see if the user performing the operations has the necessary permission(s) to do so.
@@ -134,7 +134,7 @@ DeletePost(userId: String, postId: String)
 ```
 
 Since we can expect to have hundreds, if not thousands, of posts on a given subreddit, our *ListPosts* method will have to be paginated.\
-The method will take in optional **`pageSize`** and **`pageToken`** parameters and will return a list of posts of at most length **`pageSize`** as well as a **`nextPageToken`**—the token to be fed to the method to retrieve the next page of posts.
+The method will take in optional **`pageSize`** and **`pageToken`** parameters and will return a list of posts of at most length **`pageSize`** as well as a **`NextPageToken`**—the token to be fed to the method to retrieve the next page of posts.
 
 ```haskell
 ListPosts(userId: String, subredditId: String, pageSize: Optional[Int], pageToken: Optional[String])
@@ -152,16 +152,16 @@ Comments will be structured similarly to Posts but will also include an optional
 
 #### Comment Fields
 
-- `commentId`: *string*
-- `creatorId`: *string*
-- `postId`: *string*
-- `createdAt`: *timestamp*
-- `content`: *string*
-- `votesCount`: *int*
-- `awardsCount`: *int*
-- `parentId`: *string?*
-- `deletedAt`: *timestamp?*
-- `currentVote`: *enum UP/DOWN?*
+- `commentId`: *String*
+- `creatorId`: *String*
+- `postId`: *String*
+- `createdAt`: *Timestamp*
+- `content`: *String*
+- `votesCount`: *Int*
+- `awardsCount`: *Int*
+- `parentId`: *Optional[String]*
+- `deletedAt`: *Optional[Timestamp]*
+- `currentVote`: *Optional[enum UP/DOWN]*
 
 #### CRUD operations - Comment
 
@@ -191,11 +191,11 @@ A **`createdAt`** timestamp also be included.
 
 #### Vote Fields
 
-- `voteId`: *string*
-- `creatorId`: *string*
-- `targetId`: *string*
+- `voteId`: *String*
+- `creatorId`: *String*
+- `targetId`: *String*
 - `type`: *enum UP/DOWN*
-- `createdAt`: *timestamp*
+- `createdAt`: *Timestamp*
 
 Since it doesn't seem like getting a single vote or listing votes would be very useful for our feature, we'll skip designing those endpoints (though they would be straightforward).
 
