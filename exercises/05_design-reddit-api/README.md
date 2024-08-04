@@ -119,7 +119,7 @@ One thing to note, however, is that all of these operations will take in the **
 
 #### CRUD Operations - Post
 
-```txt
+```haskell
 CreatePost(userId: string, subredditId: string, title: string, description: string)
   => Post
 
@@ -136,7 +136,7 @@ DeletePost(userId: string, postId: string)
 Since we can expect to have hundreds, if not thousands, of posts on a given subreddit, our *ListPosts* method will have to be paginated.\
 The method will take in optional **`pageSize`** and **`pageToken`** parameters and will return a list of posts of at most length **`pageSize`** as well as a **`nextPageToken`**—the token to be fed to the method to retrieve the next page of posts.
 
-```txt
+```haskell
 ListPosts(userId: string, subredditId: string, pageSize?: int, pageToken?: string)
   => (Post[], nextPageToken?)
 ```
@@ -165,7 +165,7 @@ Comments will be structured similarly to Posts but will also include an optional
 
 #### CRUD operations - Comment
 
-```txt
+```haskell
 CreateComment(userId: string, postId: string, content: string, parentId?: string)
   => Comment
 
@@ -207,7 +207,7 @@ Since it doesn't seem like getting a single vote or listing votes would be very 
 - The *EditVote* method will be used when a user has already cast a vote on a post or comment and casts the opposite vote on that same post or comment
 - The *DeleteVote* method will be used when a user has already cast a vote on a post or comment and just removes that same vote
 
-```txt
+```haskell
 CreateVote(userId: string, targetId: string, type: enum UP/DOWN)
   => Vote
 
@@ -227,7 +227,7 @@ DeleteVote(userId: string, voteId: string)
 - The *BuyAwards* endpoint will take a **`paymentToken`** and **`quantity`**
 - While the *GiveAward* endpoint will take a **`targetId`** (which means to *post* or *comment* that the user will give to).
 
-```txt
+```haskell
 BuyAwards(userId: string, paymentToken: string, quantity: int)
 
 GiveAward(userId: string, targetId: string)
