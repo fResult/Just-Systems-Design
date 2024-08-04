@@ -119,26 +119,26 @@ One thing to note, however, is that all of these operations will take in the **
 
 #### CRUD Operations - Post
 
-```python
-CreatePost(userId: string, subredditId: string, title: string, description: string)
+```haskell
+CreatePost(userId: String, subredditId: String, title: String, description: string)
   => Post
 
-EditPost(userId: string, postId: string, title: string, description: string)
+EditPost(userId: String, postId: String, title: String, description: String)
   => Post
 
-GetPost(userId: string, postId: string)
+GetPost(userId: String, postId: String)
   => Post
 
-DeletePost(userId: string, postId: string)
+DeletePost(userId: String, postId: String)
   => Post
 ```
 
 Since we can expect to have hundreds, if not thousands, of posts on a given subreddit, our *ListPosts* method will have to be paginated.\
 The method will take in optional **`pageSize`** and **`pageToken`** parameters and will return a list of posts of at most length **`pageSize`** as well as a **`nextPageToken`**—the token to be fed to the method to retrieve the next page of posts.
 
-```python
-ListPosts(userId: string, subredditId: string, pageSize?: int, pageToken?: string)
-  => (Post[], nextPageToken?)
+```haskell
+ListPosts(userId: String, subredditId: String, pageSize: Optional[Int], pageToken: Optional[String])
+  => (Post[], Optional[NextPageToken])
 ```
 
 ### 4. Comments
@@ -165,21 +165,21 @@ Comments will be structured similarly to Posts but will also include an optional
 
 #### CRUD operations - Comment
 
-```python
-CreateComment(userId: string, postId: string, content: string, parentId?: string)
+```haskell
+CreateComment(userId: String, postId: String, content: String, parentId: Optional[String])
   => Comment
 
-EditComment(userId: string, commentId: string, content: string)
+EditComment(userId: String, commentId: String, content: String)
   => Comment
 
-GetComment(userId: string, commentId: string)
+GetComment(userId: String, commentId: String)
   => Comment
 
-DeleteComment(userId: string, commentId: string)
+DeleteComment(userId: String, commentId: String)
   => Comment
 
-ListComments(userId: string, postId: string, pageSize?: int, pageToken?: string)
-  => (Comment[], nextPageToken?)
+ListComments(userId: String, postId: String, pageSize: Optional[Int], pageToken: Optional[String])
+  => (Comment[], Optional[NextPageToken])
 ```
 
 The *CreateComment* method includes an optional **`parentId`** parameter for replies, while *ListComments* is paginated to handle potentially large numbers of comments.
@@ -207,14 +207,14 @@ Since it doesn't seem like getting a single vote or listing votes would be very 
 - The *EditVote* method will be used when a user has already cast a vote on a post or comment and casts the opposite vote on that same post or comment
 - The *DeleteVote* method will be used when a user has already cast a vote on a post or comment and just removes that same vote
 
-```python
-CreateVote(userId: string, targetId: string, type: enum UP/DOWN)
+```haskell
+CreateVote(userId: String, targetId: String, type: enum UP/DOWN)
   => Vote
 
-EditVote(userId: string, voteId: string, type: enum UP/DOWN)
+EditVote(userId: String, voteId: String, type: enum UP/DOWN)
   => Vote
 
-DeleteVote(userId: string, voteId: string)
+DeleteVote(userId: String, voteId: String)
   => Vote
 ```
 
@@ -227,10 +227,12 @@ DeleteVote(userId: string, voteId: string)
 - The *BuyAwards* endpoint will take a **`paymentToken`** and **`quantity`**
 - While the *GiveAward* endpoint will take a **`targetId`** (which means to *post* or *comment* that the user will give to).
 
-```python
-BuyAwards(userId: string, paymentToken: string, quantity: int)
+```haskell
+BuyAwards(userId: String, paymentToken: String, quantity: Int)
+  => Unit
 
-GiveAward(userId: string, targetId: string)
+GiveAward(userId: String, targetId: String)
+  => Unit
 ```
 
 ### 7. Diagram
