@@ -171,7 +171,7 @@ This field links them to their parent folder's entity information, making file a
 
 - **File Info**
 
-    ```txt
+    ```typescript
     {
       blobs: ['«blob_content_hash_0»', '«blob_content_hash_1»'],
       id: '«some_unique_entity_id»',
@@ -184,7 +184,7 @@ This field links them to their parent folder's entity information, making file a
 
 - **Folder Info**
 
-    ```txt
+    ```typescript
     {
       children_ids: ['«id_of_child_0»', '«id_of_child_1»'],
       id: '«some_unique_entity_id»',
