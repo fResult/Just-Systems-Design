@@ -223,6 +223,7 @@ What are the major, distinguishable components of our how system?
 - The Build System that builds code into binaries
 - The Deployment System that deploys binaries to our machines across the world
 
+> [!note]
 > Note that these subsystems will of course have many components themselves, but this is a very straightforward initial way to approach our problem.
 
 ### 3. Build System — General Overview
