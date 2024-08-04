@@ -71,3 +71,50 @@ Yes, for the sake of this design, that's totally fine.\
 Don't worry about the underlying complexity of displaying live video, like the shape of the data and how to display it exactly.
 
 ## Solution Walkthrough
+
+### 1. Gathering Requirements
+
+As with any API design interview question, the first thing that we want to do is to gather API requirements; we need to figure out what API we're building exactly.
+
+We're designing every API endpoint that's interacted with when a user is on an individual Twitch streamer's channel page, watching their livestream.
+
+**Specifically, we need to handle:**
+
+- displaying the streamer's channel info (description text, follower count, etc.)
+- following and unfollowing the streamer
+- subscribing to and unsubscribing from the streamer
+- seeing the live chat and sending messages; sending messages should only be allowable if the user isn't banned
+- seeing the livestream and being able to pause / unpause it
+- seeing the number of concurrent viewers of the stream, which should automatically be updated every 30 seconds or so
+
+### 2. Coming Up With A Plan
+
+It's important to organize ourselves and to lay out a clear plan regarding how we're going to tackle our design.\
+What are the major, potentially contentious parts of our API? Why are we making certain design decisions?
+
+Fortunately for us, the various functionalities that we have to support effectively lay out a step-by-step plan for us, so we'll simply follow that.
+
+Of note, all of the API endpoints that we'll define will take in, by default, the caller's user-specific authentication token as an authorization header.\
+This token will be used by the backend to identify which user is calling each API endpoint.
+
+We'll also be passing a *`channelId`* as a parameter to all of the endpoints, which will be the unique username of the streamer in question.
+
+### 3. Channel Info
+
+This is the most straightforward piece of functionality on the page, since it only consists of displaying static data about the streamer.
+
+The user will call the *GetChannelInfo* endpoint, which will return the relevant entity, *ChannelInfo*, to be displayed on the page.
+
+**ChannelInfo:**
+
+- `name`: *string*
+- `description`: *string*
+- `currentStreamTitle`: *string*
+- `followerCount`: *int*
+
+This entity might have more fields, but these are the most important ones.
+
+```txt
+GetChannelInfo(channelId: string)
+  => ChannelInfo
+```
