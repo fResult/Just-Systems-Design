@@ -138,7 +138,7 @@ The method will take in optional **`pageSize`** and **`pageToken`** paramete
 
 ```haskell
 ListPosts(userId: String, subredditId: String, pageSize: Optional[Int], pageToken: Optional[String])
-  => (Post[], Optional[NextPageToken])
+  => (List[Post], Optional[NextPageToken])
 ```
 
 ### 4. Comments
@@ -179,7 +179,7 @@ DeleteComment(userId: String, commentId: String)
   => Comment
 
 ListComments(userId: String, postId: String, pageSize: Optional[Int], pageToken: Optional[String])
-  => (Comment[], Optional[NextPageToken])
+  => (List[Comment], Optional[NextPageToken])
 ```
 
 The *CreateComment* method includes an optional **`parentId`** parameter for replies, while *ListComments* is paginated to handle potentially large numbers of comments.
