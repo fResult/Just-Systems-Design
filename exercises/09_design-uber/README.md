@@ -137,7 +137,7 @@ The passenger-facing API will consist of simple CRUD operations around the [*Rid
 
 #### CreateRide
 
-```python
+```haskell
 CreateRide(userId: string, pickup: GeoLocation, destination: GeoLocation)
   => Ride
 ```
@@ -153,7 +153,7 @@ When a driver is found and accepts the ride, the backend calls [*EditRide*](#pas
 
 <h4 id="passenger-api__get-ride">GetRide</h4> <!-- markdownlint-disable-line MD033 -->
 
-```python
+```haskell
 GetRide(userId: string)
   => Ride
 ```
@@ -164,14 +164,14 @@ Afterwards, it is polled every 20-90 seconds throughout the trip to update the r
 
 <h4 id="passenger-api__edit-ride">EditRide</h4> <!-- markdownlint-disable-line MD033 -->
 
-```python
+```haskell
 EditRide(userId: string, [...params?: all properties on the Ride object that need to be edited])
   => Ride
 ```
 
 <h4 id="passenger-api__cancel-ride">CancelRide</h4> <!-- markdownlint-disable-line MD033 -->
 
-```python
+```haskell
 CancelRide(userId: string)
   => void
 ```
@@ -180,7 +180,7 @@ Wrapper around [*EditRide*](#passenger-api__edit-ride) — effectively calls 
 
 #### StreamDriverLocation
 
-```python
+```haskell
 StreamDriverLocation(userId: string)
   => GeoLocation
 ```
@@ -196,7 +196,7 @@ It will also have a *SetDriverStatus* endpoint and an endpoint to push the drive
 
 #### SetDriverStatus
 
-```python
+```haskell
 SetDriverStatus(userId: string, driverStatus: DriverStatus)
   => void
 
@@ -211,7 +211,7 @@ Once the driver **accepts** the ride, the internal backend calls [*EditRide*](#d
 
 <h4 id="driver-api__get-ride">GetRide</h4> <!-- markdownlint-disable-line MD033 -->
 
-```python
+```haskell
 GetRide(userId: string)
   => Ride
 ```
@@ -224,14 +224,14 @@ GetRide(userId: string)
 
 <h4 id="driver-api__edit-ride">EditRide</h4> <!-- markdownlint-disable-line MD033 -->
 
-```python
+```haskell
 EditRide(userId: string, [...params?: all properties on the Ride object that need to be edited])
   => Ride
 ```
 
 #### AcceptRide
 
-```python
+```haskell
 AcceptRide(userId: string)
   => void
 ```
@@ -240,7 +240,7 @@ AcceptRide(userId: string)
 
 <h4 id="driver-api__cancel-ride">CancelRide</h4> <!-- markdownlint-disable-line MD033 -->
 
-```python
+```haskell
 CancelRide(userId: string)
   => void
 ```
@@ -253,7 +253,7 @@ And also *`SetDriverStatus(userId, DriverStatus.STANDBY)`*.
 
 #### PushLocation
 
-```python
+```haskell
 PushLocation(userId: string, location: GeoLocation)
   => void
 ```
@@ -300,14 +300,14 @@ Run in the background as asynchronous algorithm.
 
 #### FindDriver
 
-```python
+```haskell
 FindDriver(rideId: string)
   => Driver
 ```
 
 #### FindRide
 
-```python
+```haskell
 FindRide()
   => Ride | null
 ```
