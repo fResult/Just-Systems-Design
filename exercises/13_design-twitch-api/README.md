@@ -191,3 +191,49 @@ The UI also knows not to display messages sent by the user in question and recei
 While *SendMessage* returns an error if the user is banned from the chat, we won't actually allow the user to hit this endpoint if they're banned.
 That being said, we haven't yet handled how to know whether a user is banned.
 See the **Relationship To Channel** section for details.
+### 7. Video
+
+To display the actual video of the livestream, we'll open another long-lived websocket connection on page load, which will stream the video.
+
+```haskell
+StreamVideo(channelId: String, videoQuality: VideoQuality)
+  => VideoInfo
+```
+
+When this endpoint is called, we can imagine that the backend increases the concurrent-viewer count of the relevant stream in some database, which will be used in the next section to display the number of concurrent viewers to the user.
+When the long-lived connection is terminated (on tab close or page leave), the backend will decrease the relevant concurrent-viewer count in the database.
+
+Lastly, when the user pauses the video, the UI still streams the video, but it simply doesn't display it.
+
+### 8. Concurrent Viewers
+
+Displaying the number of concurrent viewers watching a stream at any given time can easily be accomplished by polling an endpoint every 30 seconds or so, which reads from the database that stores every stream's concurrent-viewer count.
+
+```haskell
+GetConcurrentViewers(channelId: String)
+  => int
+```
+
+### 9. Relationship To Channel
+
+There are a few pieces of functionality on the page that have to do with the relationship between the user and the streamer.\
+Namely, whether the user is following the streamer, whether they're subscribed to the streamer, and whether they're banned from the streamer's chat.
+
+One way to handle the follow and subscription states would be to fetch the user's profile info, which could contain all of their followed and subscribed streamers.\
+This would be used with the streamer's name from *GetChannelInfo* to display the correct states (buttons) on the UI.\
+The only problem is that a user could theoretically be following / subscribed to thousands of streamers, so we would maybe want to paginate the lists of followed and subscribed streamers, which would complicate things.
+
+To make things simpler, and since we also have to handle the banned state, we can rely on a *GetRelationshipToChannel* endpoint, which will return the relevant entity, *RelationshipToChannel*, to be used to display the correct states on the page.
+
+**RelationshipToChannel:**
+
+- `isBanned`: *Boolean*
+- `isFollowing`: *Boolean*
+- `subscription`: *Optional\[Subscription\]*
+
+```haskell
+GetRelationshipToChannel(channelId: String)
+  => RelationshipToChannel
+```
+
+If the user is banned, we'll prevent them from sending chat messages (and calling the *SendMessage* endpoint) altogether.
