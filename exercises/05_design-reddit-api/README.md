@@ -111,8 +111,8 @@ This field will likely be populated by the backend upon fetching Posts or when c
 - `votesCount`: *Int*
 - `commentsCount`: *Int*
 - `awardsCount`: *Int*
-- `deletedAt`: *Optional[Timestamp]*
-- `currentVote`: *Optional[enum UP/DOWN]*
+- `deletedAt`: *Optional\[Timestamp\]*
+- `currentVote`: *Optional\[enum UP/DOWN\]*
 
 Our *CreatePost*, *EditPost*, *GetPost*, and *DeletePost* methods will be very straightforward.\
 One thing to note, however, is that all of these operations will take in the **`userId`** of the user performing them; this id, which will likely contain authentication information, will be used for ACL (Access Control List) checks to see if the user performing the operations has the necessary permission(s) to do so.
@@ -159,9 +159,9 @@ Comments will be structured similarly to Posts but will also include an optional
 - `content`: *String*
 - `votesCount`: *Int*
 - `awardsCount`: *Int*
-- `parentId`: *Optional[String]*
-- `deletedAt`: *Optional[Timestamp]*
-- `currentVote`: *Optional[enum UP/DOWN]*
+- `parentId`: *Optional\[String\]*
+- `deletedAt`: *Optional\[Timestamp\]*
+- `currentVote`: *Optional\[enum UP/DOWN\]*
 
 #### CRUD operations - Comment
 
