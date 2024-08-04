@@ -107,15 +107,15 @@ The user will call the *GetChannelInfo* endpoint, which will return the releva
 
 **ChannelInfo:**
 
-- `name`: *string*
-- `description`: *string*
-- `currentStreamTitle`: *string*
-- `followerCount`: *int*
+- `name`: *String*
+- `description`: *String*
+- `currentStreamTitle`: *String*
+- `followerCount`: *Int*
 
 This entity might have more fields, but these are the most important ones.
 
-```txt
-GetChannelInfo(channelId: string)
+```haskell
+GetChannelInfo(channelId: String)
   => ChannelInfo
 ```
 
