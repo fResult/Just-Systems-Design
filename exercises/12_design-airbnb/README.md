@@ -173,7 +173,7 @@ These machines will use leader election to safeguard us from machine failures.
 - On system boot, the geo-index machines create the quadtree by querying the SQL table of `listings`.
 - When listings are *created* or *deleted*, hosts first write to the SQL table.\
     Then, they synchronously update the geo-index leader's quadtree.
-- Then every 10 minutes, the geo-index leader and followers recreate the quadtree from the SQL table.\
+- Then every 10 minutes (interval), the geo-index leader and followers recreate the quadtree from the SQL table.\
     This keeps them up to date with new listings.
 - If the leader dies, a follower will take its place.\
     Data in the new leader's quadtree will be stale for a few minutes until the interval forces a recreation.
