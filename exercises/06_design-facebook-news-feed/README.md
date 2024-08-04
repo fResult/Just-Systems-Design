@@ -122,11 +122,11 @@ We'll start with the two main API calls, *CreatePost* and *GetNewsFeed*, then di
 
 **For the purpose of this design, the *CreatePost* API will look like this:**
 
-```txt
+```haskell
 CreatePost(
-  user_id: string,
-  post: data,
-)
+  user_id: String,
+  post: PostCreation,
+) => Post
 ```
 
 When a user creates a post, the API call goes through a load balancer and lands on one of many stateless API servers.\
@@ -143,18 +143,18 @@ This main database will contain very large tables to accommodate the massive amo
 
 **The *GetNewsFeed* API will look like this:**
 
-```txt
+```haskell
 GetNewsFeed(
-  userId: string,
-  pageSize: integer,
-  nextPageToken: integer,
+  userId: String,
+  pageSize: Int,
+  nextPageToken: Int,
 ) => (
-  posts: {
-    userId: string,
-    postId: string,
-    post: data,
-  }[],
-  nextPageToken: string,
+  posts: List[{
+    userId: String,
+    postId: String,
+    post: PostData,
+  }],
+  nextPageToken: String,
 )
 ```
 
