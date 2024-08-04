@@ -118,3 +118,76 @@ This entity might have more fields, but these are the most important ones.
 GetChannelInfo(channelId: string)
   => ChannelInfo
 ```
+
+### 4. Following
+
+The follow status is binary: either the user is following the streamer, or they aren't.\
+Thus, we can support the follow functionality with a single endpoint that uses a toggle mechanism, whereby the backend sets the follow status to the opposite of what's currently stored in the database.
+
+```haskell
+ToggleFollow(channelId: String)
+  => FollowState (FOLLOWING or NOT_FOLLOWING)
+```
+
+Naturally, this endpoint will be called when the user presses the "Follow" / "Unfollow" button.
+
+> [!note]
+> Note that we haven't yet handled how to know what the user's follow state is.\
+> In other words, how do we know whether to show "Follow" or "Unfollow" to the user?\
+> See the [**Relationship To Channel**](#9relationship-to-channel) section for details.
+
+### 5. Subscribing
+
+Subscribing is similar to following.\
+However, unlike following, since there are more details to be provided when a user subscribes to a channel (subscription tier and payment information), we'll separate the acts of subscribing and unsubscribing into two endpoints.
+
+```haskell
+CreateSubscription(channelId: String, subscriptionInfo: SubscriptionInfo, paymentInfo: PaymentInfo)
+  => Subscription
+
+CancelSubscription(channelId: String)
+  => Subscription
+```
+
+Naturally, these endpoints will be called when the user presses the "Subscribe" / "Unsubscribe" button.
+
+> [!note]
+> Note that we haven't yet handled how to know what the user's subscription state is.\
+> In other words, how do we know whether to show "Subscribe" or "Unsubscribe" to the user?\
+> See the [**Relationship To Channel**](#9relationship-to-channel) section for details.
+
+### 6. Chat
+
+To handle the chat's functionality, we'll need two endpoints and a *Message* entity.
+
+**Message:**
+
+- `sender`: *String*, the username of the sender
+- `text`: *String*
+- `timestamp`: *String*, in ISO format
+
+```haskell
+StreamChat(channelId: String)
+  => Message
+
+SendMessage(channelId: String, message: String)
+  => Either[String | Error (if user is banned)]
+```
+
+The *StreamChat* endpoint streams the stream's chat messages over a long-lived websocket connection and will be called once on page load.
+
+The *SendMessage* endpoint will naturally be called whenever the user sends a message, and we can have the backend take care of timestamping messages and providing both the sender and the timestamp on the *Message* entity.
+
+We can handle Twitch emotes by representing them with a special string format, like wrapping unique emote IDs in colons, as follows: **:emote-id:**.
+**A Twitch a message will therefore look like this in string format:**
+
+```txt
+"This stream is so fun to watch :kappa:"
+```
+
+The UI knows to detect this special string format and to display emotes appropriately.
+The UI also knows not to display messages sent by the user in question and received via *StreamChat*, since those messages will be displayed as soon as the user sends them via *SendMessage*.
+
+While *SendMessage* returns an error if the user is banned from the chat, we won't actually allow the user to hit this endpoint if they're banned.
+That being said, we haven't yet handled how to know whether a user is banned.
+See the **Relationship To Channel** section for details.
