@@ -225,6 +225,7 @@ These are the endpoints that users call when they're beginning the checkout proc
   If some items in the cart are not enough in stock, the UI alerts the users accordingly.
 - *CancelCheckout* releases reserved stock in **aggregated_stock** table either manually or after a timeout (after 10 minutes).
 
+> [!note]
 > Note that all of the writes to the **`aggregated_stock`** are ACID transactions, which allows us to comfortably rely on this SQL table as far as stock correctness is concerned.
 
 #### SubmitOrder(), CancelOrder(), & GetMyOrders()
@@ -235,6 +236,7 @@ Handles order submissions and cancellations.
 - *CancelOrder* updates both **orders** and **aggregated_stock** tables, increasing the relevant stocks accordingly.
 - *GetMyOrders* reads from the **orders** table.
 
+> [!note]
 > Note that an order can only be cancelled if it hasn't yet been shipped, which is knowable from the *orderStatus* field.
 
 ### 6. Core Warehouse Functionality
