@@ -148,7 +148,7 @@ A [*Ride*](#ride) is created with no [*DriverInfo*](#driverinfo) (that's why `dr
 The Uber backend calls an internal [*FindDriver*](#finddriver) API that uses an algorithm to find the most appropriate driver.\
 When a driver is found and accepts the ride, the backend calls [*EditRide*](#passenger-api__edit-ride) with the driver's info and a *`RideStatus.MATCHED`*.
 
-> Note:\
+> [!note]
 > $CreateRide\to FindDriver\to EditRide$ by Uber’s internal API
 
 <h4 id="passenger-api__get-ride">GetRide</h4> <!-- markdownlint-disable-line MD033 -->
@@ -248,7 +248,7 @@ CancelRide(userId: string)
 Wrapper around [*EditRide*](#driver-api__edit-ride) — effectively calls *`EditRide(userId, RideStatus.CANCELLED)`*.
 And also *`SetDriverStatus(userId, DriverStatus.STANDBY)`*.
 
-> Note:
+> [!note]
 > $CancelRide\to EditRide$ by Uber’s internally API
 
 #### PushLocation
