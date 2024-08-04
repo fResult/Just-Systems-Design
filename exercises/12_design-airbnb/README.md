@@ -243,13 +243,13 @@ We will also specify an expiration for this unavailability since it is a reserva
 
 ### 7. Load Balancing
 
-On the host side, we can load balance requests to create and delete listings across a set of API servers using a simple round-robin approach.\
-The API servers will then be in charge of writing to the SQL database and of communicating with the geo-index leader.
+For hosts, we can load balance requests to create and delete listings across multiple API servers using a round-robin approach.\
+These API servers will handle writing to the SQL database and communicating with the geo-index leader.
 
-On the renter side, we can load balance requests to list, get, and reserve listings across a set of API servers using an API-path-based server-selection strategy.\
-Since workloads for these three API calls will be considerably different from one another, it makes sense to separate these calls across different sets of API servers.
+For renters, we can load balance requests to list, get, and reserve listings across different sets of API servers using an API-path-based server-selection strategy.\
+Since the workloads for these 3 API calls differ significantly, it makes sense to separate them across different sets of API servers.
 
-Of note is that we don't want any caching done at our API servers, because otherwise we'll naturally run into stale data as reservations, bookings, and new listings appear.
+Of note is that we don't want any caching done at our API servers otherwise, we'll naturally run into stale data as reservations, bookings, and new listings appear.
 
 ### 8. System Diagram
 
