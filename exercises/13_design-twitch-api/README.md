@@ -28,6 +28,7 @@ Design every API endpoint that's interacted with when a user is on an individual
 - *They can subscribe to and unsubscribe from the streamer (they have to pay to subscribe).*
 - *They can see the current number of concurrent viewers on the stream*
 - *And they can see other recommended channels that they follow on the left navbar.*
+
 *Does that cover everything?*
 
 **A:**\
