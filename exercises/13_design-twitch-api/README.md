@@ -46,7 +46,7 @@ There might be different tiers of subscriptions, but you can capture that in som
 
 **Q:**
 
-- *A lot of the information on the page is very dynamic and warrants getting updated frequently and automatically, like follower count, concurrent viewer count, and obviously chat messages and the livestream itself.*\
+- *A lot of the information on the page is very dynamic and warrants getting updated frequently and automatically, like follower count, concurrent viewer count, and obviously chat messages and the livestream itself.*
 - *I'm assuming that we should design the various API endpoints with this in mind; does that sound good?*
 
 **A:**\
