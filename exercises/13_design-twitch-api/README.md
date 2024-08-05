@@ -17,13 +17,22 @@ Design every API endpoint that's interacted with when a user is on an individual
 
 ### Question 1
 
-**Q:**
+**Q:**\
+*I'm going to list the different features on a streamer's channel page to confirm that I'm not missing any important functionality.*
 
-- *I'm going to list the different features on a streamer's channel page to confirm that I'm not missing any important functionality.*
-- *A user can watch the actual video of the livestream (and pause / unpause it), they can see the stream's chat in real time, they can send messages in the chat, they can see the streamer's channel info (description text, follower count, etc.), they can follow and unfollow the streamer, they can subscribe to and unsubscribe from the streamer (they have to pay to subscribe), they can see the current number of concurrent viewers on the stream, and they can see other recommended channels that they follow on the left navbar. Does that cover everything?*
+- *A user can watch the actual video of the livestream (and pause / unpause it).*
+- *They can see the stream's chat in real time.*
+- *They can send messages in the chat.*
+- *They can see the streamer's channel info (description text, follower count, etc.).*
+- *They can follow and unfollow the streamer*
+- *They can subscribe to and unsubscribe from the streamer (they have to pay to subscribe).*
+- *They can see the current number of concurrent viewers on the stream*
+- *And they can see other recommended channels that they follow on the left navbar.*
+*Does that cover everything?*
 
 **A:**\
-Yes, but you can ignore the recommended channels on the left navbar. Let's focus purely on the functionality that's relevant to the livestream on the page.
+Yes, but you can ignore the recommended channels on the left navbar.\
+Let's focus purely on the functionality that's relevant to the livestream on the page.
 
 ### Question 2
 
