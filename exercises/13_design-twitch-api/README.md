@@ -224,7 +224,7 @@ StreamVideo(channelId: String, videoQuality: VideoQuality)
   => VideoInfo
 ```
 
-When this endpoint is called, we can imagine that the backend increases the concurrent-viewer count of the relevant stream in some database, which will be used in the next section to display the number of concurrent viewers to the user.
+When this endpoint is called, we can imagine that the backend increases the concurrent-viewer count of the relevant stream in some database, which will be used in the [next section](#8concurrent-viewers) to display the number of concurrent viewers to the user.\
 When the long-lived connection is terminated (on tab close or page leave), the backend will decrease the relevant concurrent-viewer count in the database.
 
 Lastly, when the user pauses the video, the UI still streams the video, but it simply doesn't display it.
