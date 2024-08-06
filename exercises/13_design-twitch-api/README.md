@@ -209,7 +209,7 @@ We can handle Twitch emotes by representing them with a special string format, l
 The UI knows to detect this special string format and to display emotes appropriately.\
 The UI also knows not to display messages sent by the user in question and received via *StreamChat*, since those messages will be displayed as soon as the user sends them via *SendMessage*.
 
-While *SendMessage* returns an error if the user is banned from the chat, we won't actually allow the user to hit this endpoint if they're banned.\
+While *SendMessage* returns an error if the user is banned from the chat, we won't actually allow the user to hit this endpoint if they're banned.
 
 > [!note]
 > That being said, we haven't yet handled how to know whether a user is banned.\
