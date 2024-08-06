@@ -240,11 +240,11 @@ GetConcurrentViewers(channelId: String)
 
 ### 9. Relationship To Channel
 
-There are a few pieces of functionality on the page that have to do with the relationship between the user and the streamer.\
+There are a few pieces of functionality on the page that have to do with the relationship between the *user* and the *streamer*.\
 Namely, whether the user is following the streamer, whether they're subscribed to the streamer, and whether they're banned from the streamer's chat.
 
 One way to handle the follow and subscription states would be to fetch the user's profile info, which could contain all of their followed and subscribed streamers.\
-This would be used with the streamer's name from *GetChannelInfo* to display the correct states (buttons) on the UI.\
+This would be used with the streamer's name from [*GetChannelInfo*](#3channel-info) to display the correct states (buttons) on the UI.\
 The only problem is that a user could theoretically be following / subscribed to thousands of streamers, so we would maybe want to paginate the lists of followed and subscribed streamers, which would complicate things.
 
 To make things simpler, and since we also have to handle the banned state, we can rely on a *GetRelationshipToChannel* endpoint, which will return the relevant entity, *RelationshipToChannel*, to be used to display the correct states on the page.
