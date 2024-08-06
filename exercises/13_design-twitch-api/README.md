@@ -235,7 +235,7 @@ Displaying the number of concurrent viewers watching a stream at any given time 
 
 ```haskell
 GetConcurrentViewers(channelId: String)
-  => int
+  => Int
 ```
 
 ### 9. Relationship To Channel
