@@ -124,9 +124,10 @@ This will be the unique *username* of the streamer.
 
 ### 3. Channel Info
 
-This is the most straightforward piece of functionality on the page, since it only consists of displaying static data about the streamer.
 
-The user will call the *GetChannelInfo* endpoint, which will return the relevant entity, *ChannelInfo*, to be displayed on the page.
+This is the simplest piece of functionality on the page, as it only involves displaying static data about the streamer.
+
+The user will call the *GetChannelInfo* endpoint, which will return the relevant *ChannelInfo* entity to be displayed on the page.
 
 **ChannelInfo:**
 
