@@ -112,13 +112,15 @@ It's important to organize ourselves and to lay out a clear plan regarding how w
 What are the major, potentially contentious parts of our API?\
 Why are we making certain design decisions?
 
-Fortunately for us, the various functionalities that we have to support effectively lay out a step-by-step plan for us, so we'll simply follow that.
+Fortunately, the various functionalities we need to support provide a step-by-step plan.\
+We will follow this outline.
 
 > [!note]
-> All of the API endpoints that we'll define will take in, by default, the caller's user-specific authentication token as an authorization header.\
+> All API endpoints will take the caller's user-specific authentication token as an authorization header.\
 > This token will be used by the backend to identify which user is calling each API endpoint.
 
-We'll also be passing a *`channelId`* as a parameter to all of the endpoints, which will be the unique username of the streamer in question.
+We will also pass a *`channelId`* as a parameter to all endpoints.\
+This will be the unique *username* of the streamer.
 
 ### 3. Channel Info
 
