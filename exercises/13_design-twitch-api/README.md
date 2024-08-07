@@ -95,16 +95,16 @@ Don't worry about the underlying complexity of displaying live video, like the s
 
 As with any API design interview question, the first thing that we want to do is to gather API requirements; we need to figure out what API we're building exactly.
 
-We're designing every API endpoint that's interacted with when a user is on an individual Twitch streamer's channel page, watching their livestream.
+We’re designing every API endpoint involved when a user is on an individual Twitch streamer's channel page, watching their livestream.
 
 **Specifically, we need to handle:**
 
-- displaying the streamer's channel info (description text, follower count, etc.)
-- following and unfollowing the streamer
-- subscribing to and unsubscribing from the streamer
-- seeing the live chat and sending messages; sending messages should only be allowable if the user isn't banned
-- seeing the livestream and being able to pause / unpause it
-- seeing the number of concurrent viewers of the stream, which should automatically be updated every 30 seconds or so
+- Displaying the streamer's channel info (description text, follower count, etc.)
+- Following and unfollowing the streamer
+- Subscribing to and unsubscribing from the streamer
+- Viewing the live chat and sending messages (only if the user isn't banned)
+- Viewing the livestream and being able to pause/unpause it
+- Viewing the number of concurrent viewers, which should be updated automatically every 30 seconds or so
 
 ### 2. Coming Up With A Plan
 
