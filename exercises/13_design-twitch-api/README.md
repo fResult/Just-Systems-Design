@@ -252,14 +252,17 @@ GetConcurrentViewers(channelId: String)
 
 ### 9. Relationship To Channel
 
-There are a few pieces of functionality on the page that have to do with the relationship between the *user* and the *streamer*.\
-Namely, whether the user is following the streamer, whether they're subscribed to the streamer, and whether they're banned from the streamer's chat.
+The page has several features related to the relationship between the *user* and the *streamer*.\
+These include whether the user is following the streamer, subscribed to the streamer, or banned from the streamer's chat.
 
-One way to handle the follow and subscription states would be to fetch the user's profile info, which could contain all of their followed and subscribed streamers.\
-This would be used with the streamer's name from [*GetChannelInfo*](#3channel-info) to display the correct states (buttons) on the UI.\
-The only problem is that a user could theoretically be following / subscribed to thousands of streamers, so we would maybe want to paginate the lists of followed and subscribed streamers, which would complicate things.
+One way to manage follow and subscription states is to fetch the user's profile info.\
+This info could include all the streamers the user follows and subscribes to.\
+We can use this with the streamer's name from [*GetChannelInfo*](#3channel-info) to show the correct states (buttons) on the UI.\
+However, a user might theoretically follow or subscribe to thousands of streamers.\
+Paginating these lists could complicate things.
 
-To make things simpler, and since we also have to handle the banned state, we can rely on a *GetRelationshipToChannel* endpoint, which will return the relevant entity, *RelationshipToChannel*, to be used to display the correct states on the page.
+To simplify this, and since we also need to handle the **banned** state, we can use a *GetRelationshipToChannel* endpoint.\
+This endpoint will return a *RelationshipToChannel* entity, which we can use to display the correct states on the page.
 
 **RelationshipToChannel:**
 
@@ -272,4 +275,4 @@ GetRelationshipToChannel(channelId: String)
   => RelationshipToChannel
 ```
 
-If the user is banned, we'll prevent them from sending chat messages (and calling the *SendMessage* endpoint) altogether.
+If the user is banned, our UI will prevent them from sending chat messages and calling the *SendMessage* endpoint altogether.
