@@ -242,7 +242,8 @@ When the user pauses the video, the UI still streams the video but does not disp
 
 ### 8. Concurrent Viewers
 
-Displaying the number of concurrent viewers watching a stream at any given time can easily be accomplished by polling an endpoint every 30 seconds or so, which reads from the database that stores every stream's concurrent-viewer count.
+To display the number of concurrent viewers, we can achieve this by polling an endpoint every 30 seconds or so.\
+This endpoint reads from the database that stores each stream's concurrent viewer count.
 
 ```haskell
 GetConcurrentViewers(channelId: String)
