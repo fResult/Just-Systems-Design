@@ -145,18 +145,19 @@ GetChannelInfo(channelId: String)
 
 ### 4. Following
 
-The follow status is binary: either the user is following the streamer, or they aren't.\
-Thus, we can support the follow functionality with a single endpoint that uses a toggle mechanism, whereby the backend sets the follow status to the opposite of what's currently stored in the database.
+The follow status is binary: either the user is following the streamer, or they aren’t.\
+Thus, we can support the following functionality with a single endpoint using a toggle mechanism.\
+The backend sets the following status to the opposite of what's currently stored in the database.
 
 ```haskell
 ToggleFollow(channelId: String)
   => FollowState (FOLLOWING or NOT_FOLLOWING)
 ```
 
-Naturally, this endpoint will be called when the user presses the "Follow" / "Unfollow" button.
+This endpoint will be called when the user presses the "Follow" / "Unfollow" button.
 
 > [!note]
-> Note that we haven't yet handled how to know what the user's follow state is.\
+> We haven't yet handled how to know what the user's follow state is.\
 > In other words, how do we know whether to show "Follow" or "Unfollow" to the user?\
 > See the [**Relationship To Channel**](#9relationship-to-channel) section for details.
 
