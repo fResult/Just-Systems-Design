@@ -124,7 +124,6 @@ This will be the unique *username* of the streamer.
 
 ### 3. Channel Info
 
-
 This is the simplest piece of functionality on the page, as it only involves displaying static data about the streamer.
 
 The user will call the *GetChannelInfo* endpoint, which will return the relevant *ChannelInfo* entity to be displayed on the page.
@@ -164,7 +163,8 @@ This endpoint will be called when the user presses the "Follow" / "Unfollow" but
 ### 5. Subscribing
 
 Subscribing is similar to following.\
-However, unlike following, since there are more details to be provided when a user subscribes to a channel (subscription tier and payment information), we'll separate the acts of subscribing and unsubscribing into two endpoints.
+However, subscribing requires more details, such as subscription tier and payment information.\
+Therefore, we will use 2 separate endpoints for subscribing and unsubscribing.
 
 ```haskell
 CreateSubscription(channelId: String, subscriptionInfo: SubscriptionInfo, paymentInfo: PaymentInfo)
@@ -177,9 +177,9 @@ CancelSubscription(channelId: String)
 Naturally, these endpoints will be called when the user presses the "Subscribe" / "Unsubscribe" button.
 
 > [!note]
-> Note that we haven't yet handled how to know what the user's subscription state is.\
+> We haven't yet addressed how to determine the user's subscription state.\
 > In other words, how do we know whether to show "Subscribe" or "Unsubscribe" to the user?\
-> See the [**Relationship To Channel**](#9relationship-to-channel) section for details.
+> See the [**Relationship To Channel**](#9relationship-to-channel) section for details.
 
 ### 6. Chat
 
