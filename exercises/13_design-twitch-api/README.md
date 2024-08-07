@@ -226,17 +226,19 @@ However, we will not allow banned users to hit this endpoint.
 
 ### 7. Video
 
-To display the actual video of the livestream, we'll open another long-lived websocket connection on page load, which will stream the video.
+To display the livestream video, we will open another long-lived WebSocket connection when the page loads.\
+This connection will stream the video.
 
 ```haskell
 StreamVideo(channelId: String, videoQuality: VideoQuality)
   => VideoInfo
 ```
 
-When this endpoint is called, we can imagine that the backend increases the concurrent-viewer count of the relevant stream in some database, which will be used in the [next section](#8concurrent-viewers) to display the number of concurrent viewers to the user.\
-When the long-lived connection is terminated (on tab close or page leave), the backend will decrease the relevant concurrent-viewer count in the database.
+When this endpoint is called, the backend will *increases* the concurrent viewer count of the stream in a database.\
+We will use this *count* in the [next section](#8concurrent-viewers) to display the number of concurrent viewers to the user.\
+When the long-lived connection terminates (on tab close or page leave), the backend will *decrease* the concurrent viewer count in the database.
 
-Lastly, when the user pauses the video, the UI still streams the video, but it simply doesn't display it.
+When the user pauses the video, the UI still streams the video but does not display it.
 
 ### 8. Concurrent Viewers
 
