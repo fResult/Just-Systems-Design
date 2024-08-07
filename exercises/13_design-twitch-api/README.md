@@ -38,7 +38,8 @@ Let's focus purely on the functionality that's relevant to the livestream on the
 ### Question 2
 
 **Q:**\
-*For subscriptions, as far as I know, a user subscribes on a monthly basis for a flat monthly fee. Is this correct?*
+*For subscriptions, as far as I know, a user subscribes on a monthly basis for a flat monthly fee.*\
+*Is this correct?*
 
 **A:**\
 There might be different tiers of subscriptions, but you can capture that in some `SubscriptionInfo` entity that you don't need to explicitly define.
