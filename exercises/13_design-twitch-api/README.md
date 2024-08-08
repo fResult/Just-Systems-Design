@@ -59,7 +59,12 @@ As for the follower count, we can let that be updated on page refresh.
 ### Question 4
 
 *Q:* \
-*To clarify, for following and subscribing, we do want to show the current user's follow / subscription status to the streamer, and we want to immediately reflect changes to it on the UI when the user clicks on the relevant "Follow" / "Subscribe" buttons, right?*
+*To clarify...*
+
+- *For following and subscribing, we do want to show the current user's follow / subscription status to the streamer.*
+- *And we want to immediately reflect changes to it on the UI when the user clicks on the relevant "Follow" / "Subscribe" buttons.*
+
+*Right?*
 
 **A:**\
 Yes, absolutely.\
@@ -153,7 +158,7 @@ ToggleFollow(channelId: String)
   => FollowState (FOLLOWING or NOT_FOLLOWING)
 ```
 
-This endpoint will be called when the user presses the "Follow" / "Unfollow" button.
+This endpoint will be called when the user hits the "Follow" / "Unfollow" button.
 
 > [!note]
 > We haven't yet handled how to know what the user's follow state is.\
